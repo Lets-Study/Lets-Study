@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Study</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1e40af">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #004AAD;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .logo { width: 150px; margin-top: 50px; }
+        h1 { color: #FFC107; }
+        .button {
+            background-color: #FFC107;
+            color: #004AAD;
+            border: none;
+            padding: 12px 24px;
+            margin: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .button-kedua {
+            background-color: transparent;
+            border: 2px solid #FFC107;
+            color: #FFC107;
+        }
+    #splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+#splash img {
+    width: 200px;
+    animation: kedip 2s infinite;
+}
+@keyframes kedip {
+    0%,100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+.hide {
+    display: none !important;
+}
+    </style>
+</head>
+<body>
+<div id="splash"><img src="/static/logo.png" alt="Logo Let's Study" class="logo"></div>
+    <h1 class="display-4 fw-bold mt-4">Selamat Datang di Let's Study</h1>
+    <p class="lead">Bimbel Terpercaya, Buat Anak Pintar</p>
+
+    <button class="button" onclick="alert('Mulai Belajar!')">Mulai Belajar</button>
+    <button class="button button-kedua" onclick="alert('Let\'s Study v1.0')">Versi App</button>
+    <button class="button button-kedua" onclick="alert('Hubungi Admin: 0823-xxx')">Hubungi Admin</button>
+    <a href="/daftar" class="button text-decoration-none">DAFTAR GRATIS</a>
+        <script>
+        setTimeout(function(){
+            document.getElementById('splash').classList.add('hide');
+        }, 5000);
+    </script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(reg => console.log('Satpam Let's Study aktif:', reg))
+      .catch(err => console.log('Satpam error:', err));
+  });
+}
+</script>
+</body>
+</html>

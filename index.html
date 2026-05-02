@@ -52,25 +52,45 @@
     0%,100% { opacity: 0.4; }
     50% { opacity: 1; }
 }
-.hide {
-    display: none !important;
+/* Halaman login kita sembunyiin dulu*/
+#halaman-login {
+    display: none;
+}
+.kotak-login input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
 }
     </style>
 </head>
 <body>
-<div id="splash"><img src="icon-192.png" alt="Maskot Let's Study" class="logo"></div>
-    <h1 class="display-4 fw-bold mt-4">Selamat Datang di Let's Study</h1>
-    <p class="lead">Bimbel Terpercaya, Buat Anak Pintar</p>
+<!-- 1. SPLASH KAPIBARA KEDIP -->
+<div id="splash">
+    <img src="icon-192.png" alt="Maskot Let's Study" class="logo">
+</div>
 
-    <button class="button" onclick="alert('Mulai Belajar!')">Mulai Belajar</button>
-    <button class="button button-kedua" onclick="alert('Let\'s Study v1.0')">Versi App</button>
-    <button class="button button-kedua" onclick="alert('Hubungi Admin: 0823-xxx')">Hubungi Admin</button>
-    <a href="/daftar" class="button text-decoration-none">DAFTAR GRATIS</a>
-        <script>
-        setTimeout(function(){
-            document.getElementById('splash').classList.add('hide');
-        }, 5000);
-    </script>
+<!-- 2. HALAMAN LOGIN EMAIL - MUNCUL SETELAH SPLASH HILANG -->
+<div id="halaman-login">
+    <div class="kotak-login">
+        <img src="icon-192.png" alt="LS" width="80" class="mb-3">
+        <h2 class="fw-bold">Login Email</h2>
+        <input type="email" placeholder="Email kamu" id="email">
+        <input type="password" placeholder="Password" id="password">
+        <button class="button w-100 mt-2" onclick="alert('Fitur login nyusul ya sir 😭')">Masuk</button>
+        <p class="mt-3 mb-0">Belum punya akun? <a href="/daftar" style="color:#004AAD; font-weight:bold;">Daftar Gratis</a></p>
+    </div>
+</div>
+
+<script>
+    // Abis 2.5 detik, splash hilang + munculin halaman login
+    setTimeout(function(){
+        document.getElementById('splash').style.display = 'none';
+        document.getElementById('halaman-login').style.display = 'block';
+    }, 2500);
+</script>
+
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Let's Study</title>
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#1e40af">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#004AAD">
+    <link rel="icon" href="logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -13,72 +14,108 @@
             color: white;
             text-align: center;
             padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-        .logo { width: 150px; margin-top: 50px; }
-        h1 { color: #FFC107; }
-        .button {
+        .logo { 
+            width: 180px; 
+            margin-bottom: 20px;
+        }
+        h1 { 
+            color: #FFC107; 
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        .tagline {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .tombol-grup {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 250px;
+        }
+        .btn-ls {
+            padding: 14px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-masuk {
             background-color: #FFC107;
             color: #004AAD;
-            border: none;
-            padding: 12px 24px;
-            margin: 10px;
-            border-radius: 8px;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
         }
-        .button-kedua {
+        .btn-daftar {
             background-color: transparent;
-            border: 2px solid #FFC107;
             color: #FFC107;
+            border: 2px solid #FFC107;
         }
-    #splash {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-#splash img {
-    width: 200px;
-    animation: kedip 2s infinite;
-}
-@keyframes kedip {
-    0%,100% { opacity: 0.4; }
-    50% { opacity: 1; }
-}
-.hide {
-    display: none !important;
-}
+        .btn-ls:hover {
+            transform: scale(1.05);
+        }
+        #splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        #splash img {
+            width: 200px;
+            animation: kedip 2s infinite;
+        }
+        @keyframes kedip {
+            0%,100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        .hide {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
-<div id="splash"><img src="icon-192.png" alt="Maskot Let's Study" class="logo"></div>
-    <h1 class="display-4 fw-bold mt-4">Selamat Datang di Let's Study</h1>
-    <p class="lead">Bimbel Terpercaya, Buat Anak Pintar</p>
+    <!-- SPLASH SCREEN CAPIBARA -->
+    <div id="splash">
+        <img src="capibara.png" alt="Maskot Let's Study">
+    </div>
 
-    <button class="button" onclick="alert('Mulai Belajar!')">Mulai Belajar</button>
-    <button class="button button-kedua" onclick="alert('Let\'s Study v1.0')">Versi App</button>
-    <button class="button button-kedua" onclick="alert('Hubungi Admin: 0823-xxx')">Hubungi Admin</button>
-    <a href="/daftar" class="button text-decoration-none">DAFTAR GRATIS</a>
-        <script>
+    <!-- KONTEN UTAMA -->
+    <img src="capibara.png" alt="Maskot Let's Study" class="logo">
+    <h1>Let's Study</h1>
+    <p class="tagline">Bimbel Terpercaya, Buat Anak Pintar</p>
+
+    <div class="tombol-grup">
+        <button class="btn-ls btn-masuk" onclick="alert('Halaman Masuk otw dibuat Sir!')">Masuk</button>
+        <button class="btn-ls btn-daftar" onclick="alert('Halaman Daftar otw dibuat Sir!')">Daftar Gratis</button>
+    </div>
+
+    <script>
+        // Hilangin splash abis 3 detik
         setTimeout(function(){
             document.getElementById('splash').classList.add('hide');
-        }, 5000);
+        }, 3000);
+
+        // Service Worker buat PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                .then(reg => console.log('Satpam Let's Study aktif:', reg))
+                .catch(err => console.log('Satpam error:', err));
+            });
+        }
     </script>
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js')
-      .then(reg => console.log('Satpam Let's Study aktif:', reg))
-      .catch(err => console.log('Satpam error:', err));
-  });
-}
-</script>
 </body>
 </html>

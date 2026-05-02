@@ -12,16 +12,23 @@
     .navbar {
       background-color: #004AAD;
     }
-    .kartu-materi {
+    .tombol-jenjang {
       background: white;
-      border-radius: 12px;
-      padding: 20px;
-      margin: 15px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border: 3px solid #004AAD;
+      border-radius: 15px;
+      padding: 40px 20px;
+      margin: 15px 0;
       text-align: center;
+      color: #004AAD;
+      text-decoration: none;
+      display: block;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
-    .emoji-gede {
-      font-size: 40px;
+    .tombol-jenjang:hover {
+      background: #004AAD;
+      color: #FFC107;
     }
   </style>
 </head>
@@ -31,54 +38,23 @@
   <nav class="navbar p-3">
     <div class="container-fluid">
       <span class="navbar-brand mb-0 h1 text-white">
-        <img src="icon-192.png" width="30" class="me-2"> Halo, Rizky!
+        <img src="icon-192.png" width="30" class="me-2"> Halo, Murid LS!
       </span>
       <a href="index.html" class="btn btn-sm" style="background:#FFC107; color:#004AAD; font-weight:bold;">Logout</a>
     </div>
   </nav>
 
-  <!-- ISI RUKO -->
+  <!-- PILIH JENJANG -->
   <div class="container mt-4">
-    <h3 class="fw-bold text-center mb-4" style="color:#004AAD;">Pilih Materi Belajar 👇</h3>
+    <h3 class="fw-bold text-center mb-4" style="color:#004AAD;">Pilih Jenjang Kamu 👇</h3>
     
-    <div class="row">
-      <!-- KARTU MTK -->
-      <div class="col-6">
-        <div class="kartu-materi" onclick="alert('Materi MTK nyusul sir 😭')">
-          <div class="emoji-gede">🧮</div>
-          <h5 class="mt-2">Matematika</h5>
-          <p class="text-muted">SD-SMA</p>
-        </div>
-      </div>
-      
-      <!-- KARTU BAHASA -->
-      <div class="col-6">
-        <div class="kartu-materi" onclick="alert('Materi Bahasa nyusul sir 😭')">
-          <div class="emoji-gede">📚</div>
-          <h5 class="mt-2">B. Indonesia</h5>
-          <p class="text-muted">SD-SMA</p>
-        </div>
-      </div>
-      
-      <!-- KARTU IPA -->
-      <div class="col-6">
-        <div class="kartu-materi" onclick="alert('Materi IPA nyusul sir 😭')">
-          <div class="emoji-gede">🔬</div>
-          <h5 class="mt-2">IPA</h5>
-          <p class="text-muted">SD-SMP</p>
-        </div>
-      </div>
-      
-      <!-- KARTU IPS -->
-      <div class="col-6">
-        <div class="kartu-materi" onclick="alert('Materi IPS nyusul sir 😭')">
-          <div class="emoji-gede">🌍</div>
-          <h5 class="mt-2">IPS</h5>
-          <p class="text-muted">SD-SMP</p>
-        </div>
-      </div>
-    </div>
+    <a href="sd.html" class="tombol-jenjang">🎒 SD</a>
+    <a href="smp.html" class="tombol-jenjang">📚 SMP</a>
+    <a href="sma.html" class="tombol-jenjang">🎓 SMA</a>
+
   </div>
 
+</body>
+</html>
 </body>
 </html>

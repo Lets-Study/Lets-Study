@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profil Saya - LS Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <style>
+    body{background-color:#f0f4f8;font-family:Arial,sans-serif;padding-bottom:80px}
+  .header-profil{background:linear-gradient(135deg,#004AAD,#0056d6);padding:20px 15px 25px 15px;color:white}
+  .foto-profil{width:70px;height:70px;border-radius:50%;border:3px solid white;object-fit:cover}
+  .badge-level{background:#FFC107;color:#000;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:bold}
+  .menu-box{background:white;border-radius:12px;padding:5px 15px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+  .menu-list-item{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid #f0f0f0;text-decoration:none;color:#333}
+  .menu-list-item:last-child{border-bottom:none}
+  .menu-list-item i{font-size:20px;color:#004AAD;width:30px}
+  .section-title{font-weight:bold;font-size:16px;margin:20px 0 10px 5px;color:#555}
+  .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:8px 0;z-index:1000}
+  .nav-item{text-align:center;font-size:11px;color:#666;text-decoration:none}
+  .nav-item.active{color:#004AAD;font-weight:bold}
+  .nav-item i{font-size:22px;display:block}
+  .notif-dot{position:absolute;top:-2px;right:15px;background:#C62828;color:white;border-radius:50%;width:18px;height:18px;font-size:10px;display:flex;align-items:center;justify-content:center}
+  .btn-edit-foto{position:absolute;bottom:0;right:0;background:#004AAD;color:white;border:2px solid white;border-radius:50%;width:24px;height:24px;font-size:12px}
+  .info-akun{font-size:13px;opacity:0.9}
+  </style>
+</head>
+<body>
+
+<!-- HEADER PROFIL + FOTO PENDAFTAR -->
+<div class="header-profil">
+  <div class="d-flex justify-content-between mb-3">
+    <div><i class="bi bi-person-circle"></i> <b>Akun Saya</b></div>
+    <div>
+      <i class="bi bi-bell-fill" style="font-size:20px;position:relative">
+        <span class="notif-dot">3</span>
+      </i>
+    </div>
+  </div>
+
+  <div class="d-flex align-items-center">
+    <div style="position:relative">
+      <img src="https://i.pravatar.cc/150?img=12" class="foto-profil me-3" id="fotoUser" alt="Foto">
+      <button class="btn-edit-foto" onclick="gantiFoto()"><i class="bi bi-camera-fill"></i></button>
+      <input type="file" id="inputFoto" style="display:none" accept="image/*">
+    </div>
+    <div>
+      <div class="d-flex align-items-center">
+        <h5 class="mb-0 me-2" id="namaUser">rizkyifandi54</h5>
+        <span class="badge-level">Gold <i class="bi bi-chevron-right"></i></span>
+      </div>
+      <div class="info-akun" id="emailUser">rizkyifandi@email.com</div>
+      <div class="info-akun">ID: LS202600123</div>
+    </div>
+  </div>
+</div>
+
+<!-- BAGIAN BAWAH: PENGATURAN AJA -->
+<div class="container">
+
+  <div class="section-title">Akun Saya</div>
+  <div class="menu-box">
+    <a href="#" class="menu-list-item" onclick="editProfil()">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-person-fill"></i>
+        <span>Edit Profil</span>
+      </div>
+      <i class="bi bi-chevron-right text-muted"></i>
+    </a>
+    <a href="#" class="menu-list-item">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-shield-lock-fill"></i>
+        <span>Keamanan & Kata Sandi</span>
+      </div>
+      <i class="bi bi-chevron-right text-muted"></i>
+    </a>
+    <a href="#" class="menu-list-item">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-phone-fill"></i>
+        <span>Nomor Telepon</span>
+      </div>
+      <div class="text-muted" style="font-size:13px">08xxxx <i class="bi bi-chevron-right"></i></div>
+    </a>
+    <a href="#" class="menu-list-item">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-envelope-fill"></i>
+        <span>Email</span>
+      </div>
+      <div class="text-muted" style="font-size:13px">rizky***@email.com <i class="bi bi-chevron-right"></i></div>
+    </a>
+  </div>
+
+  <div class="section-title">Pengaturan</div>
+  <div class="menu-box">
+    <a href="#" class="menu-list-item">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-translate"></i>
+        <span>Bahasa</span>
+      </div>
+      <div class="text-muted" style="font-size:13px">Indonesia <i class="bi bi-chevron-right"></i></div>
+    </a>
+    <a href="#" class="menu-list-item">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-bell-fill"></i>
+        <span>Notifikasi</span>
+      </div>
+      <i class="bi bi-chevron-right text-muted"></i>
+    </a>
+    <a href="#" class="menu-list-item">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-moon-fill"></i>
+        <span>Mode Gelap</span>
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="darkMode">
+      </div>
+    </a>
+  </div>
+
+  <div class="section-title">Bantuan</div>
+  <div class="menu-box">
+    <a href="#" class="menu-list-item">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-headset"></i>
+        <span>Pusat Bantuan</span>
+      </div>
+      <i class="bi bi-chevron-right text-muted"></i>
+    </a>
+    <a href="#" class="menu-list-item" onclick="showTentang()">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-info-circle-fill"></i>
+        <span>Tentang LS Academy</span>
+      </div>
+      <div class="text-muted" style="font-size:13px">v1.0.0 <i class="bi bi-chevron-right"></i></div>
+    </a>
+  </div>
+
+  <div class="menu-box">
+    <a href="#" class="menu-list-item" onclick="logout()" style="color:#C62828">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-box-arrow-right" style="color:#C62828"></i>
+        <span>Keluar</span>
+      </div>
+    </a>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <a href="index.html" class="nav-item">
+    <i class="bi bi-house"></i>
+    <span>Beranda</span>
+  </a>
+  <a href="smp.html" class="nav-item">
+    <i class="bi bi-collection-play"></i>
+    <span>Kelas</span>
+  </a>
+  <a href="#" class="nav-item">
+    <i class="bi bi-clipboard-check"></i>
+    <span>Tryout</span>
+  </a>
+  <a href="#" class="nav-item" style="position:relative">
+    <i class="bi bi-bell"></i>
+    <span class="notif-dot">84</span>
+    <span>Notifikasi</span>
+  </a>
+  <a href="profil.html" class="nav-item active">
+    <i class="bi bi-person-fill"></i>
+    <span>Saya</span>
+  </a>
+</div>
+
+<!-- MODAL TENTANG -->
+<div class="modal fade" id="modalTentang" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="background:#004AAD;color:white">
+        <h5 class="modal-title"><i class="bi bi-info-circle"></i> Tentang LS Academy</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="https://i.ibb.co/0jqQ3Yx/logo-ls.png" width="80" class="mb-3" style="border-radius:15px">
+        <h4 style="color:#004AAD">LS Academy</h4>
+        <p class="text-muted">Versi 1.0.0</p>
+        <hr>
+        <p><b>Platform Bimbel Online SD, SMP, SMA</b><br>
+        Belajar jadi lebih mudah & menyenangkan</p>
+
+        <div class="bg-light p-3 rounded mt-3 text-start">
+          <div class="mb-2"><b>Developed by:</b><br>Tim LS Academy</div>
+          <div class="mb-2"><b>Founder:</b><br>Rizky Ifandi</div>
+          <div><b>Contact:</b><br>Instagram: @letsstudy.official</div>
+        </div>
+
+        <p class="mt-3" style="font-size:12px;color:#666">© 2026 LS Academy<br>All Rights Reserved</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// GANTI FOTO PROFIL
+function gantiFoto(){
+  document.getElementById('inputFoto').click();
+}
+
+document.getElementById('inputFoto').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(file){
+    const reader = new FileReader();
+    reader.onload = function(event){
+      document.getElementById('fotoUser').src = event.target.result;
+      localStorage.setItem('fotoUser', event.target.result);
+    }
+    reader.readAsDataURL(file);
+  }
+});
+
+// LOAD DATA USER DARI LOCALSTORAGE
+window.onload = function(){
+  const nama = localStorage.getItem('namaUser') || 'rizkyifandi54';
+  const email = localStorage.getItem('emailUser') || 'rizkyifandi@email.com';
+  const foto = localStorage.getItem('fotoUser');
+
+  document.getElementById('namaUser').innerText = nama;
+  document.getElementById('emailUser').innerText = email;
+  if(foto) document.getElementById('fotoUser').src = foto;
+}
+
+function editProfil(){
+  const namaBaru = prompt('Masukkan nama baru:', document.getElementById('namaUser').innerText);
+  if(namaBaru){
+    document.getElementById('namaUser').innerText = namaBaru;
+    localStorage.setItem('namaUser', namaBaru);
+  }
+}
+
+function logout(){
+  if(confirm('Yakin mau keluar?')){
+    localStorage.clear();
+    alert('Berhasil keluar');
+    window.location.href = 'index.html';
+  }
+}
+
+function showTentang(){
+  var modal = new bootstrap.Modal(document.getElementById('modalTentang'));
+  modal.show();
+}
+</script>
+</body>
+</html>

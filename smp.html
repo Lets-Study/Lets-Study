@@ -6,139 +6,153 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <style>
-    body { background-color: #f0f4f8; font-family: Arial, sans-serif; }
-   .navbar { background-color: #004AAD; }
-   .tombol { background: white; border: 3px solid #004AAD; border-radius: 12px; padding: 15px; margin: 8px 0; text-align: left; color: #004AAD; text-decoration: none; display: block; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.1); cursor: pointer; }
-   .tombol:hover { background: #004AAD; color: white; }
-   .level-1 { border-color: #004AAD; }
-   .level-2 { border-color: #FFC107; background: #FFC107; }
-   .level-3 { border-color: #2E7D32; background: #E8F5E9; color: #2E7D32;}
-   .level-4 { border-color: #C62828; background: #FFEBEE; color: #C62828;}
-   .halaman { display: none; }
-   .halaman.active { display: block; }
-   .breadcrumb { font-size: 14px; color: #666; }
+    body{background-color:#f0f4f8;font-family:Arial,sans-serif}
+ .navbar{background-color:#004AAD}
+ .tombol{background:white;border:3px solid #004AAD;border-radius:12px;padding:15px;margin:8px 0;text-align:left;color:#004AAD;text-decoration:none;display:block;font-weight:bold;box-shadow:0 4px 15px rgba(0,0,0,0.1);cursor:pointer}
+ .tombol:hover{background:#004AAD;color:white}
+ .level-1{border-color:#004AAD}
+ .level-2{border-color:#FFC107;background:#FFC107;color:#000}
+ .level-3{border-color:#2E7D32;background:#E8F5E9;color:#2E7D32}
+ .level-4{border-color:#C62828;background:#FFEBEE;color:#C62828}
+ .halaman{display:none}
+ .halaman.active{display:block}
+ .breadcrumb{font-size:14px;color:#666}
   </style>
 </head>
 <body>
   <nav class="navbar p-3">
     <div class="container-fluid">
-      <a href="home.html" class="text-white" style="text-decoration:none; font-size:24px;"><i class="bi bi-arrow-left"></i></a>
+      <a href="index.html" class="text-white" style="text-decoration:none;font-size:24px"><i class="bi bi-arrow-left"></i></a>
       <span class="navbar-brand mb-0 h1 text-white">Jenjang SMP</span>
-      <div style="width:24px;"></div>
+      <div style="width:24px"></div>
     </div>
   </nav>
+
   <div id="hal-kelas" class="halaman active">
     <div class="container mt-4">
-      <h4 class="fw-bold text-center mb-4" style="color:#004AAD;">Pilih Kelas 👇</h4>
+      <h4 class="fw-bold text-center mb-4" style="color:#004AAD">Pilih Kelas 👇</h4>
       <div class="row" id="list-kelas"></div>
     </div>
   </div>
+
   <div id="hal-mapel" class="halaman">
     <div class="container mt-4">
-      <div class="breadcrumb" id="bc-mapel">SMP > Kelas 7</div>
+      <div class="breadcrumb" id="bc-mapel"></div>
       <h4 class="fw-bold text-center mb-4" id="judul-mapel">Pilih Mapel</h4>
       <div id="list-mapel"></div>
-      <button class="btn w-100 mt-3" style="background:#004AAD; color:white;" onclick="balik(1)"><i class="bi bi-arrow-left"></i> Pilih Kelas Lain</button>
+      <button class="btn w-100 mt-3" style="background:#004AAD;color:white" onclick="balik(1)"><i class="bi bi-arrow-left"></i> Pilih Kelas Lain</button>
     </div>
   </div>
+
   <div id="hal-bab" class="halaman">
     <div class="container mt-4">
-      <div class="breadcrumb" id="bc-bab">SMP > Kelas 7 > Matematika</div>
+      <div class="breadcrumb" id="bc-bab"></div>
       <h4 class="fw-bold text-center mb-4" id="judul-bab">Pilih Bab</h4>
       <div id="list-bab"></div>
-      <button class="btn w-100 mt-3" style="background:#004AAD; color:white;" onclick="balik(2)"><i class="bi bi-arrow-left"></i> Pilih Mapel Lain</button>
+      <button class="btn w-100 mt-3" style="background:#004AAD;color:white" onclick="balik(2)"><i class="bi bi-arrow-left"></i> Pilih Mapel Lain</button>
     </div>
   </div>
+
   <div id="hal-video" class="halaman">
     <div class="container mt-4">
-      <div class="breadcrumb" id="bc-video">SMP > Kelas 7 > Matematika > Bilangan Bulat</div>
+      <div class="breadcrumb" id="bc-video"></div>
       <h4 class="fw-bold text-center mb-4" id="judul-video">Pilih Video</h4>
       <div id="list-video"></div>
-      <button class="btn w-100 mt-3" style="background:#004AAD; color:white;" onclick="balik(3)"><i class="bi bi-arrow-left"></i> Pilih Bab Lain</button>
+      <button class="btn w-100 mt-3" style="background:#004AAD;color:white" onclick="balik(3)"><i class="bi bi-arrow-left"></i> Pilih Bab Lain</button>
     </div>
   </div>
+
 <script>
-const db = {
-  7: {
-    'Matematika': {
-      'Bilangan Bulat': [
-        { nama: 'Video 1: Contoh', link: 'https://youtu.be/contoh1' }
-      ],
-      'Aljabar': []
-    },
-    'Bahasa Indonesia': { 'Teks Deskripsi': [] },
-    'IPA': { 'Objek IPA': [] }
+const db={
+  7:{
+    'Matematika':{'Bilangan Bulat':[{nama:'Video 1: Pengenalan',link:'https://youtu.be/contoh'}],'Himpunan':[],'Aljabar':[],'Persamaan Linear':[]},
+    'Bahasa Indonesia':{'Teks Deskripsi':[],'Teks Narasi':[],'Surat Pribadi & Dinas':[]},
+    'Bahasa Inggris':{'Greetings':[],'Self Introduction':[]},
+    'IPA':{'Objek IPA & Pengamatan':[],'Klasifikasi Makhluk Hidup':[],'Zat dan Perubahannya':[]},
+    'IPS':{'Manusia, Tempat, Lingkungan':[],'Interaksi Sosial':[]},
+    'PPKn':{'Perumusan Pancasila':[],'Norma dalam Masyarakat':[]}
   },
-  8: {
-    'Matematika': { 'Pola Bilangan': [] },
-    'Bahasa Indonesia': { 'Teks Berita': [] }
+  8:{
+    'Matematika':{'Pola Bilangan':[{nama:'Video 1: Pola Bilangan',link:'https://youtu.be/contoh'}],'Relasi dan Fungsi':[],'Persamaan Garis Lurus':[],'Teorema Pythagoras':[]},
+    'Bahasa Indonesia':{'Teks Berita':[],'Iklan, Slogan, Poster':[],'Teks Eksposisi':[]},
+    'Bahasa Inggris':{'Showing Obligation':[],'Descriptive Text':[]},
+    'IPA':{'Gerak Benda & Makhluk Hidup':[],'Usaha dan Pesawat Sederhana':[],'Struktur Tumbuhan':[]},
+    'IPS':{'Kondisi Geografis Indonesia':[],'Pengaruh Interaksi Antarruang':[]},
+    'PPKn':{'Kedudukan Pancasila':[],'UUD 1945':[]}
   },
-  9: {
-    'Matematika': { 'Perpangkatan': [] },
-    'Bahasa Indonesia': { 'Teks Tanggapan': [] }
+  9:{
+    'Matematika':{'Perpangkatan & Bentuk Akar':[{nama:'Video 1: Pangkat',link:'https://youtu.be/contoh'}],'Persamaan Kuadrat':[],'Fungsi Kuadrat':[],'Transformasi':[]},
+    'Bahasa Indonesia':{'Teks Diskusi':[],'Teks Cerita Inspiratif':[],'Teks Tanggapan':[]},
+    'Bahasa Inggris':{'Report Text':[],'Procedure Text':[]},
+    'IPA':{'Sistem Reproduksi Manusia':[],'Pewarisan Sifat':[],'Listrik Statis':[],'Kemagnetan':[]},
+    'IPS':{'Perubahan Sosial Budaya':[],'Ketergantungan Antarruang':[]},
+    'PPKn':{'Dinamika Pancasila':[],'Kedaulatan Negara':[]}
   }
 };
-let state = { kelas: 0, mapel: '', bab: '' };
-function init() {
-  const cont = document.getElementById('list-kelas');
-  cont.innerHTML = '';
-  for(let i=7; i<=9; i++) {
-    cont.innerHTML += <div class="tombol level-1" onclick="bukaMapel(${i})">Kelas ${i}</div>;
+
+let state={kelas:0,mapel:'',bab:''};
+
+function init(){
+  const cont=document.getElementById('list-kelas');
+  cont.innerHTML='';
+  for(let i=7;i<=9;i++){
+    cont.innerHTML+=`<div class="col-12"><div class="tombol level-1" onclick="bukaMapel(${i})">Kelas ${i}</div></div>`;
   }
 }
 init();
-function bukaMapel(kelas) {
-  state.kelas = kelas; state.mapel = ''; state.bab = '';
-  document.getElementById('bc-mapel').innerText = SMP > Kelas ${kelas};
-  document.getElementById('judul-mapel').innerText = Kelas ${kelas} - Pilih Mapel;
-  const cont = document.getElementById('list-mapel');
-  cont.innerHTML = '';
-  Object.keys(db[kelas]).forEach(mapel => {
-    cont.innerHTML += <div class="tombol level-2" onclick="bukaBab('${mapel}')">📚 ${mapel}</div>;
+
+function bukaMapel(kelas){
+  state.kelas=kelas;state.mapel='';state.bab='';
+  document.getElementById('bc-mapel').innerText=`SMP > Kelas ${kelas}`;
+  document.getElementById('judul-mapel').innerText=`Kelas ${kelas} - Pilih Mapel`;
+  const cont=document.getElementById('list-mapel');cont.innerHTML='';
+  Object.keys(db[kelas]).forEach(mapel=>{
+    cont.innerHTML+=`<div class="tombol level-2" onclick="bukaBab('${mapel}')">📚 ${mapel}</div>`;
   });
   pindah('hal-mapel');
 }
-function bukaBab(mapel) {
-  state.mapel = mapel; state.bab = '';
-  document.getElementById('bc-bab').innerText = SMP > Kelas ${state.kelas} > ${mapel};
-  document.getElementById('judul-bab').innerText = ${mapel} - Pilih Bab;
-  const cont = document.getElementById('list-bab');
-  cont.innerHTML = '';
-  const babList = db[state.kelas][mapel];
-  if(Object.keys(babList).length == 0) {
-    cont.innerHTML = <div class="text-center text-muted mt-4">Materi ${mapel} nyusul ya 😊</div>;
-  } else {
-    Object.keys(babList).forEach(bab => {
-      cont.innerHTML += <div class="tombol level-3" onclick="bukaVideo('${bab}')">📖 ${bab}</div>;
+
+function bukaBab(mapel){
+  state.mapel=mapel;state.bab='';
+  document.getElementById('bc-bab').innerText=`SMP > Kelas ${state.kelas} > ${mapel}`;
+  document.getElementById('judul-bab').innerText=`${mapel} - Pilih Bab`;
+  const cont=document.getElementById('list-bab');cont.innerHTML='';
+  const babList=db[state.kelas][mapel];
+  if(Object.keys(babList).length==0){
+    cont.innerHTML=`<div class="text-center text-muted mt-4">Materi ${mapel} nyusul ya 😊</div>`;
+  }else{
+    Object.keys(babList).forEach(bab=>{
+      cont.innerHTML+=`<div class="tombol level-3" onclick="bukaVideo('${bab}')">📖 ${bab}</div>`;
     });
   }
   pindah('hal-bab');
 }
-function bukaVideo(bab) {
-  state.bab = bab;
-  document.getElementById('bc-video').innerText = SMP > Kelas ${state.kelas} > ${state.mapel} > ${bab};
-  document.getElementById('judul-video').innerText = ${bab} - Pilih Video;
-  const cont = document.getElementById('list-video');
-  cont.innerHTML = '';
-  const videoList = db[state.kelas][state.mapel][bab];
-  if(videoList.length == 0) {
-    cont.innerHTML = <div class="text-center text-muted mt-4">Video ${bab} nyusul ya 😊</div>;
-  } else {
-    videoList.forEach(v => {
-      cont.innerHTML += <a href="${v.link}" target="_blank" class="tombol level-4"><i class="bi bi-play-circle-fill"></i> ${v.nama}</a>;
+
+function bukaVideo(bab){
+  state.bab=bab;
+  document.getElementById('bc-video').innerText=`SMP > Kelas ${state.kelas} > ${state.mapel} > ${bab}`;
+  document.getElementById('judul-video').innerText=`${bab} - Pilih Video`;
+  const cont=document.getElementById('list-video');cont.innerHTML='';
+  const videoList=db[state.kelas][state.mapel][bab];
+  if(videoList.length==0){
+    cont.innerHTML=`<div class="text-center text-muted mt-4">Video ${bab} nyusul ya 😊</div>`;
+  }else{
+    videoList.forEach(v=>{
+      cont.innerHTML+=`<a href="${v.link}" target="_blank" class="tombol level-4"><i class="bi bi-play-circle-fill"></i> ${v.nama}</a>`;
     });
   }
   pindah('hal-video');
 }
-function pindah(id) {
-  document.querySelectorAll('.halaman').forEach(el => el.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
+
+function pindah(id){
+  document.querySelectorAll('.halaman').forEach(el=>el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');window.scrollTo(0,0);
 }
-function balik(level) {
-  if(level == 1) pindah('hal-kelas');
-  if(level == 2) pindah('hal-mapel');
-  if(level == 3) pindah('hal-bab');
+
+function balik(level){
+  if(level==1)pindah('hal-kelas');
+  if(level==2)pindah('hal-mapel');
+  if(level==3)pindah('hal-bab');
 }
 </script>
 </body>

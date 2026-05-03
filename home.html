@@ -1,12 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAT4N5L04XLIktGq5mYvEqv7SiDE6uPS08",
+    authDomain: "ls-academy-27d8c.firebaseapp.com",
+    projectId: "ls-academy-27d8c",
+    storageBucket: "ls-academy-27d8c.firebasestorage.app",
+    messagingSenderId: "188990388320",
+    appId: "1:188990388320:web:96a2c34af41c8b1632ab05"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "login.html";
+    } else {
+      console.log("Login sebagai:", user.email);
+      document.getElementById('emailUser').textContent = user.email;
+    }
+  });
+
+  window.logout = function() {
+    signOut(auth).then(() => {
+      window.location.href = "login.html";
+    });
+  }
+</script>
   <title>Dashboard - LS Academy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <style>
-    .header-profil{background:linear-gradient(135deg,#004AAD,#0056d6);padding:20px 15px 25px 15px;color:white;margin:-16px -12px 0 -12px}
+   .header-profil{background:linear-gradient(135deg,#004AAD,#0056d6);padding:20px 15px 25px 15px;color:white;margin:-16px -12px 0 -12px}
 .foto-profil{width:70px;height:70px;border-radius:50%;border:3px solid white;object-fit:cover}
 .badge-level{background:#FFC107;color:#000;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:bold}
 .menu-box{background:white;border-radius:12px;padding:5px 15px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
@@ -19,10 +50,10 @@
     body {
       background-color: #f0f4f8;
       font-family: Arial, sans-serif;
-      padding-bottom: 80px; /* Biar ga ketutup navbar */
+      padding-bottom: 80px;
     }
-    .navbar { background-color: #004AAD; }
-    .tombol-jenjang {
+   .navbar { background-color: #004AAD; }
+   .tombol-jenjang {
       background: white;
       border: 3px solid #004AAD;
       border-radius: 15px;
@@ -36,10 +67,8 @@
       font-weight: bold;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
-    .tombol-jenjang:hover { background: #004AAD; color: #FFC107; }
-    
-    /* BOTTOM NAVBAR */
-    .bottom-nav {
+   .tombol-jenjang:hover { background: #004AAD; color: #FFC107; }
+   .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
@@ -52,17 +81,17 @@
       box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
       z-index: 1000;
     }
-    .nav-item {
+   .nav-item {
       text-align: center;
       color: #666;
       text-decoration: none;
       font-size: 12px;
     }
-    .nav-item.active { color: #004AAD; font-weight: bold; }
-    .nav-item i { font-size: 24px; display: block; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-   .guru-card{background:white;border-radius:15px;padding:15px;margin-bottom:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08);border:1px solid #eee}
+   .nav-item.active { color: #004AAD; font-weight: bold; }
+   .nav-item i { font-size: 24px; display: block; }
+   .tab-content { display: none; }
+   .tab-content.active { display: block; }
+  .guru-card{background:white;border-radius:15px;padding:15px;margin-bottom:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08);border:1px solid #eee}
 .guru-foto{width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid #004AAD}
 .guru-nama{font-weight:bold;font-size:16px;color:#004AAD;margin-bottom:0}
 .guru-mapel{font-size:13px;background:#e3f2fd;color:#004AAD;padding:2px 8px;border-radius:8px;display:inline-block}
@@ -76,13 +105,13 @@
 </head>
 <body>
 
-  <!-- NAVBAR ATAS -->
+  <!-- NAVBAR ATAS UDAH BENER PAKE onclick="logout()" -->
   <nav class="navbar p-3">
     <div class="container-fluid">
       <span class="navbar-brand mb-0 h1 text-white">
         <img src="icon-192.png" width="30" class="me-2"> LS Academy
       </span>
-      <a href="index.html" class="btn btn-sm" style="background:#FFC107; color:#004AAD; font-weight:bold;">Logout</a>
+      <button onclick="logout()" class="btn btn-sm" style="background:#FFC107; color:#004AAD; font-weight:bold;">Logout</button>
     </div>
   </nav>
 
@@ -94,7 +123,6 @@
       <a href="smp.html" class="tombol-jenjang">📚 SMP</a>
       <a href="sma.html" class="tombol-jenjang">🎓 SMA</a>
 
-      <!-- MADING BERITA LS ACADEMY -->
       <div class="card mt-5" style="border:none; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius:15px;">
         <div class="card-body">
           <h5 class="card-title fw-bold" style="color:#004AAD;">📢 Info Terbaru LS Academy</h5>
@@ -113,8 +141,7 @@
     <div class="container mt-4">
       <h3 class="fw-bold" style="color:#004AAD;">📰 Berita Pengetahuan Hari Ini</h3>
       <p class="text-muted">Update otomatis dari Google News. Baca berita = tambah wawasan!</p>
-      
-      <!-- FILTER TOPIK -->
+
       <div class="mb-3">
         <button class="btn btn-sm me-2 mb-2 active" id="btn-all" style="background:#004AAD; color:white;" onclick="loadBerita('all', this)">Semua</button>
         <button class="btn btn-sm btn-outline-primary me-2 mb-2" onclick="loadBerita('sains', this)">Sains</button>
@@ -123,15 +150,14 @@
         <button class="btn btn-sm btn-outline-primary me-2 mb-2" onclick="loadBerita('politik', this)">Politik</button>
         <button class="btn btn-sm btn-outline-primary me-2 mb-2" onclick="loadBerita('UTBK', this)">UTBK</button>
       </div>
-      
-      <!-- LIST BERITA OTOMATIS -->
+
       <div id="daftar-berita">
         <div class="text-center p-4">
           <div class="spinner-border text-primary" role="status"></div>
           <p class="mt-2">Mengambil berita terbaru...</p>
         </div>
       </div>
-      
+
     </div>
   </div>
 
@@ -140,8 +166,7 @@
   <div class="container mt-4">
     <h3 class="fw-bold mb-3" style="color:#004AAD;">👨‍🏫 Pilih Guru Favoritmu</h3>
     <p class="text-muted">Guru berpengalaman sesuai mata pelajaran. Rating dari siswa lain.</p>
-    
-    <!-- FILTER MAPEL -->
+
     <div class="mb-4">
       <select class="form-select" id="filterMapel" onchange="filterGuru()" style="border:2px solid #004AAD;border-radius:10px">
         <option value="all">Semua Mata Pelajaran</option>
@@ -153,15 +178,11 @@
         <option value="B.Inggris">B. Inggris</option>
       </select>
     </div>
-    
-    <!-- LIST GURU -->
-    <div id="listGuru">
-      <!-- Diisi otomatis sama JS -->
-    </div>
-    
+
+    <div id="listGuru"></div>
+
   </div>
 </div>
-  </div>
 
   <!-- TAB 4: PROFIL VERSI BARU -->
 <div id="profil" class="tab-content">
@@ -181,10 +202,10 @@
       </div>
       <div>
         <div class="d-flex align-items-center">
-          <h5 class="mb-0 me-2" id="namaUser">Rizky Pratama</h5>
+          <h5 class="mb-0 me-2" id="namaUser">Murid LS Academy</h5>
           <span class="badge-level">Gold <i class="bi bi-chevron-right"></i></span>
         </div>
-        <div class="info-akun" id="emailUser">Murid LS Academy</div>
+        <div class="info-akun" id="emailUser">Loading...</div>
         <div class="info-akun">ID: LS202600123</div>
       </div>
     </div>
@@ -237,33 +258,61 @@
     </div>
   </div>
 
+<!-- MODAL TENTANG -->
+<div class="modal fade" id="modalTentang" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="background:#004AAD;color:white">
+        <h5 class="modal-title"><i class="bi bi-info-circle"></i> Tentang LS Academy</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="icon-192.png" width="80" class="mb-3" style="border-radius:15px">
+        <h4 style="color:#004AAD">LS Academy</h4>
+        <p class="text-muted">Versi 1.0.0</p>
+        <hr>
+        <div class="bg-light p-3 rounded mt-3 text-start">
+          <div class="mb-2"><b>Developed by:</b><br>Tim LS Academy</div>
+          <div class="mb-2"><b>Founder:</b><br>Rizky Ifandi</div>
+          <div><b>Contact:</b><br>Instagram: @letsstudy.official</div>
+        </div>
+        <p class="mt-3" style="font-size:12px;color:#666">© 2026 LS Academy</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 function openTab(tabName, el) {
-  // Sembunyiin semua tab
   document.querySelectorAll('.tab-content').forEach(tab => {
     tab.classList.remove('active');
   });
-  // Hapus active dari semua nav
   document.querySelectorAll('.nav-item').forEach(nav => {
     nav.classList.remove('active');
   });
-  // Tampilin tab yg dipilih
   document.getElementById(tabName).classList.add('active');
   el.classList.add('active');
-  
-  // KALO PINDAH KE TAB BERITA, LANGSUNG LOAD
+
   if(tabName === 'berita') {
     loadBerita('all', document.getElementById('btn-all'));
   }
+  if(tabName === 'les') {
+    tampilkanGuru();
+  }
+  if(tabName === 'profil') {
+    const nama = localStorage.getItem('namaUser') || 'Murid LS Academy';
+    const foto = localStorage.getItem('fotoUser');
+    document.getElementById('namaUser').innerText = nama;
+    if(foto) document.getElementById('fotoUser').src = foto;
+  }
 }
 
-// AMBIL BERITA DARI GOOGLE NEWS RSS + FILTER
 async function loadBerita(topik = 'all', btnEl = null) {
   const container = document.getElementById('daftar-berita');
   container.innerHTML = '<div class="text-center p-4"><div class="spinner-border text-primary"></div><p class="mt-2">Loading berita...</p></div>';
-  
-  // Ganti style tombol aktif
-  document.querySelectorAll('#berita .btn').forEach(btn => {
+
+  document.querySelectorAll('#berita.btn').forEach(btn => {
     btn.classList.remove('active');
     btn.classList.add('btn-outline-primary');
     btn.style.background = '';
@@ -275,22 +324,22 @@ async function loadBerita(topik = 'all', btnEl = null) {
     btnEl.style.background = '#004AAD';
     btnEl.style.color = 'white';
   }
-  
+
   let query = 'sains+OR+teknologi+OR+pendidikan+OR+UTBK+OR+politik';
-  if(topik !== 'all') query = topik;
-  
+  if(topik!== 'all') query = topik;
+
   const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id`);
-  
+
   try {
     const res = await fetch(url);
     const data = await res.json();
     container.innerHTML = '';
-    
+
     if(data.items.length === 0){
       container.innerHTML = '<p class="text-center text-muted">Berita tidak ditemukan.</p>';
       return;
     }
-    
+
     data.items.slice(0, 10).forEach(berita => {
       container.innerHTML += `
         <div class="card mb-3" style="border:none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
@@ -306,32 +355,7 @@ async function loadBerita(topik = 'all', btnEl = null) {
     container.innerHTML = '<p class="text-danger text-center">Gagal load berita. Coba refresh atau cek koneksi internet.</p>';
   }
 }
-</script>
-<!-- MODAL TENTANG -->
-<div class="modal fade" id="modalTentang" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header" style="background:#004AAD;color:white">
-        <h5 class="modal-title"><i class="bi bi-info-circle"></i> Tentang LS Academy</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body text-center">
-        <img src="logo.png" width="80" class="mb-3" style="border-radius:15px">
-        <h4 style="color:#004AAD">LS Academy</h4>
-        <p class="text-muted">Versi 1.0.0</p>
-        <hr>
-        <div class="bg-light p-3 rounded mt-3 text-start">
-          <div class="mb-2"><b>Developed by:</b><br>Tim LS Academy</div>
-          <div class="mb-2"><b>Founder:</b><br>Rizky Ifandi</div>
-          <div><b>Contact:</b><br>Instagram: @letsstudy.official</div>
-        </div>
-        <p class="mt-3" style="font-size:12px;color:#666">© 2026 LS Academy</p>
-      </div>
-    </div>
-  </div>
-</div>
 
-<script>
 function gantiFoto(){
   document.getElementById('inputFoto').click();
 }
@@ -353,27 +377,11 @@ function editProfil(){
     localStorage.setItem('namaUser', namaBaru);
   }
 }
-function logout(){
-  if(confirm('Yakin mau keluar?')){
-    localStorage.clear();
-    alert('Berhasil keluar');
-    location.reload();
-  }
-}
 function showTentang(){
   var modal = new bootstrap.Modal(document.getElementById('modalTentang'));
   modal.show();
 }
-document.querySelector('[onclick*="profil"]').addEventListener('click', function(){
-  const nama = localStorage.getItem('namaUser') || 'Rizky Pratama';
-  const foto = localStorage.getItem('fotoUser');
-  document.getElementById('namaUser').innerText = nama;
-  if(foto) document.getElementById('fotoUser').src = foto;
-});
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-// DATA GURU DUMMY - NANTI BISA GANTI DARI DATABASE
+
 const dataGuru = [
   {id:1,nama:"Pak Budi Santoso",mapel:"Matematika",rating:4.9,jumlahSiswa:234,harga:"50k/sesi",foto:"https://i.pravatar.cc/150?img=11",online:true,jadwal:"Senin & Kamis 19.00"},
   {id:2,nama:"Bu Sari Dewi",mapel:"Fisika",rating:4.8,jumlahSiswa:189,harga:"45k/sesi",foto:"https://i.pravatar.cc/150?img=5",online:false,jadwal:"Selasa & Jumat 20.00"},
@@ -383,7 +391,6 @@ const dataGuru = [
   {id:6,nama:"Kak Lina Putri",mapel:"Biologi",rating:4.9,jumlahSiswa:278,harga:"55k/sesi",foto:"https://i.pravatar.cc/150?img=1",online:true,jadwal:"Senin & Rabu 20.00"}
 ];
 
-// FUNGSI RENDER BINTANG RATING
 function renderBintang(rating){
   let bintang = '';
   for(let i=1; i<=5; i++){
@@ -394,23 +401,22 @@ function renderBintang(rating){
   return bintang;
 }
 
-// TAMPILIN LIST GURU
 function tampilkanGuru(list = dataGuru){
   const container = document.getElementById('listGuru');
   container.innerHTML = '';
-  
+
   if(list.length === 0){
     container.innerHTML = '<p class="text-center text-muted mt-4">Guru tidak ditemukan</p>';
     return;
   }
-  
+
   list.forEach(guru => {
     container.innerHTML += `
       <div class="guru-card">
         <div class="d-flex align-items-start mb-2">
           <img src="${guru.foto}" class="guru-foto me-3" alt="${guru.nama}">
           <div class="flex-grow-1">
-            <p class="guru-nama">${guru.nama} ${guru.online ? '<span class="badge-online"></span>' : ''}</p>
+            <p class="guru-nama">${guru.nama} ${guru.online? '<span class="badge-online"></span>' : ''}</p>
             <span class="guru-mapel">${guru.mapel}</span>
             <div class="guru-rating mt-1">
               ${renderBintang(guru.rating)} <b>${guru.rating}</b> <span class="text-muted" style="font-size:12px">(${guru.jumlahSiswa} siswa)</span>
@@ -431,30 +437,19 @@ function tampilkanGuru(list = dataGuru){
   });
 }
 
-// FILTER GURU BERDASAR MAPEL
 function filterGuru(){
   const mapel = document.getElementById('filterMapel').value;
   if(mapel === 'all') tampilkanGuru(dataGuru);
   else tampilkanGuru(dataGuru.filter(g => g.mapel === mapel));
 }
 
-// KLIK PILIH GURU
 function pilihGuru(id){
   const guru = dataGuru.find(g => g.id === id);
   if(confirm(`Mau les ${guru.mapel} sama ${guru.nama}?\nJadwal: ${guru.jadwal}\nHarga: ${guru.harga}`)){
     alert(`Berhasil pilih ${guru.nama}! Silakan lanjut ke pembayaran.`);
-    // Nanti redirect ke WA atau halaman booking
-    // window.open(`https://wa.me/6281234567890?text=Halo, saya mau les ${guru.mapel} dengan ${guru.nama}`);
   }
 }
-
-// LOAD GURU PAS PERTAMA BUKA TAB LES
-document.querySelector('[onclick*="les"]').addEventListener('click', function(){
-  tampilkanGuru();
-});
 </script>
 
-<!-- JANGAN LUPA BOOTSTRAP JS BIAR MODAL JALAN -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -7,21 +7,21 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <style>
     body { background-color: #f0f4f8; font-family: Arial, sans-serif; }
-  .navbar { background-color: #004AAD; }
-  .tombol-kelas {
+.navbar { background-color: #004AAD; }
+.tombol {
       background: white; border: 3px solid #004AAD; border-radius: 12px;
-      padding: 20px; margin: 10px 0; text-align: center; color: #004AAD;
+      padding: 15px; margin: 8px 0; text-align: left; color: #004AAD;
       text-decoration: none; display: block; font-weight: bold;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1); cursor: pointer;
     }
-  .tombol-kelas:hover { background: #004AAD; color: #FFC107; }
-  .tombol-mapel {
-      background: #FFC107; border: 2px solid #004AAD; border-radius: 12px;
-      padding: 15px; margin: 8px 0; text-align: center; color: #004AAD;
-      text-decoration: none; display: block; font-weight: bold;
-    }
-  .halaman { display: none; }
-  .halaman.active { display: block; }
+.tombol:hover { background: #004AAD; color: white; }
+.level-1 { border-color: #004AAD; }
+.level-2 { border-color: #FFC107; background: #FFC107; }
+.level-3 { border-color: #2E7D32; background: #E8F5E9; color: #2E7D32;}
+.level-4 { border-color: #C62828; background: #FFEBEE; color: #C62828;}
+.halaman { display: none; }
+.halaman.active { display: block; }
+.breadcrumb { font-size: 14px; color: #666; }
   </style>
 </head>
 <body>
@@ -30,66 +30,167 @@
       <a href="home.html" class="text-white" style="text-decoration:none; font-size:24px;">
         <i class="bi bi-arrow-left"></i>
       </a>
-      <span class="navbar-brand mb-0 h1 text-white">
-        <img src="icon-192.png" width="30" class="me-2"> Jenjang SD
-      </span>
+      <span class="navbar-brand mb-0 h1 text-white">Jenjang SD</span>
       <div style="width:24px;"></div>
     </div>
   </nav>
 
-  <!-- HALAMAN 1: PILIH KELAS -->
-  <div id="pilih-kelas" class="halaman active">
+  <!-- LEVEL 1: KELAS -->
+  <div id="hal-kelas" class="halaman active">
     <div class="container mt-4">
       <h4 class="fw-bold text-center mb-4" style="color:#004AAD;">Pilih Kelas 👇</h4>
-      <div class="row">
-        <div class="col-6"><div class="tombol-kelas" onclick="bukaKelas(1)">Kelas 1</div></div>
-        <div class="col-6"><div class="tombol-kelas" onclick="bukaKelas(2)">Kelas 2</div></div>
-        <div class="col-6"><div class="tombol-kelas" onclick="bukaKelas(3)">Kelas 3</div></div>
-        <div class="col-6"><div class="tombol-kelas" onclick="bukaKelas(4)">Kelas 4</div></div>
-        <div class="col-6"><div class="tombol-kelas" onclick="bukaKelas(5)">Kelas 5</div></div>
-        <div class="col-6"><div class="tombol-kelas" onclick="bukaKelas(6)">Kelas 6</div></div>
-      </div>
+      <div class="row" id="list-kelas"></div>
     </div>
   </div>
 
-  <!-- HALAMAN 2: PILIH MAPEL -->
-  <div id="pilih-mapel" class="halaman">
+  <!-- LEVEL 2: MAPEL -->
+  <div id="hal-mapel" class="halaman">
     <div class="container mt-4">
-      <h4 class="fw-bold text-center" id="judul-kelas" style="color:#004AAD;">Kelas 1</h4>
-      <p class="text-center text-muted mb-4">Pilih mata pelajaran</p>
-      <div id="daftar-mapel"></div>
-      <button class="btn w-100 mt-3" style="background:#004AAD; color:white;" onclick="tutupMapel()">
+      <div class="breadcrumb" id="bc-mapel">SD > Kelas 4</div>
+      <h4 class="fw-bold text-center mb-4" id="judul-mapel">Pilih Mapel</h4>
+      <div id="list-mapel"></div>
+      <button class="btn w-100 mt-3" style="background:#004AAD; color:white;" onclick="balik(1)">
         <i class="bi bi-arrow-left"></i> Pilih Kelas Lain
       </button>
     </div>
   </div>
 
+  <!-- LEVEL 3: BAB / MATERI -->
+  <div id="hal-bab" class="halaman">
+    <div class="container mt-4">
+      <div class="breadcrumb" id="bc-bab">SD > Kelas 4 > Matematika</div>
+      <h4 class="fw-bold text-center mb-4" id="judul-bab">Pilih Bab</h4>
+      <div id="list-bab"></div>
+      <button class="btn w-100 mt-3" style="background:#004AAD; color:white;" onclick="balik(2)">
+        <i class="bi bi-arrow-left"></i> Pilih Mapel Lain
+      </button>
+    </div>
+  </div>
+
+  <!-- LEVEL 4: VIDEO -->
+  <div id="hal-video" class="halaman">
+    <div class="container mt-4">
+      <div class="breadcrumb" id="bc-video">SD > Kelas 4 > Matematika > Pecahan</div>
+      <h4 class="fw-bold text-center mb-4" id="judul-video">Pilih Video</h4>
+      <div id="list-video"></div>
+      <button class="btn w-100 mt-3" style="background:#004AAD; color:white;" onclick="balik(3)">
+        <i class="bi bi-arrow-left"></i> Pilih Bab Lain
+      </button>
+    </div>
+  </div>
+
 <script>
-const dataMapel = {
-  1: ['Matematika', 'Bahasa Indonesia', 'IPA', 'IPS', 'Pendidikan Pancasila'],
-  2: ['Matematika', 'Bahasa Indonesia', 'IPA', 'IPS', 'Pendidikan Pancasila'],
-  3: ['Matematika', 'Bahasa Indonesia', 'IPA', 'IPS', 'Pendidikan Pancasila'],
-  4: ['Matematika', 'Bahasa Indonesia', 'IPA', 'IPS', 'Pendidikan Pancasila'],
-  5: ['Matematika', 'Bahasa Indonesia', 'IPA', 'IPS', 'Pendidikan Pancasila'],
-  6: ['Matematika', 'Bahasa Indonesia', 'IPA', 'IPS', 'Pendidikan Pancasila']
+// DATABASE 4 LEVEL - EDIT DISINI BUAT NAMBAH MATERI
+const db = {
+  1: {},
+  2: {},
+  3: {},
+  4: {
+    'Matematika': {
+      'Pecahan': [
+        { nama: 'Video 1: Konsep Pecahan', link: 'https://youtu.be/contoh1' },
+        { nama: 'Video 2: Pecahan Senilai', link: 'https://youtu.be/contoh2' },
+        { nama: 'Latihan Soal Pecahan', link: 'https://youtu.be/contoh3' }
+      ],
+      'FPB dan KPK': [
+        { nama: 'Video 1: Cara Mencari FPB', link: 'LINK_YOUTUBE_LU' },
+        { nama: 'Video 2: Cara Mencari KPK', link: 'LINK_YOUTUBE_LU' }
+      ],
+      'Bangun Datar': []
+    },
+    'Bahasa Indonesia': {
+      'Teks Deskripsi': [
+        { nama: 'Pengertian Teks Deskripsi', link: 'LINK_YOUTUBE_LU' }
+      ]
+    },
+    'IPA': {},
+    'IPS': {},
+    'Pendidikan Pancasila': {}
+  },
+  5: {},
+  6: {}
 };
 
-function bukaKelas(kelas) {
-  document.getElementById('judul-kelas').innerText = 'Kelas ' + kelas + ' SD';
-  const container = document.getElementById('daftar-mapel');
-  container.innerHTML = '';
-  dataMapel[kelas].forEach(mapel => {
-    container.innerHTML += `<a href="#" class="tombol-mapel">📚 ${mapel}</a>`;
+let state = { kelas: 0, mapel: '', bab: '' };
+
+// INIT KELAS
+function init() {
+  const cont = document.getElementById('list-kelas');
+  for(let i=1; i<=6; i++) {
+    cont.innerHTML += `<div class="col-6"><div class="tombol level-1" onclick="bukaMapel(${i})">Kelas ${i}</div></div>`;
+  }
+}
+init();
+
+// LEVEL 1 -> 2: BUKA MAPEL
+function bukaMapel(kelas) {
+  state.kelas = kelas;
+  state.mapel = '';
+  state.bab = '';
+  document.getElementById('bc-mapel').innerText = `SD > Kelas ${kelas}`;
+  document.getElementById('judul-mapel').innerText = `Kelas ${kelas} - Pilih Mapel`;
+  const cont = document.getElementById('list-mapel');
+  cont.innerHTML = '';
+  Object.keys(db[kelas]).forEach(mapel => {
+    cont.innerHTML += `<div class="tombol level-2" onclick="bukaBab('${mapel}')">📚 ${mapel}</div>`;
   });
-  document.getElementById('pilih-kelas').classList.remove('active');
-  document.getElementById('pilih-mapel').classList.add('active');
+  pindah('hal-mapel');
 }
 
-function tutupMapel() {
-  document.getElementById('pilih-mapel').classList.remove('active');
-  document.getElementById('pilih-kelas').classList.add('active');
+// LEVEL 2 -> 3: BUKA BAB
+function bukaBab(mapel) {
+  state.mapel = mapel;
+  state.bab = '';
+  document.getElementById('bc-bab').innerText = `SD > Kelas ${state.kelas} > ${mapel}`;
+  document.getElementById('judul-bab').innerText = `${mapel} - Pilih Bab`;
+  const cont = document.getElementById('list-bab');
+  cont.innerHTML = '';
+  const babList = db[state.kelas][mapel];
+  if(Object.keys(babList).length == 0) {
+    cont.innerHTML = `<div class="text-center text-muted mt-4">Materi ${mapel} nyusul ya 😊</div>`;
+  } else {
+    Object.keys(babList).forEach(bab => {
+      cont.innerHTML += `<div class="tombol level-3" onclick="bukaVideo('${bab}')">📖 ${bab}</div>`;
+    });
+  }
+  pindah('hal-bab');
+}
+
+// LEVEL 3 -> 4: BUKA VIDEO
+function bukaVideo(bab) {
+  state.bab = bab;
+  document.getElementById('bc-video').innerText = `SD > Kelas ${state.kelas} > ${state.mapel} > ${bab}`;
+  document.getElementById('judul-video').innerText = `${bab} - Pilih Video`;
+  const cont = document.getElementById('list-video');
+  cont.innerHTML = '';
+  const videoList = db[state.kelas][state.mapel][bab];
+  if(videoList.length == 0) {
+    cont.innerHTML = `<div class="text-center text-muted mt-4">Video ${bab} nyusul ya 😊</div>`;
+  } else {
+    videoList.forEach(v => {
+      cont.innerHTML += `
+        <a href="${v.link}" target="_blank" class="tombol level-4">
+          <i class="bi bi-play-circle-fill"></i> ${v.nama}
+        </a>`;
+    });
+  }
+  pindah('hal-video');
+}
+
+function pindah(id) {
+  document.querySelectorAll('.halaman').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function balik(level) {
+  if(level == 1) pindah('hal-kelas');
+  if(level == 2) pindah('hal-mapel');
+  if(level == 3) pindah('hal-bab');
 }
 </script>
 
+</body>
+</html>
 </body>
 </html>

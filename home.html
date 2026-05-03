@@ -172,6 +172,11 @@ function openTab(tabName, el) {
   // Tampilin tab yg dipilih
   document.getElementById(tabName).classList.add('active');
   el.classList.add('active');
+  
+  // KALO PINDAH KE TAB BERITA, LANGSUNG LOAD
+  if(tabName === 'berita') {
+    loadBerita('all', document.getElementById('btn-all'));
+  }
 }
 
 // AMBIL BERITA DARI GOOGLE NEWS RSS + FILTER
@@ -196,7 +201,7 @@ async function loadBerita(topik = 'all', btnEl = null) {
   let query = 'sains+OR+teknologi+OR+pendidikan+OR+UTBK+OR+politik';
   if(topik !== 'all') query = topik;
   
-  const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id);
+  const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id`);
   
   try {
     const res = await fetch(url);
@@ -223,11 +228,6 @@ async function loadBerita(topik = 'all', btnEl = null) {
     container.innerHTML = '<p class="text-danger text-center">Gagal load berita. Coba refresh atau cek koneksi internet.</p>';
   }
 }
-
-// Load berita default pas tab berita dibuka
-document.querySelector('[onclick="openTab(\'berita\', this)"]').addEventListener('click', () => {
-  loadBerita('all', document.getElementById('btn-all'));
-});
 </script>
 </body>
 </html>

@@ -1,0 +1,21 @@
+{
+  "name": "LS Academy",
+  "short_name": "LS Academy",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#004AAD",
+  "theme_color": "#FFC107",
+  "description": "Bimbel Terpercaya dari Let's Study Group",
+  "icons": [
+    {
+      "src": "/static/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/icon-512.png", 
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

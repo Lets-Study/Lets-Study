@@ -85,41 +85,27 @@ const db = {
   7: {
     'Matematika': {
       'Bilangan Bulat': [
-        { nama: 'Video 1: Membandingkan Bilangan Bulat', link: 'https://youtu.be/isi-link-disini' },
-        { nama: 'Video 2: Operasi Penjumlahan dan Pengurangan', link: 'https://youtu.be/isi-link-disini' }
+        { nama: 'Video 1: Membandingkan Bilangan Bulat', link: 'https://youtu.be/contoh1' },
+        { nama: 'Video 2: Operasi Penjumlahan', link: 'https://youtu.be/contoh2' }
       ],
       'Aljabar': []
     },
     'Bahasa Indonesia': {
-      'Teks Deskripsi': [],
-      'Teks Narasi': []
+      'Teks Deskripsi': []
     },
     'IPA': {
       'Objek IPA': []
-    },
-    'IPS': {
-      'Interaksi Sosial': []
-    },
-    'Bahasa Inggris': {
-      'Greetings': []
     }
   },
   8: {
     'Matematika': { 'Pola Bilangan': [] },
-    'Bahasa Indonesia': { 'Teks Berita': [] },
-    'IPA': { 'Gerak Benda': [] },
-    'IPS': { 'Kemerdekaan': [] },
-    'Bahasa Inggris': { 'Recount Text': [] }
+    'Bahasa Indonesia': { 'Teks Berita': [] }
   },
   9: {
     'Matematika': { 'Perpangkatan': [] },
-    'Bahasa Indonesia': { 'Teks Tanggapan': [] },
-    'IPA': { 'Sistem Reproduksi': [] },
-    'IPS': { 'Globalisasi': [] },
-    'Bahasa Inggris': { 'Procedure Text': [] }
+    'Bahasa Indonesia': { 'Teks Tanggapan': [] }
   }
 };
-
 let state = { kelas: 0, mapel: '', bab: '' };
 
 // INIT KELAS
@@ -129,7 +115,7 @@ function init() {
   for(let i=7; i<=9; i++) {
     cont.innerHTML += <div class="tombol level-1" onclick="bukaMapel(${i})">Kelas ${i}</div>;
   }
-}
+};
 init();
 
 // LEVEL 1 -> 2: BUKA MAPEL

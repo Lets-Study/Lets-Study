@@ -88,17 +88,30 @@
     </div>
   </div>
 
-  <!-- TAB 2: BERANDA BERITA -->
+   <!-- TAB 2: BERANDA BERITA -->
   <div id="berita" class="tab-content">
     <div class="container mt-4">
-      <h3 class="fw-bold" style="color:#004AAD;">📰 Berita & Pengumuman</h3>
-      <div class="card mt-3">
-        <div class="card-body">
-          <h5>Tryout Akbar Bulan Ini!</h5>
-          <p class="text-muted">Sabtu, 10 Mei 2026</p>
-          <p>Daftar sekarang dan dapatkan analisis nilai gratis.</p>
+      <h3 class="fw-bold" style="color:#004AAD;">📰 Berita Pengetahuan Hari Ini</h3>
+      <p class="text-muted">Update otomatis dari Google News. Baca berita = tambah wawasan!</p>
+      
+      <!-- FILTER TOPIK -->
+      <div class="mb-3">
+        <button class="btn btn-sm me-2 mb-2 active" id="btn-all" style="background:#004AAD; color:white;" onclick="loadBerita('all', this)">Semua</button>
+        <button class="btn btn-sm btn-outline-primary me-2 mb-2" onclick="loadBerita('sains', this)">Sains</button>
+        <button class="btn btn-sm btn-outline-primary me-2 mb-2" onclick="loadBerita('teknologi', this)">Teknologi</button>
+        <button class="btn btn-sm btn-outline-primary me-2 mb-2" onclick="loadBerita('pendidikan', this)">Pendidikan</button>
+        <button class="btn btn-sm btn-outline-primary me-2 mb-2" onclick="loadBerita('politik', this)">Politik</button>
+        <button class="btn btn-sm btn-outline-primary me-2 mb-2" onclick="loadBerita('UTBK', this)">UTBK</button>
+      </div>
+      
+      <!-- LIST BERITA OTOMATIS -->
+      <div id="daftar-berita">
+        <div class="text-center p-4">
+          <div class="spinner-border text-primary" role="status"></div>
+          <p class="mt-2">Mengambil berita terbaru...</p>
         </div>
       </div>
+      
     </div>
   </div>
 
@@ -160,8 +173,63 @@ function openTab(tabName, el) {
   document.getElementById(tabName).classList.add('active');
   el.classList.add('active');
 }
+  <script>
+// AMBIL BERITA DARI GOOGLE NEWS RSS + FILTER
+async function loadBerita(topik = 'all', btnEl = null) {
+  const container = document.getElementById('daftar-berita');
+  container.innerHTML = '<div class="text-center p-4"><div class="spinner-border text-primary"></div><p class="mt-2">Loading berita...</p></div>';
+  
+  // Ganti style tombol aktif
+  document.querySelectorAll('#berita .btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.classList.remove('btn-primary');
+    btn.classList.add('btn-outline-primary');
+    btn.style.background = '';
+    btn.style.color = '';
+  });
+  if(btnEl){
+    btnEl.classList.add('active');
+    btnEl.classList.remove('btn-outline-primary');
+    btnEl.style.background = '#004AAD';
+    btnEl.style.color = 'white';
+  }
+  
+  let query = 'sains+OR+teknologi+OR+pendidikan+OR+UTBK+OR+politik';
+  if(topik !== 'all') query = topik;
+  
+  const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id`);
+  
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    container.innerHTML = '';
+    
+    if(data.items.length === 0){
+      container.innerHTML = '<p class="text-center text-muted">Berita tidak ditemukan.</p>';
+      return;
+    }
+    
+    data.items.slice(0, 10).forEach(berita => {
+      container.innerHTML += `
+        <div class="card mb-3" style="border:none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+          <div class="card-body">
+            <h6 class="card-title fw-bold">${berita.title}</h6>
+            <p class="text-muted small mb-2">${new Date(berita.pubDate).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</p>
+            <a href="${berita.link}" target="_blank" class="btn btn-sm" style="background:#004AAD; color:white;">Baca Selengkapnya</a>
+          </div>
+        </div>
+      `;
+    });
+  } catch (err) {
+    container.innerHTML = '<p class="text-danger text-center">Gagal load berita. Coba refresh atau cek koneksi internet.</p>';
+  }
+}
+
+// Load berita default pas tab berita dibuka
+document.querySelector('[onclick="openTab(\'berita\', this)"]').addEventListener('click', () => {
+  loadBerita('all', document.getElementById('btn-all'));
+});
 </script>
 
 </body>
-</html>
 </html>

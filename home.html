@@ -170,15 +170,10 @@ function openTab(tabName, el) {
     nav.classList.remove('active');
   });
   // Tampilin tab yg dipilih
-  document.getElemenById(tabName).classList.add('active');
+  document.getElementById(tabName).classList.add('active');
   el.classList.add('active');
 }
 
-// agar nggak tabrakan
-document.quaryselector([onclick="openTab(\'berita\', this)"]')adddEventListener('click', () => {
-  loadBerita('all', document.getElemenById(btn-all'));
-  });
-  <script>
 // AMBIL BERITA DARI GOOGLE NEWS RSS + FILTER
 async function loadBerita(topik = 'all', btnEl = null) {
   const container = document.getElementById('daftar-berita');
@@ -187,7 +182,6 @@ async function loadBerita(topik = 'all', btnEl = null) {
   // Ganti style tombol aktif
   document.querySelectorAll('#berita .btn').forEach(btn => {
     btn.classList.remove('active');
-    btn.classList.remove('btn-primary');
     btn.classList.add('btn-outline-primary');
     btn.style.background = '';
     btn.style.color = '';
@@ -202,7 +196,7 @@ async function loadBerita(topik = 'all', btnEl = null) {
   let query = 'sains+OR+teknologi+OR+pendidikan+OR+UTBK+OR+politik';
   if(topik !== 'all') query = topik;
   
-  const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id`);
+  const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id);
   
   try {
     const res = await fetch(url);
@@ -235,6 +229,5 @@ document.querySelector('[onclick="openTab(\'berita\', this)"]').addEventListener
   loadBerita('all', document.getElementById('btn-all'));
 });
 </script>
-
 </body>
 </html>

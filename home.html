@@ -4,14 +4,14 @@
   <title>Dashboard - LS Academy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <style>
     body {
       background-color: #f0f4f8;
       font-family: Arial, sans-serif;
+      padding-bottom: 80px; /* Biar ga ketutup navbar */
     }
-    .navbar {
-      background-color: #004AAD;
-    }
+    .navbar { background-color: #004AAD; }
     .tombol-jenjang {
       background: white;
       border: 3px solid #004AAD;
@@ -26,10 +26,32 @@
       font-weight: bold;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
-    .tombol-jenjang:hover {
-      background: #004AAD;
-      color: #FFC107;
+    .tombol-jenjang:hover { background: #004AAD; color: #FFC107; }
+    
+    /* BOTTOM NAVBAR */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid #ddd;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
     }
+    .nav-item {
+      text-align: center;
+      color: #666;
+      text-decoration: none;
+      font-size: 12px;
+    }
+    .nav-item.active { color: #004AAD; font-weight: bold; }
+    .nav-item i { font-size: 24px; display: block; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
   </style>
 </head>
 <body>
@@ -38,34 +60,108 @@
   <nav class="navbar p-3">
     <div class="container-fluid">
       <span class="navbar-brand mb-0 h1 text-white">
-        <img src="icon-192.png" width="30" class="me-2"> Selamat Datang di LS Academy!
+        <img src="icon-192.png" width="30" class="me-2"> LS Academy
       </span>
       <a href="index.html" class="btn btn-sm" style="background:#FFC107; color:#004AAD; font-weight:bold;">Logout</a>
     </div>
   </nav>
 
-  <!-- PILIH JENJANG -->
-  <div class="container mt-4">
-    <h3 class="fw-bold text-center mb-4" style="color:#004AAD;">Pilih Jenjang Kamu 👇</h3>
-    
-    <a href="sd.html" class="tombol-jenjang">🎒 SD</a>
-    <a href="smp.html" class="tombol-jenjang">📚 SMP</a>
-    <a href="sma.html" class="tombol-jenjang">🎓 SMA</a>
-     <!-- MADING BERITA LS ACADEMY -->
-    <div class="card mt-5" style="border:none; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius:15px;">
-      <div class="card-body">
-        <h5 class="card-title fw-bold" style="color:#004AAD;">📢 Info Terbaru LS Academy</h5>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">🎉 Selamat datang di LS Academy by Let's Study Group!</li>
-          <li class="list-group-item">📚 Materi UTBK 2026 sudah bisa diakses minggu depan</li>
-          <li class="list-group-item">🔥 Tryout gratis setiap Jumat jam 19.00 WIB</li>
-        </ul>
+  <!-- TAB 1: BERANDA BELAJAR -->
+  <div id="belajar" class="tab-content active">
+    <div class="container mt-4">
+      <h3 class="fw-bold text-center mb-4" style="color:#004AAD;">Pilih Jenjang Kamu 👇</h3>
+      <a href="sd.html" class="tombol-jenjang">🎒 SD</a>
+      <a href="smp.html" class="tombol-jenjang">📚 SMP</a>
+      <a href="sma.html" class="tombol-jenjang">🎓 SMA</a>
+
+      <!-- MADING BERITA LS ACADEMY -->
+      <div class="card mt-5" style="border:none; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius:15px;">
+        <div class="card-body">
+          <h5 class="card-title fw-bold" style="color:#004AAD;">📢 Info Terbaru LS Academy</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">🎉 Selamat datang di LS Academy by Let's Study Group!</li>
+            <li class="list-group-item">📚 Materi UTBK 2026 sudah bisa diakses minggu depan</li>
+            <li class="list-group-item">🔥 Tryout gratis setiap Jumat jam 19.00 WIB</li>
+          </ul>
+        </div>
       </div>
     </div>
-
   </div>
 
+  <!-- TAB 2: BERANDA BERITA -->
+  <div id="berita" class="tab-content">
+    <div class="container mt-4">
+      <h3 class="fw-bold" style="color:#004AAD;">📰 Berita & Pengumuman</h3>
+      <div class="card mt-3">
+        <div class="card-body">
+          <h5>Tryout Akbar Bulan Ini!</h5>
+          <p class="text-muted">Sabtu, 10 Mei 2026</p>
+          <p>Daftar sekarang dan dapatkan analisis nilai gratis.</p>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- TAB 3: LES DENGAN GURU -->
+  <div id="les" class="tab-content">
+    <div class="container mt-4">
+      <h3 class="fw-bold" style="color:#004AAD;">👨‍🏫 Les dengan Guru</h3>
+      <div class="card mt-3">
+        <div class="card-body">
+          <h5>Jadwal Kelas Live</h5>
+          <p>Senin & Kamis: Matematika SMA - 19.00 WIB</p>
+          <a href="#" class="btn" style="background:#004AAD; color:white;">Join Kelas</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 4: PROFIL -->
+  <div id="profil" class="tab-content">
+    <div class="container mt-4 text-center">
+      <img src="icon-192.png" width="100" class="rounded-circle mb-3">
+      <h3 class="fw-bold" style="color:#004AAD;">Rizky Pratama</h3>
+      <p class="text-muted">Murid LS Academy</p>
+      <a href="#" class="btn btn-outline-primary">Edit Profil</a>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAVBAR 4 TOMBOL -->
+  <div class="bottom-nav">
+    <a href="#" class="nav-item active" onclick="openTab('belajar', this)">
+      <i class="bi bi-book"></i>
+      Belajar
+    </a>
+    <a href="#" class="nav-item" onclick="openTab('berita', this)">
+      <i class="bi bi-newspaper"></i>
+      Berita
+    </a>
+    <a href="#" class="nav-item" onclick="openTab('les', this)">
+      <i class="bi bi-person-video3"></i>
+      Les Guru
+    </a>
+    <a href="#" class="nav-item" onclick="openTab('profil', this)">
+      <i class="bi bi-person-circle"></i>
+      Profil
+    </a>
+  </div>
+
+<script>
+function openTab(tabName, el) {
+  // Sembunyiin semua tab
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  // Hapus active dari semua nav
+  document.querySelectorAll('.nav-item').forEach(nav => {
+    nav.classList.remove('active');
+  });
+  // Tampilin tab yg dipilih
+  document.getElementById(tabName).classList.add('active');
+  el.classList.add('active');
+}
+</script>
 
 </body>
+</html>
 </html>

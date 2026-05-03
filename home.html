@@ -170,9 +170,14 @@ function openTab(tabName, el) {
     nav.classList.remove('active');
   });
   // Tampilin tab yg dipilih
-  document.getElementById(tabName).classList.add('active');
+  document.getElemenById(tabName).classList.add('active');
   el.classList.add('active');
 }
+
+// agar nggak tabrakan
+document.quaryselector([onclick="openTab(\'berita\', this)"]')adddEventListener('click', () => {
+  loadBerita('all', document.getElemenById(btn-all'));
+  });
   <script>
 // AMBIL BERITA DARI GOOGLE NEWS RSS + FILTER
 async function loadBerita(topik = 'all', btnEl = null) {

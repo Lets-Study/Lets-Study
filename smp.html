@@ -7,21 +7,21 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <style>
     body { background-color: #f0f4f8; font-family: Arial, sans-serif; }
-.navbar { background-color: #004AAD; }
-.tombol {
+   .navbar { background-color: #004AAD; }
+   .tombol {
       background: white; border: 3px solid #004AAD; border-radius: 12px;
       padding: 15px; margin: 8px 0; text-align: left; color: #004AAD;
       text-decoration: none; display: block; font-weight: bold;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1); cursor: pointer;
     }
-.tombol:hover { background: #004AAD; color: white; }
-.level-1 { border-color: #004AAD; }
-.level-2 { border-color: #FFC107; background: #FFC107; }
-.level-3 { border-color: #2E7D32; background: #E8F5E9; color: #2E7D32;}
-.level-4 { border-color: #C62828; background: #FFEBEE; color: #C62828;}
-.halaman { display: none; }
-.halaman.active { display: block; }
-.breadcrumb { font-size: 14px; color: #666; }
+   .tombol:hover { background: #004AAD; color: white; }
+   .level-1 { border-color: #004AAD; }
+   .level-2 { border-color: #FFC107; background: #FFC107; }
+   .level-3 { border-color: #2E7D32; background: #E8F5E9; color: #2E7D32;}
+   .level-4 { border-color: #C62828; background: #FFEBEE; color: #C62828;}
+   .halaman { display: none; }
+   .halaman.active { display: block; }
+   .breadcrumb { font-size: 14px; color: #666; }
   </style>
 </head>
 <body>
@@ -30,7 +30,7 @@
       <a href="home.html" class="text-white" style="text-decoration:none; font-size:24px;">
         <i class="bi bi-arrow-left"></i>
       </a>
-      <span class="navbar-brand mb-0 h1 text-white">Jenjang SD</span>
+      <span class="navbar-brand mb-0 h1 text-white">Jenjang SMP</span>
       <div style="width:24px;"></div>
     </div>
   </nav>
@@ -46,7 +46,7 @@
   <!-- LEVEL 2: MAPEL -->
   <div id="hal-mapel" class="halaman">
     <div class="container mt-4">
-      <div class="breadcrumb" id="bc-mapel">SD > Kelas 4</div>
+      <div class="breadcrumb" id="bc-mapel">SMP > Kelas 7</div>
       <h4 class="fw-bold text-center mb-4" id="judul-mapel">Pilih Mapel</h4>
       <div id="list-mapel"></div>
       <button class="btn w-100 mt-3" style="background:#004AAD; color:white;" onclick="balik(1)">
@@ -58,7 +58,7 @@
   <!-- LEVEL 3: BAB / MATERI -->
   <div id="hal-bab" class="halaman">
     <div class="container mt-4">
-      <div class="breadcrumb" id="bc-bab">SD > Kelas 4 > Matematika</div>
+      <div class="breadcrumb" id="bc-bab">SMP > Kelas 7 > Matematika</div>
       <h4 class="fw-bold text-center mb-4" id="judul-bab">Pilih Bab</h4>
       <div id="list-bab"></div>
       <button class="btn w-100 mt-3" style="background:#004AAD; color:white;" onclick="balik(2)">
@@ -70,7 +70,7 @@
   <!-- LEVEL 4: VIDEO -->
   <div id="hal-video" class="halaman">
     <div class="container mt-4">
-      <div class="breadcrumb" id="bc-video">SD > Kelas 4 > Matematika > Pecahan</div>
+      <div class="breadcrumb" id="bc-video">SMP > Kelas 7 > Matematika > Bilangan Bulat</div>
       <h4 class="fw-bold text-center mb-4" id="judul-video">Pilih Video</h4>
       <div id="list-video"></div>
       <button class="btn w-100 mt-3" style="background:#004AAD; color:white;" onclick="balik(3)">
@@ -80,19 +80,44 @@
   </div>
 
 <script>
-// DATABASE 4 LEVEL - EDIT DISINI BUAT NAMBAH MATERI
+// DATABASE 4 LEVEL - UDAH GURU BENERIN
 const db = {
   7: {
     'Matematika': {
-      'Bilangan bulat': [
-        { nama: 'Vidio 1: Membandingkan Bilangan Bulat', link: 'https://youtu.be },
-        { nama: 'vidio 2: Operasi penjumlahan dan pengurangan', link: 'vidio'}
+      'Bilangan Bulat': [
+        { nama: 'Video 1: Membandingkan Bilangan Bulat', link: 'https://youtu.be/isi-link-disini' },
+        { nama: 'Video 2: Operasi Penjumlahan dan Pengurangan', link: 'https://youtu.be/isi-link-disini' }
       ],
-    'Bahasa
+      'Aljabar': []
+    },
+    'Bahasa Indonesia': {
+      'Teks Deskripsi': [],
+      'Teks Narasi': []
+    },
+    'IPA': {
+      'Objek IPA': []
+    },
+    'IPS': {
+      'Interaksi Sosial': []
+    },
+    'Bahasa Inggris': {
+      'Greetings': []
+    }
   },
-  8: {},
-  9: {},
- 
+  8: {
+    'Matematika': { 'Pola Bilangan': [] },
+    'Bahasa Indonesia': { 'Teks Berita': [] },
+    'IPA': { 'Gerak Benda': [] },
+    'IPS': { 'Kemerdekaan': [] },
+    'Bahasa Inggris': { 'Recount Text': [] }
+  },
+  9: {
+    'Matematika': { 'Perpangkatan': [] },
+    'Bahasa Indonesia': { 'Teks Tanggapan': [] },
+    'IPA': { 'Sistem Reproduksi': [] },
+    'IPS': { 'Globalisasi': [] },
+    'Bahasa Inggris': { 'Procedure Text': [] }
+  }
 };
 
 let state = { kelas: 0, mapel: '', bab: '' };
@@ -100,8 +125,9 @@ let state = { kelas: 0, mapel: '', bab: '' };
 // INIT KELAS
 function init() {
   const cont = document.getElementById('list-kelas');
-  for(let i=7; i<=9; i++) { // SMP = kelas 7,8,9
-    cont.innerHTML += `<div class="tombol level-1" onclick="bukaMapel(${i})">Kelas ${i}</div></div>`;
+  cont.innerHTML = '';
+  for(let i=7; i<=9; i++) {
+    cont.innerHTML += <div class="tombol level-1" onclick="bukaMapel(${i})">Kelas ${i}</div>;
   }
 }
 init();
@@ -111,12 +137,12 @@ function bukaMapel(kelas) {
   state.kelas = kelas;
   state.mapel = '';
   state.bab = '';
-  document.getElementById('bc-mapel').innerText = `SMP > Kelas ${kelas}`;
-  document.getElementById('judul-mapel').innerText = `Kelas ${kelas} - Pilih Mapel`;
+  document.getElementById('bc-mapel').innerText = SMP > Kelas ${kelas};
+  document.getElementById('judul-mapel').innerText = Kelas ${kelas} - Pilih Mapel;
   const cont = document.getElementById('list-mapel');
   cont.innerHTML = '';
   Object.keys(db[kelas]).forEach(mapel => {
-    cont.innerHTML += `<div class="tombol level-2" onclick="bukaBab('${mapel}')">📚 ${mapel}</div>`;
+    cont.innerHTML += <div class="tombol level-2" onclick="bukaBab('${mapel}')">📚 ${mapel}</div>;
   });
   pindah('hal-mapel');
 }
@@ -125,16 +151,16 @@ function bukaMapel(kelas) {
 function bukaBab(mapel) {
   state.mapel = mapel;
   state.bab = '';
-  document.getElementById('bc-bab').innerText = `SMP > Kelas ${state.kelas} > ${mapel}`;
-  document.getElementById('judul-bab').innerText = `${mapel} - Pilih Bab`;
+  document.getElementById('bc-bab').innerText = SMP > Kelas ${state.kelas} > ${mapel};
+  document.getElementById('judul-bab').innerText = ${mapel} - Pilih Bab;
   const cont = document.getElementById('list-bab');
   cont.innerHTML = '';
   const babList = db[state.kelas][mapel];
   if(Object.keys(babList).length == 0) {
-    cont.innerHTML = `<div class="text-center text-muted mt-4">Materi ${mapel} nyusul ya 😊</div>`;
+    cont.innerHTML = <div class="text-center text-muted mt-4">Materi ${mapel} nyusul ya 😊</div>;
   } else {
     Object.keys(babList).forEach(bab => {
-      cont.innerHTML += `<div class="tombol level-3" onclick="bukaVideo('${bab}')">📖 ${bab}</div>`;
+      cont.innerHTML += <div class="tombol level-3" onclick="bukaVideo('${bab}')">📖 ${bab}</div>;
     });
   }
   pindah('hal-bab');
@@ -143,13 +169,13 @@ function bukaBab(mapel) {
 // LEVEL 3 -> 4: BUKA VIDEO
 function bukaVideo(bab) {
   state.bab = bab;
-  document.getElementById('bc-video').innerText = `SMP > Kelas ${state.kelas} > ${state.mapel} > ${bab}`;
-  document.getElementById('judul-video').innerText = `${bab} - Pilih Video`;
+  document.getElementById('bc-video').innerText = SMP > Kelas ${state.kelas} > ${state.mapel} > ${bab};
+  document.getElementById('judul-video').innerText = ${bab} - Pilih Video;
   const cont = document.getElementById('list-video');
   cont.innerHTML = '';
   const videoList = db[state.kelas][state.mapel][bab];
   if(videoList.length == 0) {
-    cont.innerHTML = `<div class="text-center text-muted mt-4">Video ${bab} nyusul ya 😊</div>`;
+    cont.innerHTML = <div class="text-center text-muted mt-4">Video ${bab} nyusul ya 😊</div>;
   } else {
     videoList.forEach(v => {
       cont.innerHTML += `
@@ -173,6 +199,5 @@ function balik(level) {
   if(level == 3) pindah('hal-bab');
 }
 </script>
-
 </body>
 </html>

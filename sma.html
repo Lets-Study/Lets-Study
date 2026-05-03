@@ -14,7 +14,6 @@
 .level-2{border-color:#FFC107;background:#FFC107;color:#000}
 .level-3{border-color:#2E7D32;background:#E8F5E9;color:#2E7D32}
 .level-4{border-color:#C62828;background:#FFEBEE;color:#C62828}
-.badge-premium{background:gold;color:#000;font-size:10px;padding:2px 6px;border-radius:6px;margin-left:5px}
 .halaman{display:none}
 .halaman.active{display:block}
 .breadcrumb{font-size:14px;color:#666}
@@ -26,7 +25,7 @@
     <div class="container-fluid">
       <a href="index.html" class="text-white" style="text-decoration:none;font-size:24px"><i class="bi bi-arrow-left"></i></a>
       <span class="navbar-brand mb-0 h1 text-white">Ruang Belajar SMA</span>
-      <a href="pricing.html" class="btn btn-warning btn-sm"><i class="bi bi-star-fill"></i> Premium</a>
+      <div style="width:24px"></div>
     </div>
   </nav>
 
@@ -64,8 +63,8 @@
       <div class="progress mb-3"><div class="progress-bar" id="progress-video" style="width:75%"></div></div>
       <div id="list-video"></div>
       <div class="mt-4 p-3 bg-white rounded shadow-sm">
-        <h6><i class="bi bi-patch-question"></i> Kuis Bab Ini</h6>
-        <button class="btn btn-success w-100" onclick="alert('Fitur Kuis nyusul ya Rizky 🔥')"><i class="bi bi-play-fill"></i> Mulai Kuis</button>
+        <h6><i class="bi bi-patch-question"></i> Latihan Soal</h6>
+        <button class="btn btn-success w-100" onclick="alert('Fitur Latihan Soal nyusul ya 😊')"><i class="bi bi-play-fill"></i> Mulai Latihan</button>
       </div>
       <button class="btn w-100 mt-3" style="background:#004AAD;color:white" onclick="balik(3)"><i class="bi bi-arrow-left"></i> Pilih Bab Lain</button>
     </div>
@@ -74,7 +73,7 @@
 <script>
 const db={
   10:{
-    'Matematika Wajib':{'Persamaan & Pertidaksamaan Linear':[{nama:'Video 1: Konsep Dasar',link:'https://youtu.be/contoh',premium:false}],'Fungsi Kuadrat':[{nama:'Video 1: Grafik Fungsi',link:'#',premium:true}],'Trigonometri':[]},
+    'Matematika Wajib':{'Persamaan & Pertidaksamaan Linear':[{nama:'Video 1: Konsep Dasar',link:'https://youtu.be/contoh'}],'Fungsi Kuadrat':[{nama:'Video 1: Grafik Fungsi',link:'https://youtu.be/contoh'}],'Trigonometri':[]},
     'Matematika Peminatan':{'Fungsi Eksponen':[],'Vektor':[]},
     'Bahasa Indonesia':{'Teks Observasi':[],'Teks Eksposisi':[],'Debat':[]},
     'Bahasa Inggris':{'Introduction Self':[],'Descriptive Text':[]},
@@ -87,7 +86,7 @@ const db={
     'Sosiologi':{'Interaksi Sosial':[],'Nilai & Norma':[]}
   },
   11:{
-    'Matematika Wajib':{'Induksi Matematika':[{nama:'Video 1: Prinsip Induksi',link:'https://youtu.be/contoh',premium:false}],'Program Linear':[{nama:'Video 1: Model Matematika',link:'#',premium:true}],'Matriks':[]},
+    'Matematika Wajib':{'Induksi Matematika':[{nama:'Video 1: Prinsip Induksi',link:'https://youtu.be/contoh'}],'Program Linear':[{nama:'Video 1: Model Matematika',link:'https://youtu.be/contoh'}],'Matriks':[]},
     'Matematika Peminatan':{'Polinomial':[],'Lingkaran':[]},
     'Bahasa Indonesia':{'Proposal':[],'Karya Ilmiah':[],'Drama':[]},
     'Bahasa Inggris':{'Analytical Exposition':[],'Passive Voice':[]},
@@ -100,7 +99,7 @@ const db={
     'Sosiologi':{'Kelompok Sosial':[],'Konflik Sosial':[]}
   },
   12:{
-    'Matematika Wajib':{'Dimensi Tiga':[{nama:'Video 1: Jarak Titik',link:'https://youtu.be/contoh',premium:false}],'Statistika':[{nama:'Video 1: Mean Median Modus',link:'#',premium:true}],'Peluang':[]},
+    'Matematika Wajib':{'Dimensi Tiga':[{nama:'Video 1: Jarak Titik',link:'https://youtu.be/contoh'}],'Statistika':[{nama:'Video 1: Mean Median Modus',link:'https://youtu.be/contoh'}],'Peluang':[]},
     'Matematika Peminatan':{'Limit Fungsi':[],'Turunan':[],'Integral':[]},
     'Bahasa Indonesia':{'Artikel':[],'Kritik & Esai':[],'Novel':[]},
     'Bahasa Inggris':{'Application Letter':[],'Caption':[]},
@@ -165,10 +164,7 @@ function bukaVideo(bab){
     cont.innerHTML=`<div class="text-center text-muted mt-4">Video ${bab} nyusul ya 😊</div>`;
   }else{
     videoList.forEach(v=>{
-      let badge = v.premium? '<span class="badge-premium">PREMIUM</span>' : '';
-      let link = v.premium? '#' : v.link;
-      let onclick = v.premium? 'onclick="alert(\'Upgrade ke Premium dulu Rizky 🔥\')"' : '';
-      cont.innerHTML+=`<a href="${link}" target="_blank" ${onclick} class="tombol level-4"><i class="bi bi-play-circle-fill"></i> ${v.nama} ${badge}</a>`;
+      cont.innerHTML+=`<a href="${v.link}" target="_blank" class="tombol level-4"><i class="bi bi-play-circle-fill"></i> ${v.nama}</a>`;
     });
   }
   pindah('hal-video');
@@ -176,7 +172,14 @@ function bukaVideo(bab){
 
 function pindah(id){
   document.querySelectorAll('.halaman').forEach(el=>el.classList.remove('active'));
-  document.getElementById(id).classList.add('active');window.scrollTo(0,0);
+  document.getElementById(id).classList.add('active');
+
+  // FIX BUG WA GAK MAU NAIK KE ATAS
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }, 10);
 }
 
 function balik(level){
@@ -185,8 +188,5 @@ function balik(level){
   if(level==3)pindah('hal-bab');
 }
 </script>
-</body>
-</html>
-  </div>
 </body>
 </html>

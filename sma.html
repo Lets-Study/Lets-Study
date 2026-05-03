@@ -1,35 +1,192 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Kelas SD - Let's Study</title>
+  <title>LS Academy - Ruang Belajar SMA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <style>
-    body { background-color: #f0f4f8; }
-    .navbar { background-color: #004AAD; }
-    .tombol-kelas {
-      background: white; border: 2px solid #FFC107; border-radius: 12px;
-      padding: 20px; margin: 10px 0; text-align: center; color: #004AAD;
-      text-decoration: none; display: block; font-weight: bold;
-    }
+    body{background-color:#f0f4f8;font-family:Arial,sans-serif}
+.navbar{background-color:#004AAD}
+.tombol{background:white;border:3px solid #004AAD;border-radius:12px;padding:15px;margin:8px 0;text-align:left;color:#004AAD;text-decoration:none;display:block;font-weight:bold;box-shadow:0 4px 15px rgba(0,0,0,0.1);cursor:pointer}
+.tombol:hover{background:#004AAD;color:white}
+.level-1{border-color:#004AAD}
+.level-2{border-color:#FFC107;background:#FFC107;color:#000}
+.level-3{border-color:#2E7D32;background:#E8F5E9;color:#2E7D32}
+.level-4{border-color:#C62828;background:#FFEBEE;color:#C62828}
+.badge-premium{background:gold;color:#000;font-size:10px;padding:2px 6px;border-radius:6px;margin-left:5px}
+.halaman{display:none}
+.halaman.active{display:block}
+.breadcrumb{font-size:14px;color:#666}
+.progress{height:8px}
   </style>
 </head>
 <body>
   <nav class="navbar p-3">
     <div class="container-fluid">
-      <a href="home.html" class="btn btn-sm text-white">← Kembali</a>
-      <span class="navbar-brand mb-0 h1 text-white">Jenjang SD</span>
-      <div></div>
+      <a href="index.html" class="text-white" style="text-decoration:none;font-size:24px"><i class="bi bi-arrow-left"></i></a>
+      <span class="navbar-brand mb-0 h1 text-white">Ruang Belajar SMA</span>
+      <a href="pricing.html" class="btn btn-warning btn-sm"><i class="bi bi-star-fill"></i> Premium</a>
     </div>
   </nav>
 
-  <div class="container mt-4">
-    <h4 class="fw-bold text-center mb-4" style="color:#004AAD;">Pilih Kelas 👇</h4>
-    <div class="row">
-      <div class="col-6"><a href="#" class="tombol-kelas" onclick="alert('Materi Kelas 10 nyusul')">Kelas 10</a></div>
-      <div class="col-6"><a href="#" class="tombol-kelas" onclick="alert('Materi Kelas 11 nyusul')">Kelas 11</a></div>
-      <div class="col-6"><a href="#" class="tombol-kelas" onclick="alert('Materi Kelas 12 nyusul')">Kelas 12</a></div>
+  <div id="hal-kelas" class="halaman active">
+    <div class="container mt-4">
+      <h4 class="fw-bold text-center mb-4" style="color:#004AAD">Pilih Kelas 👇</h4>
+      <div class="row" id="list-kelas"></div>
     </div>
+  </div>
+
+  <div id="hal-mapel" class="halaman">
+    <div class="container mt-4">
+      <div class="breadcrumb" id="bc-mapel"></div>
+      <h4 class="fw-bold text-center mb-4" id="judul-mapel">Pilih Mapel</h4>
+      <div class="progress mb-3"><div class="progress-bar" id="progress-mapel" style="width:25%"></div></div>
+      <div id="list-mapel"></div>
+      <button class="btn w-100 mt-3" style="background:#004AAD;color:white" onclick="balik(1)"><i class="bi bi-arrow-left"></i> Pilih Kelas Lain</button>
+    </div>
+  </div>
+
+  <div id="hal-bab" class="halaman">
+    <div class="container mt-4">
+      <div class="breadcrumb" id="bc-bab"></div>
+      <h4 class="fw-bold text-center mb-4" id="judul-bab">Pilih Bab</h4>
+      <div class="progress mb-3"><div class="progress-bar" id="progress-bab" style="width:50%"></div></div>
+      <div id="list-bab"></div>
+      <button class="btn w-100 mt-3" style="background:#004AAD;color:white" onclick="balik(2)"><i class="bi bi-arrow-left"></i> Pilih Mapel Lain</button>
+    </div>
+  </div>
+
+  <div id="hal-video" class="halaman">
+    <div class="container mt-4">
+      <div class="breadcrumb" id="bc-video"></div>
+      <h4 class="fw-bold text-center mb-4" id="judul-video">Pilih Video</h4>
+      <div class="progress mb-3"><div class="progress-bar" id="progress-video" style="width:75%"></div></div>
+      <div id="list-video"></div>
+      <div class="mt-4 p-3 bg-white rounded shadow-sm">
+        <h6><i class="bi bi-patch-question"></i> Kuis Bab Ini</h6>
+        <button class="btn btn-success w-100" onclick="alert('Fitur Kuis nyusul ya Rizky 🔥')"><i class="bi bi-play-fill"></i> Mulai Kuis</button>
+      </div>
+      <button class="btn w-100 mt-3" style="background:#004AAD;color:white" onclick="balik(3)"><i class="bi bi-arrow-left"></i> Pilih Bab Lain</button>
+    </div>
+  </div>
+
+<script>
+const db={
+  10:{
+    'Matematika Wajib':{'Persamaan & Pertidaksamaan Linear':[{nama:'Video 1: Konsep Dasar',link:'https://youtu.be/contoh',premium:false}],'Fungsi Kuadrat':[{nama:'Video 1: Grafik Fungsi',link:'#',premium:true}],'Trigonometri':[]},
+    'Matematika Peminatan':{'Fungsi Eksponen':[],'Vektor':[]},
+    'Bahasa Indonesia':{'Teks Observasi':[],'Teks Eksposisi':[],'Debat':[]},
+    'Bahasa Inggris':{'Introduction Self':[],'Descriptive Text':[]},
+    'Fisika':{'Besaran & Pengukuran':[],'Vektor':[],'Gerak Lurus':[]},
+    'Kimia':{'Struktur Atom':[],'Sistem Periodik':[],'Ikatan Kimia':[]},
+    'Biologi':{'Keanekaragaman Hayati':[],'Virus':[],'Kingdom Animalia':[]},
+    'Ekonomi':{'Ilmu Ekonomi':[],'Kegiatan Ekonomi':[]},
+    'Sejarah':{'Manusia Purba':[],'Kerajaan Hindu-Buddha':[]},
+    'Geografi':{'Pengetahuan Dasar Geografi':[],'Jagat Raya':[]},
+    'Sosiologi':{'Interaksi Sosial':[],'Nilai & Norma':[]}
+  },
+  11:{
+    'Matematika Wajib':{'Induksi Matematika':[{nama:'Video 1: Prinsip Induksi',link:'https://youtu.be/contoh',premium:false}],'Program Linear':[{nama:'Video 1: Model Matematika',link:'#',premium:true}],'Matriks':[]},
+    'Matematika Peminatan':{'Polinomial':[],'Lingkaran':[]},
+    'Bahasa Indonesia':{'Proposal':[],'Karya Ilmiah':[],'Drama':[]},
+    'Bahasa Inggris':{'Analytical Exposition':[],'Passive Voice':[]},
+    'Fisika':{'Dinamika Rotasi':[],'Fluida Statis':[],'Teori Kinetik Gas':[]},
+    'Kimia':{'Hidrokarbon':[],'Termokimia':[],'Laju Reaksi':[]},
+    'Biologi':{'Sel':[],'Jaringan Tumbuhan':[],'Sistem Gerak':[]},
+    'Ekonomi':{'Pendapatan Nasional':[],'Inflasi':[]},
+    'Sejarah':{'Kolonialisme':[],'Pergerakan Nasional':[]},
+    'Geografi':{'Posisi Strategis Indonesia':[],'Mitigasi Bencana':[]},
+    'Sosiologi':{'Kelompok Sosial':[],'Konflik Sosial':[]}
+  },
+  12:{
+    'Matematika Wajib':{'Dimensi Tiga':[{nama:'Video 1: Jarak Titik',link:'https://youtu.be/contoh',premium:false}],'Statistika':[{nama:'Video 1: Mean Median Modus',link:'#',premium:true}],'Peluang':[]},
+    'Matematika Peminatan':{'Limit Fungsi':[],'Turunan':[],'Integral':[]},
+    'Bahasa Indonesia':{'Artikel':[],'Kritik & Esai':[],'Novel':[]},
+    'Bahasa Inggris':{'Application Letter':[],'Caption':[]},
+    'Fisika':{'Listrik Arus Searah':[],'Induksi Magnet':[],'Fisika Modern':[]},
+    'Kimia':{'Sifat Koligatif':[],'Redoks':[],'Kimia Unsur':[]},
+    'Biologi':{'Pertumbuhan':[],'Metabolisme':[],'Hereditas':[]},
+    'Ekonomi':{'Akuntansi':[],'Kerjasama Ekonomi':[]},
+    'Sejarah':{'Orde Lama':[],'Orde Baru':[],'Reformasi':[]},
+    'Geografi':{'Wilayah & Perwilayahan':[],'Desa Kota':[]},
+    'Sosiologi':{'Perubahan Sosial':[],'Globalisasi':[]}
+  }
+};
+
+let state={kelas:0,mapel:'',bab:''};
+
+function init(){
+  const cont=document.getElementById('list-kelas');
+  cont.innerHTML='';
+  for(let i=10;i<=12;i++){
+    cont.innerHTML+=`<div class="col-12"><div class="tombol level-1" onclick="bukaMapel(${i})">Kelas ${i}</div></div>`;
+  }
+}
+init();
+
+function bukaMapel(kelas){
+  state.kelas=kelas;state.mapel='';state.bab='';
+  document.getElementById('bc-mapel').innerText=`SMA > Kelas ${kelas}`;
+  document.getElementById('judul-mapel').innerText=`Kelas ${kelas} - Pilih Mapel`;
+  document.getElementById('progress-mapel').style.width='25%';
+  const cont=document.getElementById('list-mapel');cont.innerHTML='';
+  Object.keys(db[kelas]).forEach(mapel=>{
+    cont.innerHTML+=`<div class="tombol level-2" onclick="bukaBab('${mapel}')">📚 ${mapel}</div>`;
+  });
+  pindah('hal-mapel');
+}
+
+function bukaBab(mapel){
+  state.mapel=mapel;state.bab='';
+  document.getElementById('bc-bab').innerText=`SMA > Kelas ${state.kelas} > ${mapel}`;
+  document.getElementById('judul-bab').innerText=`${mapel} - Pilih Bab`;
+  document.getElementById('progress-bab').style.width='50%';
+  const cont=document.getElementById('list-bab');cont.innerHTML='';
+  const babList=db[state.kelas][mapel];
+  if(Object.keys(babList).length==0){
+    cont.innerHTML=`<div class="text-center text-muted mt-4">Materi ${mapel} nyusul ya 😊</div>`;
+  }else{
+    Object.keys(babList).forEach(bab=>{
+      cont.innerHTML+=`<div class="tombol level-3" onclick="bukaVideo('${bab}')">📖 ${bab}</div>`;
+    });
+  }
+  pindah('hal-bab');
+}
+
+function bukaVideo(bab){
+  state.bab=bab;
+  document.getElementById('bc-video').innerText=`SMA > Kelas ${state.kelas} > ${state.mapel} > ${bab}`;
+  document.getElementById('judul-video').innerText=`${bab} - Pilih Video`;
+  document.getElementById('progress-video').style.width='75%';
+  const cont=document.getElementById('list-video');cont.innerHTML='';
+  const videoList=db[state.kelas][state.mapel][bab];
+  if(videoList.length==0){
+    cont.innerHTML=`<div class="text-center text-muted mt-4">Video ${bab} nyusul ya 😊</div>`;
+  }else{
+    videoList.forEach(v=>{
+      let badge = v.premium? '<span class="badge-premium">PREMIUM</span>' : '';
+      let link = v.premium? '#' : v.link;
+      let onclick = v.premium? 'onclick="alert(\'Upgrade ke Premium dulu Rizky 🔥\')"' : '';
+      cont.innerHTML+=`<a href="${link}" target="_blank" ${onclick} class="tombol level-4"><i class="bi bi-play-circle-fill"></i> ${v.nama} ${badge}</a>`;
+    });
+  }
+  pindah('hal-video');
+}
+
+function pindah(id){
+  document.querySelectorAll('.halaman').forEach(el=>el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');window.scrollTo(0,0);
+}
+
+function balik(level){
+  if(level==1)pindah('hal-kelas');
+  if(level==2)pindah('hal-mapel');
+  if(level==3)pindah('hal-bab');
+}
+</script>
+</body>
+</html>
   </div>
 </body>
 </html>

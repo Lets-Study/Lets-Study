@@ -6,47 +6,25 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <style>
-    body {
-      background-color: #f0f4f8;
-      font-family: Arial, sans-serif;
-      padding-bottom: 80px;
+    body { background-color: #f0f4f8; font-family: Arial, sans-serif; }
+  .navbar { background-color: #004AAD; }
+  .tombol-kelas {
+      background: white; border: 3px solid #004AAD; border-radius: 12px;
+      padding: 20px; margin: 10px 0; text-align: center; color: #004AAD;
+      text-decoration: none; display: block; font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1); cursor: pointer;
     }
-   .navbar { background-color: #004AAD; }
-   .tombol-kelas {
-      background: white;
-      border: 3px solid #004AAD;
-      border-radius: 15px;
-      padding: 25px 15px;
-      margin: 10px 0;
-      text-align: center;
-      color: #004AAD;
-      text-decoration: none;
-      display: block;
-      font-size: 20px;
-      font-weight: bold;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  .tombol-kelas:hover { background: #004AAD; color: #FFC107; }
+  .tombol-mapel {
+      background: #FFC107; border: 2px solid #004AAD; border-radius: 12px;
+      padding: 15px; margin: 8px 0; text-align: center; color: #004AAD;
+      text-decoration: none; display: block; font-weight: bold;
     }
-   .tombol-kelas:hover { background: #004AAD; color: #FFC107; }
-   .tombol-mapel {
-      background: #FFC107;
-      border: 2px solid #004AAD;
-      border-radius: 12px;
-      padding: 15px;
-      margin: 8px 0;
-      text-align: center;
-      color: #004AAD;
-      text-decoration: none;
-      display: block;
-      font-weight: bold;
-    }
-   .tombol-mapel:hover { background: #004AAD; color: white; }
-   .halaman { display: none; }
-   .halaman.active { display: block; }
+  .halaman { display: none; }
+  .halaman.active { display: block; }
   </style>
 </head>
 <body>
-
-  <!-- NAVBAR ATAS -->
   <nav class="navbar p-3">
     <div class="container-fluid">
       <a href="home.html" class="text-white" style="text-decoration:none; font-size:24px;">
@@ -62,7 +40,7 @@
   <!-- HALAMAN 1: PILIH KELAS -->
   <div id="pilih-kelas" class="halaman active">
     <div class="container mt-4">
-      <h3 class="fw-bold text-center mb-4" style="color:#004AAD;">Pilih Kelas Kamu 👇</h3>
+      <h4 class="fw-bold text-center mb-4" style="color:#004AAD;">Pilih Kelas 👇</h4>
       <div class="row">
         <div class="col-6"><div class="tombol-kelas" onclick="bukaKelas(1)">Kelas 1</div></div>
         <div class="col-6"><div class="tombol-kelas" onclick="bukaKelas(2)">Kelas 2</div></div>
@@ -77,21 +55,16 @@
   <!-- HALAMAN 2: PILIH MAPEL -->
   <div id="pilih-mapel" class="halaman">
     <div class="container mt-4">
-      <h3 class="fw-bold text-center mb-1" style="color:#004AAD;" id="judul-kelas">Kelas 1 SD</h3>
+      <h4 class="fw-bold text-center" id="judul-kelas" style="color:#004AAD;">Kelas 1</h4>
       <p class="text-center text-muted mb-4">Pilih mata pelajaran</p>
-
-      <div id="daftar-mapel">
-        <!-- Mapel diisi otomatis sama JS -->
-      </div>
-
-      <button class="btn mt-3 w-100" style="background:#004AAD; color:white;" onclick="kembaliKeKelas()">
-        <i class="bi bi-arrow-left"></i> Ganti Kelas
+      <div id="daftar-mapel"></div>
+      <button class="btn w-100 mt-3" style="background:#004AAD; color:white;" onclick="tutupMapel()">
+        <i class="bi bi-arrow-left"></i> Pilih Kelas Lain
       </button>
     </div>
   </div>
 
 <script>
-// DATA MAPEL PER KELAS - TINGGAL EDIT INI AJA
 const dataMapel = {
   1: ['Matematika', 'Bahasa Indonesia', 'IPA', 'IPS', 'Pendidikan Pancasila'],
   2: ['Matematika', 'Bahasa Indonesia', 'IPA', 'IPS', 'Pendidikan Pancasila'],
@@ -102,33 +75,21 @@ const dataMapel = {
 };
 
 function bukaKelas(kelas) {
-  // Ganti judul
   document.getElementById('judul-kelas').innerText = 'Kelas ' + kelas + ' SD';
-
-  // Isi daftar mapel
   const container = document.getElementById('daftar-mapel');
   container.innerHTML = '';
   dataMapel[kelas].forEach(mapel => {
-    container.innerHTML += `
-      <a href="#" class="tombol-mapel">
-        📚 ${mapel}
-      </a>
-    `;
+    container.innerHTML += `<a href="#" class="tombol-mapel">📚 ${mapel}</a>`;
   });
-
-  // Pindah halaman
   document.getElementById('pilih-kelas').classList.remove('active');
   document.getElementById('pilih-mapel').classList.add('active');
 }
 
-function kembaliKeKelas() {
+function tutupMapel() {
   document.getElementById('pilih-mapel').classList.remove('active');
   document.getElementById('pilih-kelas').classList.add('active');
 }
 </script>
 
-</body>
-</html>
-  </div>
 </body>
 </html>

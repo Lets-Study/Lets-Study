@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - LS Academy</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: 'Segoe UI', Arial, sans-serif; 
+      background: #0f172a; 
+      color: white; 
+      display: flex; 
+      min-height: 100vh; 
+      align-items: center; 
+      justify-content: center; 
+    }
+    .box { 
+      background: #1e293b; 
+      padding: 40px; 
+      border-radius: 12px; 
+      width: 100%; 
+      max-width: 380px; 
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
+    }
+    h2 { text-align: center; margin-bottom: 30px; font-size: 24px; }
+    input { 
+      width: 100%; 
+      padding: 14px; 
+      margin: 10px 0; 
+      border: 1px solid #334155; 
+      border-radius: 8px; 
+      background: #334155; 
+      color: white; 
+      font-size: 16px;
+    }
+    input:focus { outline: 2px solid #3b82f6; }
+    button { 
+      width: 100%; 
+      padding: 14px; 
+      background: #3b82f6; 
+      color: white; 
+      border: none; 
+      border-radius: 8px; 
+      font-weight: bold; 
+      font-size: 16px;
+      cursor: pointer; 
+      margin-top: 15px; 
+    }
+    button:hover { background: #2563eb; }
+    .link { text-align: center; margin-top: 20px; font-size: 14px; }
+    a { color: #3b82f6; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    #error { color: #ef4444; text-align: center; margin-top: 15px; font-size: 14px; min-height: 20px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Login LS Academy</h2>
+    <input type="email" id="email" placeholder="Email" autocomplete="email" />
+    <input type="password" id="password" placeholder="Password" autocomplete="current-password" />
+    <button onclick="login()">Masuk</button>
+    <div id="error"></div>
+    <div class="link">Belum punya akun? <a href="register.html">Daftar di sini</a></div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAT4N5L04XLIktGq5mYvEqv7SiDE6uPS08",
+      authDomain: "ls-academy-27d8c.firebaseapp.com",
+      projectId: "ls-academy-27d8c",
+      storageBucket: "ls-academy-27d8c.firebasestorage.app",
+      messagingSenderId: "188990388320",
+      appId: "1:188990388320:web:96a2c34af41c8b1632ab05"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) window.location.href = "home.html";
+    });
+
+    window.login = function() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const errorDiv = document.getElementById('error');
+      errorDiv.textContent = "";
+      
+      if(!email || !password) {
+        errorDiv.textContent = "Email dan password wajib diisi";
+        return;
+      }
+      
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          window.location.href = "home.html";
+        })
+        .catch((error) => {
+          errorDiv.textContent = "Email atau password salah";
+        });
+    }
+
+    document.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') login();
+    });
+  </script>
+</body>
+</html>

@@ -14,7 +14,6 @@
 .level-2{border-color:#FFC107;background:#FFC107;color:#000}
 .level-3{border-color:#2E7D32;background:#E8F5E9;color:#2E7D32}
 .level-4{border-color:#C62828;background:#FFEBEE;color:#C62828}
-.badge-premium{background:gold;color:#000;font-size:10px;padding:2px 6px;border-radius:6px;margin-left:5px}
 .halaman{display:none}
 .halaman.active{display:block}
 .breadcrumb{font-size:14px;color:#666}
@@ -26,7 +25,7 @@
     <div class="container-fluid">
       <a href="index.html" class="text-white" style="text-decoration:none;font-size:24px"><i class="bi bi-arrow-left"></i></a>
       <span class="navbar-brand mb-0 h1 text-white">Ruang Belajar SD</span>
-      <a href="pricing.html" class="btn btn-warning btn-sm"><i class="bi bi-star-fill"></i> Premium</a>
+      <div style="width:24px"></div>
     </div>
   </nav>
 
@@ -64,8 +63,8 @@
       <div class="progress mb-3"><div class="progress-bar" id="progress-video" style="width:75%"></div></div>
       <div id="list-video"></div>
       <div class="mt-4 p-3 bg-white rounded shadow-sm">
-        <h6><i class="bi bi-patch-question"></i> Kuis Bab Ini</h6>
-        <button class="btn btn-success w-100" onclick="alert('Fitur Kuis nyusul ya Rizky 🔥')"><i class="bi bi-play-fill"></i> Mulai Kuis</button>
+        <h6><i class="bi bi-patch-question"></i> Latihan Soal</h6>
+        <button class="btn btn-success w-100" onclick="alert('Fitur Latihan Soal nyusul ya 😊')"><i class="bi bi-play-fill"></i> Mulai Latihan</button>
       </div>
       <button class="btn w-100 mt-3" style="background:#004AAD;color:white" onclick="balik(3)"><i class="bi bi-arrow-left"></i> Pilih Bab Lain</button>
     </div>
@@ -74,38 +73,43 @@
 <script>
 const db={
   1:{
-    'Matematika':{'Bilangan 1-10':[{nama:'Video 1: Mengenal Angka',link:'https://youtu.be/contoh',premium:false}],'Penjumlahan':[{nama:'Video 1: Tambah Sederhana',link:'#',premium:true}]},
-    'Bahasa Indonesia':{'Membaca Permulaan':[],'Menulis Huruf':[]},
-    'IPAS':{'Tubuhku':[],'Hewan di Sekitarku':[]}
+    'Matematika':{'Bilangan 1-10':[{nama:'Video 1: Mengenal Angka',link:'https://youtu.be/contoh'}],'Penjumlahan':[{nama:'Video 1: Tambah Sederhana',link:'https://youtu.be/contoh'}],'Pengurangan':[]},
+    'Bahasa Indonesia':{'Membaca Permulaan':[],'Menulis Huruf':[],'Cerita Pendek':[]},
+    'IPAS':{'Tubuhku':[],'Hewan di Sekitarku':[],'Tumbuhan':[]},
+    'PPKn':{'Simbol Pancasila':[],'Aturan di Rumah':[]}
   },
   2:{
-    'Matematika':{'Bilangan 11-100':[{nama:'Video 1: Puluhan',link:'https://youtu.be/contoh',premium:false}],'Perkalian':[{nama:'Video 1: Konsep Kali',link:'#',premium:true}]},
-    'Bahasa Indonesia':{'Membaca Lancar':[],'Menulis Cerita':[]},
-    'IPAS':{'Bagian Tumbuhan':[],'Energi dan Perubahannya':[]}
+    'Matematika':{'Bilangan 11-100':[{nama:'Video 1: Puluhan',link:'https://youtu.be/contoh'}],'Perkalian':[{nama:'Video 1: Konsep Kali',link:'https://youtu.be/contoh'}],'Pembagian':[]},
+    'Bahasa Indonesia':{'Membaca Lancar':[],'Menulis Cerita':[],'Puisi Anak':[]},
+    'IPAS':{'Bagian Tumbuhan':[],'Energi dan Perubahannya':[],'Cuaca':[]},
+    'PPKn':{'Hak dan Kewajiban':[],'Kerja Sama':[]}
   },
   3:{
-    'Matematika':{'Bilangan 100-1000':[{nama:'Video 1: Ratusan',link:'https://youtu.be/contoh',premium:false}],'Pembagian':[{nama:'Video 1: Konsep Bagi',link:'#',premium:true}]},
-    'Bahasa Indonesia':{'Puisi Anak':[],'Dongeng':[]},
-    'IPAS':{'Makhluk Hidup':[],'Benda dan Sifatnya':[]}
+    'Matematika':{'Bilangan 100-1000':[{nama:'Video 1: Ratusan',link:'https://youtu.be/contoh'}],'Pecahan Sederhana':[{nama:'Video 1: Setengah Seperempat',link:'https://youtu.be/contoh'}],'Bangun Datar':[]},
+    'Bahasa Indonesia':{'Dongeng':[],'Surat Pribadi':[],'Informasi Media':[]},
+    'IPAS':{'Makhluk Hidup':[],'Benda dan Sifatnya':[],'Perubahan Wujud':[]},
+    'PPKn':{'Keberagaman':[],'Musyawarah':[]}
   },
   4:{
-    'Matematika':{'Pecahan':[{nama:'Video 1: Pecahan Biasa',link:'https://youtu.be/contoh',premium:false}],'Keliling & Luas':[{nama:'Video 1: Persegi',link:'#',premium:true}]},
-    'Bahasa Indonesia':{'Teks Deskripsi':[],'Surat Pribadi':[]},
-    'IPAS':{'Gaya dan Gerak':[],'Siklus Air':[]},
-    'IPAS':{'Wujud Zat':[]},
-    'IPS':{'Keragaman Budaya':[]}
+    'Matematika':{'Pecahan':[{nama:'Video 1: Pecahan Biasa',link:'https://youtu.be/contoh'}],'Keliling & Luas':[{nama:'Video 1: Persegi',link:'https://youtu.be/contoh'}],'Sudut':[]},
+    'Bahasa Indonesia':{'Teks Deskripsi':[],'Surat Pribadi':[],'Puisi':[]},
+    'IPAS':{'Gaya dan Gerak':[],'Siklus Air':[],'Wujud Zat':[]},
+    'IPS':{'Keragaman Budaya':[],'Kegiatan Ekonomi':[]},
+    'PPKn':{'Hak dan Kewajiban Warga':[],'Peraturan di Sekolah':[]}
   },
   5:{
-    'Matematika':{'Pecahan Desimal':[{nama:'Video 1: Desimal',link:'https://youtu.be/contoh',premium:false}],'Volume':[{nama:'Video 1: Kubus Balok',link:'#',premium:true}]},
-    'Bahasa Indonesia':{'Teks Narasi':[],'Pidato':[]},
-    'IPAS':{'Sistem Pernapasan':[],'Ekosistem':[]},
-    'IPS':{'Kerajaan Hindu-Buddha':[]}
+    'Matematika':{'Pecahan Desimal':[{nama:'Video 1: Desimal',link:'https://youtu.be/contoh'}],'Volume':[{nama:'Video 1: Kubus Balok',link:'https://youtu.be/contoh'}],'Kecepatan':[]},
+    'Bahasa Indonesia':{'Teks Narasi':[],'Pidato':[],'Pantun':[]},
+    'IPAS':{'Sistem Pernapasan':[],'Ekosistem':[],'Rantai Makanan':[]},
+    'IPS':{'Kerajaan Hindu-Buddha':[],'Kerajaan Islam':[],'Peninggalan Sejarah':[]},
+    'PPKn':{'Sistem Pemerintahan':[],'Keutuhan NKRI':[]}
   },
   6:{
-    'Matematika':{'Bilangan Bulat':[{nama:'Video 1: Negatif Positif',link:'https://youtu.be/contoh',premium:false}],'Lingkaran':[{nama:'Video 1: Keliling Lingkaran',link:'#',premium:true}]},
-    'Bahasa Indonesia':{'Teks Eksplanasi':[],'Iklan':[]},
-    'IPAS':{'Tata Surya':[],'Listrik':[]},
-    'IPS':{'Peran Indonesia di Dunia':[]}
+    'Matematika':{'Bilangan Bulat':[{nama:'Video 1: Negatif Positif',link:'https://youtu.be/contoh'}],'Lingkaran':[{nama:'Video 1: Keliling Lingkaran',link:'https://youtu.be/contoh'}],'Statistika':[]},
+    'Bahasa Indonesia':{'Teks Eksplanasi':[],'Iklan':[],'Drama':[]},
+    'IPAS':{'Tata Surya':[],'Listrik':[],'Magnet':[]},
+    'IPS':{'Peran Indonesia di Dunia':[],'Globalisasi':[],'Interaksi ASEAN':[]},
+    'PPKn':{'Perumusan Pancasila':[],'UUD 1945':[]}
   }
 };
 
@@ -160,10 +164,7 @@ function bukaVideo(bab){
     cont.innerHTML=`<div class="text-center text-muted mt-4">Video ${bab} nyusul ya 😊</div>`;
   }else{
     videoList.forEach(v=>{
-      let badge = v.premium? '<span class="badge-premium">PREMIUM</span>' : '';
-      let link = v.premium? '#' : v.link;
-      let onclick = v.premium? 'onclick="alert(\'Upgrade ke Premium dulu Rizky 🔥\')"' : '';
-      cont.innerHTML+=`<a href="${link}" target="_blank" ${onclick} class="tombol level-4"><i class="bi bi-play-circle-fill"></i> ${v.nama} ${badge}</a>`;
+      cont.innerHTML+=`<a href="${v.link}" target="_blank" class="tombol level-4"><i class="bi bi-play-circle-fill"></i> ${v.nama}</a>`;
     });
   }
   pindah('hal-video');
@@ -171,7 +172,14 @@ function bukaVideo(bab){
 
 function pindah(id){
   document.querySelectorAll('.halaman').forEach(el=>el.classList.remove('active'));
-  document.getElementById(id).classList.add('active');window.scrollTo(0,0);
+  document.getElementById(id).classList.add('active');
+
+  // FIX BUG WA GAK MAU NAIK KE ATAS
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }, 10);
 }
 
 function balik(level){

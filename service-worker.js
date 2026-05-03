@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ls-academy-v5';
+const CACHE_NAME = 'ls-academy-v6';
 const urlsToCache = [
   '/',
   '/index.html'

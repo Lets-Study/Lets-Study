@@ -7,18 +7,17 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <style>
     body{background-color:#f0f4f8;font-family:Arial,sans-serif}
- .navbar{background-color:#004AAD}
- .tombol{background:white;border:3px solid #004AAD;border-radius:12px;padding:15px;margin:8px 0;text-align:left;color:#004AAD;text-decoration:none;display:block;font-weight:bold;box-shadow:0 4px 15px rgba(0,0,0,0.1);cursor:pointer}
- .tombol:hover{background:#004AAD;color:white}
- .level-1{border-color:#004AAD}
- .level-2{border-color:#FFC107;background:#FFC107;color:#000}
- .level-3{border-color:#2E7D32;background:#E8F5E9;color:#2E7D32}
- .level-4{border-color:#C62828;background:#FFEBEE;color:#C62828}
- .badge-premium{background:gold;color:#000;font-size:10px;padding:2px 6px;border-radius:6px;margin-left:5px}
- .halaman{display:none}
- .halaman.active{display:block}
- .breadcrumb{font-size:14px;color:#666}
- .progress{height:8px}
+.navbar{background-color:#004AAD}
+.tombol{background:white;border:3px solid #004AAD;border-radius:12px;padding:15px;margin:8px 0;text-align:left;color:#004AAD;text-decoration:none;display:block;font-weight:bold;box-shadow:0 4px 15px rgba(0,0,0,0.1);cursor:pointer}
+.tombol:hover{background:#004AAD;color:white}
+.level-1{border-color:#004AAD}
+.level-2{border-color:#FFC107;background:#FFC107;color:#000}
+.level-3{border-color:#2E7D32;background:#E8F5E9;color:#2E7D32}
+.level-4{border-color:#C62828;background:#FFEBEE;color:#C62828}
+.halaman{display:none}
+.halaman.active{display:block}
+.breadcrumb{font-size:14px;color:#666}
+.progress{height:8px}
   </style>
 </head>
 <body>
@@ -26,7 +25,7 @@
     <div class="container-fluid">
       <a href="index.html" class="text-white" style="text-decoration:none;font-size:24px"><i class="bi bi-arrow-left"></i></a>
       <span class="navbar-brand mb-0 h1 text-white">Ruang Belajar SMP</span>
-      <a href="pricing.html" class="btn btn-warning btn-sm"><i class="bi bi-star-fill"></i> Premium</a>
+      <div style="width:24px"></div>
     </div>
   </nav>
 
@@ -64,8 +63,8 @@
       <div class="progress mb-3"><div class="progress-bar" id="progress-video" style="width:75%"></div></div>
       <div id="list-video"></div>
       <div class="mt-4 p-3 bg-white rounded shadow-sm">
-        <h6><i class="bi bi-patch-question"></i> Kuis Bab Ini</h6>
-        <button class="btn btn-success w-100" onclick="alert('Fitur Kuis nyusul ya Rizky 🔥')"><i class="bi bi-play-fill"></i> Mulai Kuis</button>
+        <h6><i class="bi bi-patch-question"></i> Latihan Soal</h6>
+        <button class="btn btn-success w-100" onclick="alert('Fitur Latihan Soal nyusul ya 😊')"><i class="bi bi-play-fill"></i> Mulai Latihan</button>
       </div>
       <button class="btn w-100 mt-3" style="background:#004AAD;color:white" onclick="balik(3)"><i class="bi bi-arrow-left"></i> Pilih Bab Lain</button>
     </div>
@@ -74,7 +73,7 @@
 <script>
 const db={
   7:{
-    'Matematika':{'Bilangan Bulat':[{nama:'Video 1: Pengenalan',link:'https://youtu.be/contoh',premium:false}],'Himpunan':[{nama:'Video 1: Himpunan',link:'#',premium:true}],'Aljabar':[],'Persamaan Linear':[]},
+    'Matematika':{'Bilangan Bulat':[{nama:'Video 1: Pengenalan',link:'https://youtu.be/contoh'}],'Himpunan':[{nama:'Video 1: Himpunan',link:'https://youtu.be/contoh'}],'Aljabar':[],'Persamaan Linear':[]},
     'Bahasa Indonesia':{'Teks Deskripsi':[],'Teks Narasi':[],'Surat Pribadi & Dinas':[]},
     'Bahasa Inggris':{'Greetings':[],'Self Introduction':[]},
     'IPA':{'Objek IPA & Pengamatan':[],'Klasifikasi Makhluk Hidup':[],'Zat dan Perubahannya':[]},
@@ -82,7 +81,7 @@ const db={
     'PPKn':{'Perumusan Pancasila':[],'Norma dalam Masyarakat':[]}
   },
   8:{
-    'Matematika':{'Pola Bilangan':[{nama:'Video 1: Pola Bilangan',link:'https://youtu.be/contoh',premium:false}],'Relasi dan Fungsi':[{nama:'Video 1: Relasi',link:'#',premium:true}],'Persamaan Garis Lurus':[],'Teorema Pythagoras':[]},
+    'Matematika':{'Pola Bilangan':[{nama:'Video 1: Pola Bilangan',link:'https://youtu.be/contoh'}],'Relasi dan Fungsi':[{nama:'Video 1: Relasi',link:'https://youtu.be/contoh'}],'Persamaan Garis Lurus':[],'Teorema Pythagoras':[]},
     'Bahasa Indonesia':{'Teks Berita':[],'Iklan, Slogan, Poster':[],'Teks Eksposisi':[]},
     'Bahasa Inggris':{'Showing Obligation':[],'Descriptive Text':[]},
     'IPA':{'Gerak Benda & Makhluk Hidup':[],'Usaha dan Pesawat Sederhana':[],'Struktur Tumbuhan':[]},
@@ -90,7 +89,7 @@ const db={
     'PPKn':{'Kedudukan Pancasila':[],'UUD 1945':[]}
   },
   9:{
-    'Matematika':{'Perpangkatan & Bentuk Akar':[{nama:'Video 1: Pangkat',link:'https://youtu.be/contoh',premium:false}],'Persamaan Kuadrat':[{nama:'Video 1: Rumus ABC',link:'#',premium:true}],'Fungsi Kuadrat':[],'Transformasi':[]},
+    'Matematika':{'Perpangkatan & Bentuk Akar':[{nama:'Video 1: Pangkat',link:'https://youtu.be/contoh'}],'Persamaan Kuadrat':[{nama:'Video 1: Rumus ABC',link:'https://youtu.be/contoh'}],'Fungsi Kuadrat':[],'Transformasi':[]},
     'Bahasa Indonesia':{'Teks Diskusi':[],'Teks Cerita Inspiratif':[],'Teks Tanggapan':[]},
     'Bahasa Inggris':{'Report Text':[],'Procedure Text':[]},
     'IPA':{'Sistem Reproduksi Manusia':[],'Pewarisan Sifat':[],'Listrik Statis':[],'Kemagnetan':[]},
@@ -150,10 +149,7 @@ function bukaVideo(bab){
     cont.innerHTML=`<div class="text-center text-muted mt-4">Video ${bab} nyusul ya 😊</div>`;
   }else{
     videoList.forEach(v=>{
-      let badge = v.premium? '<span class="badge-premium">PREMIUM</span>' : '';
-      let link = v.premium? '#' : v.link;
-      let onclick = v.premium? 'onclick="alert(\'Upgrade ke Premium dulu Rizky 🔥\')"' : '';
-      cont.innerHTML+=`<a href="${link}" target="_blank" ${onclick} class="tombol level-4"><i class="bi bi-play-circle-fill"></i> ${v.nama} ${badge}</a>`;
+      cont.innerHTML+=`<a href="${v.link}" target="_blank" class="tombol level-4"><i class="bi bi-play-circle-fill"></i> ${v.nama}</a>`;
     });
   }
   pindah('hal-video');
@@ -161,7 +157,14 @@ function bukaVideo(bab){
 
 function pindah(id){
   document.querySelectorAll('.halaman').forEach(el=>el.classList.remove('active'));
-  document.getElementById(id).classList.add('active');window.scrollTo(0,0);
+  document.getElementById(id).classList.add('active');
+
+  // FIX BUG WA GAK MAU NAIK KE ATAS
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }, 10);
 }
 
 function balik(level){

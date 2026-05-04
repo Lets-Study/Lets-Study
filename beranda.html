@@ -12,10 +12,6 @@
    font-family: Arial, sans-serif;
    padding-bottom: 80px;
  }
- /* KALO BUKAN PROFIL, KASIH PADDING BUAT NAVBAR */
- body:not(.profil-active) {
-   padding-top: 65px;
- }
 .navbar {
    background-color: #004AAD;
    position: fixed;
@@ -23,11 +19,13 @@
    width: 100%;
    z-index: 1030;
    height: 65px;
-   transition: all 0.3s;
+   transition: transform 0.3s;
  }
- /* NAVBAR HILANG PAS BUKA PROFIL */
  body.profil-active.navbar {
    transform: translateY(-100%);
+ }
+ #belajar, #berita, #les {
+   padding-top: 75px;
  }
 .header-profil{
    background:linear-gradient(135deg,#004AAD,#0056d6);
@@ -194,6 +192,7 @@
         <div class="info-akun">ID: LS202600123</div>
       </div>
     </div>
+  </div>
   <div class="container">
     <div class="section-title">Akun Saya</div>
     <div class="menu-box">
@@ -307,7 +306,6 @@ function openTab(tabName, el) {
   document.getElementById(tabName).classList.add('active');
   el.classList.add('active');
 
-  // KUNCI: KALO BUKA PROFIL, SEMBUNYIIN NAVBAR ATAS
   if(tabName === 'profil') {
     document.body.classList.add('profil-active');
   } else {
@@ -440,7 +438,6 @@ function tampilkanGuru(list = dataGuru){
               ${renderBintang(guru.rating)} <b>${guru.rating}</b> <span class="text-muted" style="font-size:12px">(${guru.jumlahSiswa} siswa)</span>
             </div>
           </div>
-        </div>
         <div class="d-flex justify-content-between align-items-center mt-2">
           <div>
             <div class="guru-harga">${guru.harga}</div>

@@ -1,36 +1,67 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
   <meta charset="UTF-8">
+  <title>LS Academy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LS Academy - Masuk</title>
-  <meta http-equiv="refresh" content="0; url=login.html">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #004AAD;
+      background: #0f172a;
       color: white;
+      font-family: Arial, sans-serif;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
       margin: 0;
+    }
+    .loader {
       text-align: center;
     }
-    .loading {
-      font-size: 18px;
+    .spinner {
+      border: 4px solid #334155;
+      border-top: 4px solid #3b82f6;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <div class="loading">
-    <p>Mengarahkan ke LS Academy...</p>
-    <p><a href="login.html" style="color:#FFC107;">Klik disini jika tidak otomatis</a></p>
+  <div class="loader">
+    <div class="spinner"></div>
+    <p>Memuat LS Academy...</p>
   </div>
-  
-  <script>
-    // Langsung lempar ke login.html
-    window.location.href = "login.html";
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAT4N5L04XLIktGq5mYvEqv7SiDE6uPS08",
+      authDomain: "ls-academy-27d8c.firebaseapp.com",
+      projectId: "ls-academy-27d8c",
+      storageBucket: "ls-academy-27d8c.firebasestorage.app",
+      messagingSenderId: "188990388320",
+      appId: "1:188990388320:web:96a2c34af41c8b1632ab05"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        window.location.replace("beranda.html");
+      } else {
+        window.location.replace("login.html");
+      }
+    });
   </script>
 </body>
 </html>

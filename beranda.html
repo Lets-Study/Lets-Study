@@ -11,6 +11,9 @@
    background-color: #f0f4f8;
    font-family: Arial, sans-serif;
    padding-bottom: 80px;
+ }
+ /* KALO BUKAN PROFIL, KASIH PADDING BUAT NAVBAR */
+ body:not(.profil-active) {
    padding-top: 65px;
  }
 .navbar {
@@ -20,12 +23,29 @@
    width: 100%;
    z-index: 1030;
    height: 65px;
+   transition: all 0.3s;
+ }
+ /* NAVBAR HILANG PAS BUKA PROFIL */
+ body.profil-active.navbar {
+   transform: translateY(-100%);
  }
 .header-profil{
    background:linear-gradient(135deg,#004AAD,#0056d6);
    padding:20px 15px 25px 15px;
    color:white;
-   margin-top: 0;
+   position: relative;
+ }
+.btn-logout-profil {
+   position: absolute;
+   top: 15px;
+   right: 15px;
+   background:#FFC107;
+   color:#004AAD;
+   font-weight:bold;
+   border: none;
+   padding: 5px 12px;
+   border-radius: 6px;
+   font-size: 12px;
  }
 .foto-profil{width:70px;height:70px;border-radius:50%;border:3px solid white;object-fit:cover}
 .badge-level{background:#FFC107;color:#000;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:bold}
@@ -94,7 +114,6 @@
       <span class="navbar-brand mb-0 h1 text-white">
         <img src="icon-192.png" width="30" class="me-2"> LS Academy
       </span>
-      <button onclick="logout()" class="btn btn-sm" style="background:#FFC107; color:#004AAD; font-weight:bold;">Logout</button>
     </div>
   </nav>
 
@@ -159,6 +178,7 @@
 
 <div id="profil" class="tab-content">
   <div class="header-profil">
+    <button onclick="logout()" class="btn-logout-profil">Logout</button>
     <div class="d-flex align-items-center">
       <div style="position:relative">
         <img src="icon-192.png" class="foto-profil me-3" id="fotoUser" alt="Foto">
@@ -174,7 +194,6 @@
         <div class="info-akun">ID: LS202600123</div>
       </div>
     </div>
-  </div>
   <div class="container">
     <div class="section-title">Akun Saya</div>
     <div class="menu-box">
@@ -262,7 +281,7 @@
 
   onAuthStateChanged(auth, (user) => {
     if (!user) {
-      window.location.href = "login.html";
+      window.location.replace("login.html");
     } else {
       document.getElementById('emailUser').textContent = user.email;
       const nama = localStorage.getItem('namaUser') || user.displayName || 'Murid LS Academy';
@@ -273,7 +292,7 @@
   window.logout = function() {
     signOut(auth).then(() => {
       localStorage.clear();
-      window.location.href = "login.html";
+      window.location.replace("login.html");
     });
   }
 </script>
@@ -287,6 +306,13 @@ function openTab(tabName, el) {
   });
   document.getElementById(tabName).classList.add('active');
   el.classList.add('active');
+
+  // KUNCI: KALO BUKA PROFIL, SEMBUNYIIN NAVBAR ATAS
+  if(tabName === 'profil') {
+    document.body.classList.add('profil-active');
+  } else {
+    document.body.classList.remove('profil-active');
+  }
 
   if(tabName === 'berita') {
     loadBerita('all', document.getElementById('btn-all'));
@@ -414,6 +440,7 @@ function tampilkanGuru(list = dataGuru){
               ${renderBintang(guru.rating)} <b>${guru.rating}</b> <span class="text-muted" style="font-size:12px">(${guru.jumlahSiswa} siswa)</span>
             </div>
           </div>
+        </div>
         <div class="d-flex justify-content-between align-items-center mt-2">
           <div>
             <div class="guru-harga">${guru.harga}</div>

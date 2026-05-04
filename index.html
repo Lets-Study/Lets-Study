@@ -6,38 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      background: #0f172a;
-      color: white;
-      font-family: Arial, sans-serif;
+      background: white;
+      margin: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      margin: 0;
+      flex-direction: column;
     }
-    .loader {
-      text-align: center;
+    .splash-logo {
+      width: 200px;
+      height: auto;
+      animation: fadeIn 1s ease-in;
     }
-    .spinner {
-      border: 4px solid #334155;
-      border-top: 4px solid #3b82f6;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 20px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .loading-text {
+      margin-top: 20px;
+      color: #004AAD;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div class="loader">
-    <div class="spinner"></div>
-    <p>Memuat LS Academy...</p>
-  </div>
+  <img src="capybara-ls.png" alt="Let's Study" class="splash-logo">
+  <div class="loading-text">Memuat...</div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -55,13 +51,16 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        window.location.replace("beranda.html");
-      } else {
-        window.location.replace("login.html");
-      }
-    });
+    // KASIH DELAY 2 DETIK BIAR LOGO KEBACA DULU
+    setTimeout(() => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          window.location.replace("beranda.html");
+        } else {
+          window.location.replace("login.html");
+        }
+      });
+    }, 2000);
   </script>
 </body>
 </html>

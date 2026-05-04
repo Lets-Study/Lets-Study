@@ -21,7 +21,6 @@
    height: 65px;
    transition: transform 0.3s;
  }
- /* YANG DIBENERIN CUMA BARIS INI 👇 */
  body.profil-active.navbar {
    transform: translateY(-100%);
  }
@@ -156,68 +155,68 @@
     </div>
   </div>
 
-<div id="les" class="tab-content">
-  <div class="container mt-3">
-    <h3 class="fw-bold mb-3" style="color:#004AAD;">👨‍🏫 Pilih Guru Favoritmu</h3>
-    <p class="text-muted">Guru berpengalaman sesuai mata pelajaran. Rating dari siswa lain.</p>
-    <div class="mb-4">
-      <select class="form-select" id="filterMapel" onchange="filterGuru()" style="border:2px solid #004AAD;border-radius:10px">
-        <option value="all">Semua Mata Pelajaran</option>
-        <option value="Matematika">Matematika</option>
-        <option value="Fisika">Fisika</option>
-        <option value="Kimia">Kimia</option>
-        <option value="Biologi">Biologi</option>
-        <option value="B.Indonesia">B. Indonesia</option>
-        <option value="B.Inggris">B. Inggris</option>
-      </select>
+  <div id="les" class="tab-content">
+    <div class="container mt-3">
+      <h3 class="fw-bold mb-3" style="color:#004AAD;">👨‍🏫 Pilih Guru Favoritmu</h3>
+      <p class="text-muted">Guru berpengalaman sesuai mata pelajaran. Rating dari siswa lain.</p>
+      <div class="mb-4">
+        <select class="form-select" id="filterMapel" onchange="filterGuru()" style="border:2px solid #004AAD;border-radius:10px">
+          <option value="all">Semua Mata Pelajaran</option>
+          <option value="Matematika">Matematika</option>
+          <option value="Fisika">Fisika</option>
+          <option value="Kimia">Kimia</option>
+          <option value="Biologi">Biologi</option>
+          <option value="B.Indonesia">B. Indonesia</option>
+          <option value="B.Inggris">B. Inggris</option>
+        </select>
+      </div>
+      <div id="listGuru" class="mb-3"></div>
     </div>
-    <div id="listGuru" class="mb-3"></div>
   </div>
-</div>
 
-<div id="profil" class="tab-content">
-  <div class="header-profil">
-    <button onclick="logout()" class="btn-logout-profil">Logout</button>
-    <div class="d-flex align-items-center">
-      <div style="position:relative">
-        <img src="icon-192.png" class="foto-profil me-3" id="fotoUser" alt="Foto">
-        <button class="btn-edit-foto" onclick="gantiFoto()"><i class="bi bi-camera-fill"></i></button>
-        <input type="file" id="inputFoto" style="display:none" accept="image/*">
-      </div>
-      <div>
-        <div class="d-flex align-items-center">
-          <h5 class="mb-0 me-2" id="namaUser">Murid LS Academy</h5>
-          <span class="badge-level">Gold <i class="bi bi-chevron-right"></i></span>
+  <div id="profil" class="tab-content">
+    <div class="header-profil">
+      <button onclick="logout()" class="btn-logout-profil">Logout</button>
+      <div class="d-flex align-items-center">
+        <div style="position:relative">
+          <img src="icon-192.png" class="foto-profil me-3" id="fotoUser" alt="Foto">
+          <button class="btn-edit-foto" onclick="gantiFoto()"><i class="bi bi-camera-fill"></i></button>
+          <input type="file" id="inputFoto" style="display:none" accept="image/*">
         </div>
-        <div class="info-akun" id="emailUser">Loading...</div>
-        <div class="info-akun">ID: LS202600123</div>
+        <div>
+          <div class="d-flex align-items-center">
+            <h5 class="mb-0 me-2" id="namaUser">Murid LS Academy</h5>
+            <span class="badge-level">Gold <i class="bi bi-chevron-right"></i></span>
+          </div>
+          <div class="info-akun" id="emailUser">Loading...</div>
+          <div class="info-akun">ID: LS202600123</div>
+        </div>
       </div>
-    </div>
-  <div class="container">
-    <div class="section-title">Akun Saya</div>
-    <div class="menu-box">
-      <a href="#" class="menu-list-item" onclick="editProfil()">
-        <div class="d-flex align-items-center"><i class="bi bi-person-fill"></i><span>Edit Profil</span></div>
-        <i class="bi bi-chevron-right text-muted"></i>
-      </a>
-      <a href="#" class="menu-list-item">
-        <div class="d-flex align-items-center"><i class="bi bi-shield-lock-fill"></i><span>Keamanan & Kata Sandi</span></div>
-        <i class="bi bi-chevron-right text-muted"></i>
-      </a>
-    </div>
-    <div class="section-title">Pengaturan</div>
-    <div class="menu-box mb-3">
-      <a href="#" class="menu-list-item">
-        <div class="d-flex align-items-center"><i class="bi bi-translate"></i><span>Bahasa</span></div>
-        <div class="text-muted" style="font-size:13px">Indonesia <i class="bi bi-chevron-right"></i></div>
-      </a>
-      <a href="#" class="menu-list-item" onclick="showTentang()">
-        <div class="d-flex align-items-center"><i class="bi bi-info-circle-fill"></i><span>Tentang LS Academy</span></div>
-        <div class="text-muted" style="font-size:13px">v1.0.0 <i class="bi bi-chevron-right"></i></div>
-      </a>
+    <div class="container">
+      <div class="section-title">Akun Saya</div>
+      <div class="menu-box">
+        <a href="#" class="menu-list-item" onclick="editProfil()">
+          <div class="d-flex align-items-center"><i class="bi bi-person-fill"></i><span>Edit Profil</span></div>
+          <i class="bi bi-chevron-right text-muted"></i>
+        </a>
+        <a href="#" class="menu-list-item">
+          <div class="d-flex align-items-center"><i class="bi bi-shield-lock-fill"></i><span>Keamanan & Kata Sandi</span></div>
+          <i class="bi bi-chevron-right text-muted"></i>
+        </a>
+      </div>
+      <div class="section-title">Pengaturan</div>
+      <div class="menu-box mb-3">
+        <a href="#" class="menu-list-item">
+          <div class="d-flex align-items-center"><i class="bi bi-translate"></i><span>Bahasa</span></div>
+          <div class="text-muted" style="font-size:13px">Indonesia <i class="bi bi-chevron-right"></i></div>
+        </a>
+        <a href="#" class="menu-list-item" onclick="showTentang()">
+          <div class="d-flex align-items-center"><i class="bi bi-info-circle-fill"></i><span>Tentang LS Academy</span></div>
+          <div class="text-muted" style="font-size:13px">v1.0.0 <i class="bi bi-chevron-right"></i></div>
+        </a>
+      </div>
     </div>
   </div>
-</div>
 
   <div class="bottom-nav">
    <div class="nav-item active" onclick="openTab('belajar', this)">

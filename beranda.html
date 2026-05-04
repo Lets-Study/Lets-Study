@@ -1,43 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAT4N5L04XLIktGq5mYvEqv7SiDE6uPS08",
-    authDomain: "ls-academy-27d8c.firebaseapp.com",
-    projectId: "ls-academy-27d8c",
-    storageBucket: "ls-academy-27d8c.firebasestorage.app",
-    messagingSenderId: "188990388320",
-    appId: "1:188990388320:web:96a2c34af41c8b1632ab05"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      window.location.href = "login.html";
-    } else {
-      // AMBIL NAMA USER DINAMIS DARI FIREBASE
-      const namaUser = user.displayName || user.email.split('@')[0] || 'Murid';
-      document.getElementById('salamUser').innerText = `Selamat datang, ${namaUser}!`;
-    }
-  });
-
-  window.logout = function() {
-    signOut(auth).then(() => {
-      window.location.href = "login.html";
-    });
-  }
-  </script>
-  <title>Beranda - LS Academy</title>
+  <meta charset="UTF-8">
+  <title>Dashboard - LS Academy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <style>
+  .header-profil{background:linear-gradient(135deg,#004AAD,#0056d6);padding:20px 15px 25px 15px;color:white;margin:-16px -12px 0 -12px}
+.foto-profil{width:70px;height:70px;border-radius:50%;border:3px solid white;object-fit:cover}
+.badge-level{background:#FFC107;color:#000;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:bold}
+.menu-box{background:white;border-radius:12px;padding:5px 15px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.menu-list-item{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid #f0f0f0;text-decoration:none;color:#333}
+.menu-list-item:last-child{border-bottom:none}
+.menu-list-item i{font-size:20px;color:#004AAD;width:30px}
+.section-title{font-weight:bold;font-size:16px;margin:20px 0 10px 5px;color:#555}
+.btn-edit-foto{position:absolute;bottom:0;right:0;background:#004AAD;color:white;border:2px solid white;border-radius:50%;width:24px;height:24px;font-size:12px}
+.info-akun{font-size:13px;opacity:0.9}
     body {
       background-color: #f0f4f8;
       font-family: Arial, sans-serif;
@@ -80,11 +59,22 @@
     }
   .nav-item.active { color: #004AAD; font-weight: bold; }
   .nav-item i { font-size: 24px; display: block; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+ .guru-card{background:white;border-radius:15px;padding:15px;margin-bottom:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08);border:1px solid #eee}
+.guru-foto{width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid #004AAD}
+.guru-nama{font-weight:bold;font-size:16px;color:#004AAD;margin-bottom:0}
+.guru-mapel{font-size:13px;background:#e3f2fd;color:#004AAD;padding:2px 8px;border-radius:8px;display:inline-block}
+.guru-rating{color:#FFC107;font-size:14px}
+.guru-rating i{font-size:13px}
+.guru-harga{font-weight:bold;color:#00a65a;font-size:15px}
+.btn-pilih-guru{background:#004AAD;color:white;border-radius:10px;font-weight:bold;width:100%}
+.btn-pilih-guru:hover{background:#003a8a;color:white}
+.badge-online{width:10px;height:10px;background:#00c851;border-radius:50%;display:inline-block;margin-right:5px}
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR ATAS -->
   <nav class="navbar p-3">
     <div class="container-fluid">
       <span class="navbar-brand mb-0 h1 text-white">
@@ -94,46 +84,353 @@
     </div>
   </nav>
 
-  <!-- KONTEN BERANDA -->
-  <div class="container mt-4">
-    <h4 class="text-center mb-2" style="color:#555;" id="salamUser">Selamat datang!</h4>
-    <h3 class="fw-bold text-center mb-4" style="color:#004AAD;">Pilih Jenjang Kamu 👇</h3>
-    <a href="sd.html" class="tombol-jenjang">🎒 SD</a>
-    <a href="smp.html" class="tombol-jenjang">📚 SMP</a>
-    <a href="sma.html" class="tombol-jenjang">🎓 SMA</a>
-
-    <div class="card mt-5" style="border:none; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius:15px;">
-      <div class="card-body">
-        <h5 class="card-title fw-bold" style="color:#004AAD;">📢 Info Terbaru LS Academy</h5>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">🎉 Selamat datang di LS Academy by Let's Study Group!</li>
-          <li class="list-group-item">📚 Materi UTBK 2026 sudah bisa diakses minggu depan</li>
-          <li class="list-group-item">🔥 Tryout gratis setiap Jumat jam 19.00 WIB</li>
-        </ul>
+  <div id="belajar" class="tab-content active">
+    <div class="container mt-4">
+      <h3 class="fw-bold text-center mb-4" style="color:#004AAD;">Pilih Jenjang Kamu 👇</h3>
+      <a href="sd.html" class="tombol-jenjang">🎒 SD</a>
+      <a href="smp.html" class="tombol-jenjang">📚 SMP</a>
+      <a href="sma.html" class="tombol-jenjang">🎓 SMA</a>
+      <div class="card mt-5" style="border:none; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius:15px;">
+        <div class="card-body">
+          <h5 class="card-title fw-bold" style="color:#004AAD;">📢 Info Terbaru LS Academy</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">🎉 Selamat datang di LS Academy by Let's Study Group!</li>
+            <li class="list-group-item">📚 Materi UTBK 2026 sudah bisa diakses minggu depan</li>
+            <li class="list-group-item">🔥 Tryout gratis setiap Jumat jam 19.00 WIB</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- BOTTOM NAVBAR -->
-  <div class="bottom-nav">
-    <a href="beranda.html" class="nav-item active">
-      <i class="bi bi-book"></i>
-      Belajar
-    </a>
-    <a href="berita.html" class="nav-item">
-      <i class="bi bi-newspaper"></i>
-      Berita
-    </a>
-    <a href="materi.html" class="nav-item">
-      <i class="bi bi-person-video3"></i>
-      Les Guru
-    </a>
-    <a href="akun.html" class="nav-item">
-      <i class="bi bi-person-circle"></i>
-      Profil
-    </a>
+  <div id="berita" class="tab-content">
+    <div class="container mt-4">
+      <h3 class="fw-bold" style="color:#004AAD;">📰 Berita Pengetahuan Hari Ini</h3>
+      <p class="text-muted">Update otomatis dari Google News. Baca berita = tambah wawasan!</p>
+      <div class="mb-3">
+        <button class="btn btn-sm me-2 mb-2 active" id="btn-all" style="background:#004AAD; color:white;" onclick="loadBerita('all', this)">Semua</button>
+        <button class="btn btn-sm btn-outline-primary me-2 mb-2" onclick="loadBerita('sains', this)">Sains</button>
+        <button class="btn btn-sm btn-outline-primary me-2 mb-2" onclick="loadBerita('teknologi', this)">Teknologi</button>
+        <button class="btn btn-sm btn-outline-primary me-2 mb-2" onclick="loadBerita('pendidikan', this)">Pendidikan</button>
+        <button class="btn btn-sm btn-outline-primary me-2 mb-2" onclick="loadBerita('politik', this)">Politik</button>
+        <button class="btn btn-sm btn-outline-primary me-2 mb-2" onclick="loadBerita('UTBK', this)">UTBK</button>
+      </div>
+      <div id="daftar-berita">
+        <div class="text-center p-4">
+          <div class="spinner-border text-primary" role="status"></div>
+          <p class="mt-2">Mengambil berita terbaru...</p>
+        </div>
+      </div>
+    </div>
   </div>
 
+<div id="les" class="tab-content">
+  <div class="container mt-4">
+    <h3 class="fw-bold mb-3" style="color:#004AAD;">👨‍🏫 Pilih Guru Favoritmu</h3>
+    <p class="text-muted">Guru berpengalaman sesuai mata pelajaran. Rating dari siswa lain.</p>
+    <div class="mb-4">
+      <select class="form-select" id="filterMapel" onchange="filterGuru()" style="border:2px solid #004AAD;border-radius:10px">
+        <option value="all">Semua Mata Pelajaran</option>
+        <option value="Matematika">Matematika</option>
+        <option value="Fisika">Fisika</option>
+        <option value="Kimia">Kimia</option>
+        <option value="Biologi">Biologi</option>
+        <option value="B.Indonesia">B. Indonesia</option>
+        <option value="B.Inggris">B. Inggris</option>
+      </select>
+    </div>
+    <div id="listGuru"></div>
+  </div>
+</div>
+
+<div id="profil" class="tab-content">
+  <div class="header-profil">
+    <div class="d-flex justify-content-between mb-3">
+      <div><i class="bi bi-person-circle"></i> <b>Akun Saya</b></div>
+      <div>
+        <button onclick="logout()" class="btn btn-warning btn-sm" style="font-weight:bold">Logout</button>
+      </div>
+    </div>
+    <div class="d-flex align-items-center">
+      <div style="position:relative">
+        <img src="icon-192.png" class="foto-profil me-3" id="fotoUser" alt="Foto">
+        <button class="btn-edit-foto" onclick="gantiFoto()"><i class="bi bi-camera-fill"></i></button>
+        <input type="file" id="inputFoto" style="display:none" accept="image/*">
+      </div>
+      <div>
+        <div class="d-flex align-items-center">
+          <h5 class="mb-0 me-2" id="namaUser">Murid LS Academy</h5>
+          <span class="badge-level">Gold <i class="bi bi-chevron-right"></i></span>
+        </div>
+        <div class="info-akun" id="emailUser">Loading...</div>
+        <div class="info-akun">ID: LS202600123</div>
+      </div>
+    </div>
+  <div class="container">
+    <div class="section-title">Akun Saya</div>
+    <div class="menu-box">
+      <a href="#" class="menu-list-item" onclick="editProfil()">
+        <div class="d-flex align-items-center"><i class="bi bi-person-fill"></i><span>Edit Profil</span></div>
+        <i class="bi bi-chevron-right text-muted"></i>
+      </a>
+      <a href="#" class="menu-list-item">
+        <div class="d-flex align-items-center"><i class="bi bi-shield-lock-fill"></i><span>Keamanan & Kata Sandi</span></div>
+        <i class="bi bi-chevron-right text-muted"></i>
+      </a>
+    </div>
+    <div class="section-title">Pengaturan</div>
+    <div class="menu-box">
+      <a href="#" class="menu-list-item">
+        <div class="d-flex align-items-center"><i class="bi bi-translate"></i><span>Bahasa</span></div>
+        <div class="text-muted" style="font-size:13px">Indonesia <i class="bi bi-chevron-right"></i></div>
+      </a>
+      <a href="#" class="menu-list-item" onclick="showTentang()">
+        <div class="d-flex align-items-center"><i class="bi bi-info-circle-fill"></i><span>Tentang LS Academy</span></div>
+        <div class="text-muted" style="font-size:13px">v1.0.0 <i class="bi bi-chevron-right"></i></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+  <div class="bottom-nav">
+   <div class="nav-item active" onclick="openTab('belajar', this)">
+      <i class="bi bi-book"></i>
+      Belajar
+   </div>
+   <div class="nav-item" onclick="openTab('berita', this)">
+      <i class="bi bi-newspaper"></i>
+      Berita
+    </div>
+    <div class="nav-item" onclick="openTab('les', this)">
+      <i class="bi bi-person-video3"></i>
+      Les Guru
+    </div>
+    <div class="nav-item" onclick="openTab('profil', this)">
+      <i class="bi bi-person-circle"></i>
+      Profil
+    </div>
+  </div>
+
+<div class="modal fade" id="modalTentang" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="background:#004AAD;color:white">
+        <h5 class="modal-title"><i class="bi bi-info-circle"></i> Tentang LS Academy</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="icon-192.png" width="80" class="mb-3" style="border-radius:15px">
+        <h4 style="color:#004AAD">LS Academy</h4>
+        <p class="text-muted">Versi 1.0.0</p>
+        <hr>
+        <div class="bg-light p-3 rounded mt-3 text-start">
+          <div class="mb-2"><b>Developed by:</b><br>Tim LS Academy</div>
+          <div class="mb-2"><b>Founder:</b><br>Rizky Ifandi</div>
+          <div><b>Contact:</b><br>Instagram: @letsstudy.official</div>
+        </div>
+        <p class="mt-3" style="font-size:12px;color:#666">© 2026 LS Academy</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAT4N5L04XLIktGq5mYvEqv7SiDE6uPS08",
+    authDomain: "ls-academy-27d8c.firebaseapp.com",
+    projectId: "ls-academy-27d8c",
+    storageBucket: "ls-academy-27d8c.firebasestorage.app",
+    messagingSenderId: "188990388320",
+    appId: "1:188990388320:web:96a2c34af41c8b1632ab05"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "login.html";
+    } else {
+      document.getElementById('emailUser').textContent = user.email;
+      const nama = localStorage.getItem('namaUser') || user.displayName || 'Murid LS Academy';
+      document.getElementById('namaUser').textContent = nama;
+    }
+  });
+
+  window.logout = function() {
+    signOut(auth).then(() => {
+      localStorage.clear();
+      window.location.href = "login.html";
+    });
+  }
+</script>
+<script>
+function openTab(tabName, el) {
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  document.querySelectorAll('.nav-item').forEach(nav => {
+    nav.classList.remove('active');
+  });
+  document.getElementById(tabName).classList.add('active');
+  el.classList.add('active');
+
+  if(tabName === 'berita') {
+    loadBerita('all', document.getElementById('btn-all'));
+  }
+  if(tabName === 'les') {
+    tampilkanGuru();
+  }
+  if(tabName === 'profil') {
+    const foto = localStorage.getItem('fotoUser');
+    if(foto) document.getElementById('fotoUser').src = foto;
+  }
+}
+
+async function loadBerita(topik = 'all', btnEl = null) {
+  const container = document.getElementById('daftar-berita');
+  container.innerHTML = '<div class="text-center p-4"><div class="spinner-border text-primary"></div><p class="mt-2">Loading berita...</p></div>';
+
+  document.querySelectorAll('#berita.btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.classList.add('btn-outline-primary');
+    btn.style.background = '';
+    btn.style.color = '';
+  });
+  if(btnEl){
+    btnEl.classList.add('active');
+    btnEl.classList.remove('btn-outline-primary');
+    btnEl.style.background = '#004AAD';
+    btnEl.style.color = 'white';
+  }
+
+  let query = 'sains+OR+teknologi+OR+pendidikan+OR+UTBK+OR+politik';
+  if(topik!== 'all') query = topik;
+
+  const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id`);
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    container.innerHTML = '';
+
+    if(data.items.length === 0){
+      container.innerHTML = '<p class="text-center text-muted">Berita tidak ditemukan.</p>';
+      return;
+    }
+
+    data.items.slice(0, 10).forEach(berita => {
+      container.innerHTML += `
+        <div class="card mb-3" style="border:none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+          <div class="card-body">
+            <h6 class="card-title fw-bold">${berita.title}</h6>
+            <p class="text-muted small mb-2">${new Date(berita.pubDate).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</p>
+            <a href="${berita.link}" target="_blank" class="btn btn-sm" style="background:#004AAD; color:white;">Baca Selengkapnya</a>
+          </div>
+        </div>
+      `;
+    });
+  } catch (err) {
+    container.innerHTML = '<p class="text-danger text-center">Gagal load berita. Coba refresh atau cek koneksi internet.</p>';
+  }
+}
+
+function gantiFoto(){
+  document.getElementById('inputFoto').click();
+}
+document.getElementById('inputFoto').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(file){
+    const reader = new FileReader();
+    reader.onload = function(event){
+      document.getElementById('fotoUser').src = event.target.result;
+      localStorage.setItem('fotoUser', event.target.result);
+    }
+    reader.readAsDataURL(file);
+  }
+});
+function editProfil(){
+  const namaBaru = prompt('Masukkan nama baru:', document.getElementById('namaUser').innerText);
+  if(namaBaru){
+    document.getElementById('namaUser').innerText = namaBaru;
+    localStorage.setItem('namaUser', namaBaru);
+  }
+}
+function showTentang(){
+  var modal = new bootstrap.Modal(document.getElementById('modalTentang'));
+  modal.show();
+}
+
+const dataGuru = [
+  {id:1,nama:"Pak Budi Santoso",mapel:"Matematika",rating:4.9,jumlahSiswa:234,harga:"50k/sesi",foto:"https://i.pravatar.cc/150?img=11",online:true,jadwal:"Senin & Kamis 19.00"},
+  {id:2,nama:"Bu Sari Dewi",mapel:"Fisika",rating:4.8,jumlahSiswa:189,harga:"45k/sesi",foto:"https://i.pravatar.cc/150?img=5",online:false,jadwal:"Selasa & Jumat 20.00"},
+  {id:3,nama:"Kak Andi Pratama",mapel:"B.Inggris",rating:5.0,jumlahSiswa:301,harga:"60k/sesi",foto:"https://i.pravatar.cc/150?img=12",online:true,jadwal:"Rabu 19.30"},
+  {id:4,nama:"Bu Rina Melati",mapel:"Kimia",rating:4.7,jumlahSiswa:156,harga:"45k/sesi",foto:"https://i.pravatar.cc/150?img=9",online:true,jadwal:"Kamis & Sabtu 18.00"},
+  {id:5,nama:"Pak Dedi Gunawan",mapel:"Matematika",rating:4.6,jumlahSiswa:201,harga:"40k/sesi",foto:"https://i.pravatar.cc/150?img=13",online:false,jadwal:"Minggu 16.00"},
+  {id:6,nama:"Kak Lina Putri",mapel:"Biologi",rating:4.9,jumlahSiswa:278,harga:"55k/sesi",foto:"https://i.pravatar.cc/150?img=1",online:true,jadwal:"Senin & Rabu 20.00"}
+];
+
+function renderBintang(rating){
+  let bintang = '';
+  for(let i=1; i<=5; i++){
+    if(i <= Math.floor(rating)) bintang += '<i class="bi bi-star-fill"></i>';
+    else if(i - 0.5 <= rating) bintang += '<i class="bi bi-star-half"></i>';
+    else bintang += '<i class="bi bi-star"></i>';
+  }
+  return bintang;
+}
+
+function tampilkanGuru(list = dataGuru){
+  const container = document.getElementById('listGuru');
+  container.innerHTML = '';
+
+  if(list.length === 0){
+    container.innerHTML = '<p class="text-center text-muted mt-4">Guru tidak ditemukan</p>';
+    return;
+  }
+
+  list.forEach(guru => {
+    container.innerHTML += `
+      <div class="guru-card">
+        <div class="d-flex align-items-start mb-2">
+          <img src="${guru.foto}" class="guru-foto me-3" alt="${guru.nama}">
+          <div class="flex-grow-1">
+            <p class="guru-nama">${guru.nama} ${guru.online? '<span class="badge-online"></span>' : ''}</p>
+            <span class="guru-mapel">${guru.mapel}</span>
+            <div class="guru-rating mt-1">
+              ${renderBintang(guru.rating)} <b>${guru.rating}</b> <span class="text-muted" style="font-size:12px">(${guru.jumlahSiswa} siswa)</span>
+            </div>
+          </div>
+        <div class="d-flex justify-content-between align-items-center mt-2">
+          <div>
+            <div class="guru-harga">${guru.harga}</div>
+            <div class="text-muted" style="font-size:12px"><i class="bi bi-calendar"></i> ${guru.jadwal}</div>
+          </div>
+          <button class="btn btn-sm btn-pilih-guru" onclick="pilihGuru(${guru.id})" style="width:auto;padding:8px 20px">
+            Pilih Guru
+          </button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function filterGuru(){
+  const mapel = document.getElementById('filterMapel').value;
+  if(mapel === 'all') tampilkanGuru(dataGuru);
+  else tampilkanGuru(dataGuru.filter(g => g.mapel === mapel));
+}
+
+function pilihGuru(id){
+  const guru = dataGuru.find(g => g.id === id);
+  if(confirm(`Mau les ${guru.mapel} sama ${guru.nama}?\nJadwal: ${guru.jadwal}\nHarga: ${guru.harga}`)){
+    alert(`Berhasil pilih ${guru.nama}! Silakan lanjut ke pembayaran.`);
+  }
+}
+</script>
 </body>
 </html>

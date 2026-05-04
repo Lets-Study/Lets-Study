@@ -15,7 +15,7 @@
       align-items: center; 
       justify-content: center; 
     }
-    .box { 
+   .box { 
       background: #1e293b; 
       padding: 40px; 
       border-radius: 12px; 
@@ -48,7 +48,7 @@
       margin-top: 15px; 
     }
     button:hover { background: #2563eb; }
-    .link { text-align: center; margin-top: 20px; font-size: 14px; }
+   .link { text-align: center; margin-top: 20px; font-size: 14px; }
     a { color: #3b82f6; text-decoration: none; }
     a:hover { text-decoration: underline; }
     #error { color: #ef4444; text-align: center; margin-top: 15px; font-size: 14px; min-height: 20px; }
@@ -81,7 +81,7 @@
     const auth = getAuth(app);
 
     onAuthStateChanged(auth, (user) => {
-      if (user) window.location.href = "home.html";
+      if (user) window.location.href = "beranda.html";
     });
 
     window.login = function() {
@@ -90,16 +90,16 @@
       const errorDiv = document.getElementById('error');
       errorDiv.textContent = "";
       
-      if(!email || !password) {
+      if(!email ||!password) {
         errorDiv.textContent = "Email dan password wajib diisi";
         return;
       }
       
       signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          window.location.href = "home.html";
+       .then(() => {
+          window.location.href = "beranda.html";
         })
-        .catch((error) => {
+       .catch((error) => {
           errorDiv.textContent = "Email atau password salah";
         });
     }

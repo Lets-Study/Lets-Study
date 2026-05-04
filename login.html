@@ -81,7 +81,9 @@
     const auth = getAuth(app);
 
     onAuthStateChanged(auth, (user) => {
-      if (user) window.location.href = "beranda.html";
+      if (user) {
+        window.location.replace("beranda.html");
+      }
     });
 
     window.login = function() {
@@ -97,7 +99,7 @@
       
       signInWithEmailAndPassword(auth, email, password)
        .then(() => {
-          window.location.href = "beranda.html";
+          window.location.replace("beranda.html");
         })
        .catch((error) => {
           errorDiv.textContent = "Email atau password salah";

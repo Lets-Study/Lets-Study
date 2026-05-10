@@ -2,113 +2,114 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - LS Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { 
-      font-family: 'Segoe UI', Arial, sans-serif; 
-      background: #0f172a; 
-      color: white; 
-      display: flex; 
-      min-height: 100vh; 
-      align-items: center; 
-      justify-content: center; 
-    }
-   .box { 
-      background: #1e293b; 
-      padding: 40px; 
-      border-radius: 12px; 
-      width: 100%; 
-      max-width: 380px; 
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
-    }
-    h2 { text-align: center; margin-bottom: 30px; font-size: 24px; }
-    input { 
-      width: 100%; 
-      padding: 14px; 
-      margin: 10px 0; 
-      border: 1px solid #334155; 
-      border-radius: 8px; 
-      background: #334155; 
-      color: white; 
-      font-size: 16px;
-    }
-    input:focus { outline: 2px solid #3b82f6; }
-    button { 
-      width: 100%; 
-      padding: 14px; 
-      background: #3b82f6; 
-      color: white; 
-      border: none; 
-      border-radius: 8px; 
-      font-weight: bold; 
-      font-size: 16px;
-      cursor: pointer; 
-      margin-top: 15px; 
-    }
-    button:hover { background: #2563eb; }
-   .link { text-align: center; margin-top: 20px; font-size: 14px; }
-    a { color: #3b82f6; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    #error { color: #ef4444; text-align: center; margin-top: 15px; font-size: 14px; min-height: 20px; }
+    body { background: linear-gradient(135deg,#004AAD,#0056d6); min-height: 100vh; display: flex; align-items: center; font-family: 'Segoe UI', Arial, sans-serif; }
+    .card { border: none; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+    .btn-primary { background: #004AAD; border: none; border-radius: 12px; font-weight: 600; padding: 12px; }
+    .btn-primary:hover { background: #003a8a; }
+    .form-control { border-radius: 12px; padding: 12px; border: 2px solid #e0e7ff; }
+    .form-control:focus { border-color: #004AAD; box-shadow: 0 0 0 0.2rem rgba(0,74,173,0.15); }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h2>Login LS Academy</h2>
-    <input type="email" id="email" placeholder="Email" autocomplete="email" />
-    <input type="password" id="password" placeholder="Password" autocomplete="current-password" />
-    <button onclick="login()">Masuk</button>
-    <div id="error"></div>
-    <div class="link">Belum punya akun? <a href="register.html">Daftar di sini</a></div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card p-4">
+          <div class="text-center mb-4">
+            <img src="https://i.imgur.com/8Km9tLL.png" width="70" style="border-radius:16px">
+            <h3 class="fw-bold mt-3" style="color:#004AAD">LS Academy</h3>
+            <p class="text-muted" id="formTitle">Masuk ke akun kamu</p>
+          </div>
+          <form id="loginForm">
+            <div class="mb-3"><input type="email" class="form-control" id="loginEmail" placeholder="Email" required></div>
+            <div class="mb-3"><input type="password" class="form-control" id="loginPassword" placeholder="Password" required></div>
+            <button type="submit" class="btn btn-primary w-100 mb-3">
+              <span id="btnLoginText">Masuk</span>
+              <span id="btnLoginLoading" style="display:none"><span class="spinner-border spinner-border-sm"></span> Loading...</span>
+            </button>
+            <p class="text-center text-muted">Belum punya akun? <a href="#" onclick="showRegister()" style="color:#004AAD;font-weight:600">Daftar</a></p>
+          </form>
+          <form id="registerForm" style="display:none">
+            <div class="mb-3"><input type="text" class="form-control" id="regNama" placeholder="Nama Lengkap" required></div>
+            <div class="mb-3"><input type="email" class="form-control" id="regEmail" placeholder="Email" required></div>
+            <div class="mb-3"><input type="password" class="form-control" id="regPassword" placeholder="Password min 6 karakter" required minlength="6"></div>
+            <button type="submit" class="btn btn-primary w-100 mb-3">
+              <span id="btnRegText">Daftar Sekarang</span>
+              <span id="btnRegLoading" style="display:none"><span class="spinner-border spinner-border-sm"></span> Loading...</span>
+            </button>
+            <p class="text-center text-muted">Udah punya akun? <a href="#" onclick="showLogin()" style="color:#004AAD;font-weight:600">Masuk</a></p>
+          </form>
+          <div class="alert alert-danger mt-3" id="errorMsg" style="display:none"></div>
+        </div>
+      </div>
+    </div>
   </div>
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+  const supabaseUrl = 'https://rdziigwttjhnrmiutxbp.supabase.co'
+  const supabaseKey = 'sb_publishable_YOV4qY3s5M7W4u9vCcApnQ_-mdd6xXA'
+  const supabase = createClient(supabaseUrl, supabaseKey)
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  const { data: { user } } = await supabase.auth.getUser()
+  if (user) window.location.replace("index.html")
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAT4N5L04XLIktGq5mYvEqv7SiDE6uPS08",
-      authDomain: "ls-academy-27d8c.firebaseapp.com",
-      projectId: "ls-academy-27d8c",
-      storageBucket: "ls-academy-27d8c.firebasestorage.app",
-      messagingSenderId: "188990388320",
-      appId: "1:188990388320:web:96a2c34af41c8b1632ab05"
-    };
+  function showError(msg) {
+    const el = document.getElementById('errorMsg')
+    el.textContent = msg
+    el.style.display = 'block'
+    setTimeout(() => el.style.display = 'none', 4000)
+  }
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+  window.showRegister = () => {
+    document.getElementById('loginForm').style.display = 'none'
+    document.getElementById('registerForm').style.display = 'block'
+    document.getElementById('formTitle').textContent = 'Buat akun baru'
+  }
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        window.location.replace("beranda.html");
-      }
-    });
+  window.showLogin = () => {
+    document.getElementById('registerForm').style.display = 'none'
+    document.getElementById('loginForm').style.display = 'block'
+    document.getElementById('formTitle').textContent = 'Masuk ke akun kamu'
+  }
 
-    window.login = function() {
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      const errorDiv = document.getElementById('error');
-      errorDiv.textContent = "";
-      
-      if(!email ||!password) {
-        errorDiv.textContent = "Email dan password wajib diisi";
-        return;
-      }
-      
-      signInWithEmailAndPassword(auth, email, password)
-       .then(() => {
-          window.location.replace("beranda.html");
-        })
-       .catch((error) => {
-          errorDiv.textContent = "Email atau password salah";
-        });
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault()
+    document.getElementById('btnLoginText').style.display = 'none'
+    document.getElementById('btnLoginLoading').style.display = 'inline'
+    const { error } = await supabase.auth.signInWithPassword({
+      email: document.getElementById('loginEmail').value,
+      password: document.getElementById('loginPassword').value
+    })
+    if (error) {
+      showError(error.message)
+      document.getElementById('btnLoginText').style.display = 'inline'
+      document.getElementById('btnLoginLoading').style.display = 'none'
+    } else {
+      window.location.replace("index.html")
     }
+  })
 
-    document.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') login();
-    });
-  </script>
+  document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    e.preventDefault()
+    document.getElementById('btnRegText').style.display = 'none'
+    document.getElementById('btnRegLoading').style.display = 'inline'
+    const email = document.getElementById('regEmail').value
+    const password = document.getElementById('regPassword').value
+    const nama = document.getElementById('regNama').value
+    const { data, error } = await supabase.auth.signUp({ email, password })
+    if (error) {
+      showError(error.message)
+    } else if (data.user) {
+      await supabase.from('users').insert({ id: data.user.id, email: email, nama: nama })
+      window.location.replace("index.html")
+    }
+    document.getElementById('btnRegText').style.display = 'inline'
+    document.getElementById('btnRegLoading').style.display = 'none'
+  })
+</script>
 </body>
 </html>

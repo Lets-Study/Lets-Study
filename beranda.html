@@ -306,11 +306,15 @@
 <script type="module">
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
   const supabaseUrl = 'https://rdziigwttjhnrmiutxbp.supabase.co'
-  const supabaseKey = 'sb_publishable_YOV4qY3s5M7W4u9vCcApnQ_-mdd6xXA'
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkemlpZ3d0dGpobnJtaXV0eGJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4ODU4NTgsImV4cCI6MjA2MDQ2MTg1OH0.5Ky5hoqw-Ut5Pc7C3K8eCXax6QsHJWDBU1UKj89bOeI'
   const supabase = createClient(supabaseUrl, supabaseKey)
 
   let currentUser = null
+  let beritaLoaded = false
+  let guruLoaded = false
+  let allGuru = []
 
+  // === LOAD USER PROFIL ===
   async function loadUser() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
@@ -370,164 +374,171 @@
     var modal = new bootstrap.Modal(document.getElementById('modalTentang'))
     modal.show()
   }
-</script>
-<script>
-let beritaLoaded = false
-let guruLoaded = false
 
-function openTab(tabName, el) {
-  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'))
-  document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'))
-  document.getElementById(tabName).classList.add('active')
-  el.classList.add('active')
+  // === TAB & BERITA ===
+  window.openTab = function(tabName, el) {
+    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'))
+    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'))
+    document.getElementById(tabName).classList.add('active')
+    el.classList.add('active')
 
-  if(tabName === 'profil') {
-    document.body.classList.add('profil-active')
-  } else {
-    document.body.classList.remove('profil-active')
-  }
-
-  if(tabName === 'berita' &&!beritaLoaded) {
-    loadBerita('all', document.getElementById('btn-all'))
-    beritaLoaded = true
-  }
-  if(tabName === 'les' &&!guruLoaded) {
-    tampilkanGuru()
-    guruLoaded = true
-  }
-}
-
-function showSkeletonBerita() {
-  const container = document.getElementById('daftar-berita')
-  container.innerHTML = ''
-  for(let i=0; i<3; i++){
-    container.innerHTML += `
-      <div class="card mb-3 berita-card">
-        <div class="card-body">
-          <div class="skeleton mb-2" style="height:20px;width:80%"></div>
-          <div class="skeleton mb-2" style="height:14px;width:40%"></div>
-          <div class="skeleton" style="height:32px;width:120px"></div>
-        </div>
-      </div>
-    `
-  }
-}
-
-async function loadBerita(topik = 'all', btnEl = null) {
-  const container = document.getElementById('daftar-berita')
-  showSkeletonBerita()
-
-  document.querySelectorAll('#berita.filter-btn').forEach(btn => {
-    btn.classList.remove('active')
-    btn.classList.add('btn-outline-primary')
-    btn.style.background = ''
-    btn.style.color = ''
-  })
-  if(btnEl){
-    btnEl.classList.add('active')
-    btnEl.classList.remove('btn-outline-primary')
-    btnEl.style.background = '#004AAD'
-    btnEl.style.color = 'white'
-  }
-
-  let query = 'sains+OR+teknologi+OR+pendidikan+OR+UTBK+OR+politik'
-  if(topik!== 'all') query = topik
-
-  const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id`)
-
-  try {
-    const res = await fetch(url)
-    const data = await res.json()
-    container.innerHTML = ''
-
-    if(!data.items || data.items.length === 0){
-      container.innerHTML = '<p class="text-center text-muted mt-4">Berita tidak ditemukan.</p>'
-      return
+    if(tabName === 'profil') {
+      document.body.classList.add('profil-active')
+    } else {
+      document.body.classList.remove('profil-active')
     }
 
-    data.items.slice(0, 10).forEach(berita => {
+    if(tabName === 'berita' &&!beritaLoaded) {
+      loadBerita('all', document.getElementById('btn-all'))
+      beritaLoaded = true
+    }
+    if(tabName === 'les' &&!guruLoaded) {
+      loadGuruDariDatabase()
+      guruLoaded = true
+    }
+  }
+
+  function showSkeletonBerita() {
+    const container = document.getElementById('daftar-berita')
+    container.innerHTML = ''
+    for(let i=0; i<3; i++){
       container.innerHTML += `
         <div class="card mb-3 berita-card">
           <div class="card-body">
-            <h6 class="card-title fw-bold mb-2">${berita.title}</h6>
-            <p class="text-muted small mb-3"><i class="bi bi-calendar3"></i> ${new Date(berita.pubDate).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</p>
-            <a href="${berita.link}" target="_blank" class="btn btn-sm fw-semibold" style="background:#004AAD; color:white;border-radius:8px">Baca Selengkapnya <i class="bi bi-arrow-right"></i></a>
+            <div class="skeleton mb-2" style="height:20px;width:80%"></div>
+            <div class="skeleton mb-2" style="height:14px;width:40%"></div>
+            <div class="skeleton" style="height:32px;width:120px"></div>
+          </div>
+        </div>
+      `
+    }
+  }
+
+  window.loadBerita = async function(topik = 'all', btnEl = null) {
+    const container = document.getElementById('daftar-berita')
+    showSkeletonBerita()
+
+    document.querySelectorAll('#berita.filter-btn').forEach(btn => {
+      btn.classList.remove('active')
+      btn.classList.add('btn-outline-primary')
+      btn.style.background = ''
+      btn.style.color = ''
+    })
+    if(btnEl){
+      btnEl.classList.add('active')
+      btnEl.classList.remove('btn-outline-primary')
+      btnEl.style.background = '#004AAD'
+      btnEl.style.color = 'white'
+    }
+
+    let query = 'sains+OR+teknologi+OR+pendidikan+OR+UTBK+OR+politik'
+    if(topik!== 'all') query = topik
+
+    const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id`)
+
+    try {
+      const res = await fetch(url)
+      const data = await res.json()
+      container.innerHTML = ''
+
+      if(!data.items || data.items.length === 0){
+        container.innerHTML = '<p class="text-center text-muted mt-4">Berita tidak ditemukan.</p>'
+        return
+      }
+
+      data.items.slice(0, 10).forEach(berita => {
+        container.innerHTML += `
+          <div class="card mb-3 berita-card">
+            <div class="card-body">
+              <h6 class="card-title fw-bold mb-2">${berita.title}</h6>
+              <p class="text-muted small mb-3"><i class="bi bi-calendar3"></i> ${new Date(berita.pubDate).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</p>
+              <a href="${berita.link}" target="_blank" class="btn btn-sm fw-semibold" style="background:#004AAD; color:white;border-radius:8px">Baca Selengkapnya <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        `
+      })
+    } catch (err) {
+      container.innerHTML = '<p class="text-danger text-center mt-4"><i class="bi bi-wifi-off"></i> Gagal load berita. Coba refresh atau cek koneksi internet.</p>'
+    }
+  }
+
+  // === GURU DARI SUPABASE ===
+  function renderBintang(rating){
+    let bintang = ''
+    for(let i=1; i<=5; i++){
+      if(i <= Math.floor(rating)) bintang += '<i class="bi bi-star-fill"></i>'
+      else if(i - 0.5 <= rating) bintang += '<i class="bi bi-star-half"></i>'
+      else bintang += '<i class="bi bi-star"></i>'
+    }
+    return bintang
+  }
+
+  async function loadGuruDariDatabase() {
+    const container = document.getElementById('listGuru')
+    container.innerHTML = '<p class="text-center text-muted mt-4"><i class="bi bi-hourglass-split"></i> Loading guru...</p>'
+
+    const { data: gurus, error } = await supabase
+   .from('guru')
+   .select('*')
+   .eq('status_online', true)
+
+    if(error) {
+      container.innerHTML = '<p class="text-danger text-center mt-4">Gagal load guru: ' + error.message + '</p>'
+      return
+    }
+
+    allGuru = gurus
+    tampilkanGuru(allGuru)
+  }
+
+  function tampilkanGuru(list = allGuru){
+    const container = document.getElementById('listGuru')
+    container.innerHTML = ''
+
+    if(list.length === 0){
+      container.innerHTML = '<p class="text-center text-muted mt-4">Belum ada guru online</p>'
+      return
+    }
+
+    list.forEach(guru => {
+      container.innerHTML += `
+        <div class="guru-card">
+          <div class="d-flex align-items-start mb-3">
+            <img src="https://i.pravatar.cc/150?u=${guru.user_id}" class="guru-foto me-3" alt="Guru ${guru.mapel}">
+            <div class="flex-grow-1">
+              <p class="guru-nama">Guru ${guru.mapel} ${guru.status_online? '<span class="badge-online" title="Online"></span>' : ''}</p>
+              <span class="guru-mapel">${guru.mapel}</span>
+              <div class="guru-rating mt-2">
+                ${renderBintang(guru.rating)} <b>${guru.rating}</b> <span class="text-muted" style="font-size:12px">(${guru.jumlah_siswa} siswa)</span>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="guru-harga">Rp${guru.harga.toLocaleString('id-ID')}/sesi</div>
+              <div class="text-muted" style="font-size:12px"><i class="bi bi-calendar3"></i> ${guru.jadwal}</div>
+            </div>
+            <button class="btn btn-sm btn-pilih-guru" onclick="pilihGuru('${guru.id}')" style="width:auto;padding:8px 20px">
+              Pilih Guru
+            </button>
           </div>
         </div>
       `
     })
-  } catch (err) {
-    container.innerHTML = '<p class="text-danger text-center mt-4"><i class="bi bi-wifi-off"></i> Gagal load berita. Coba refresh atau cek koneksi internet.</p>'
-  }
-}
-
-const dataGuru = [
-  {id:1,nama:"Pak Budi Santoso",mapel:"Matematika",rating:4.9,jumlahSiswa:234,harga:"50k/sesi",foto:"https://i.pravatar.cc/150?img=11",online:true,jadwal:"Senin & Kamis 19.00"},
-  {id:2,nama:"Bu Sari Dewi",mapel:"Fisika",rating:4.8,jumlahSiswa:189,harga:"45k/sesi",foto:"https://i.pravatar.cc/150?img=5",online:false,jadwal:"Selasa & Jumat 20.00"},
-  {id:3,nama:"Kak Andi Pratama",mapel:"B.Inggris",rating:5.0,jumlahSiswa:301,harga:"60k/sesi",foto:"https://i.pravatar.cc/150?img=12",online:true,jadwal:"Rabu 19.30"},
-  {id:4,nama:"Bu Rina Melati",mapel:"Kimia",rating:4.7,jumlahSiswa:156,harga:"45k/sesi",foto:"https://i.pravatar.cc/150?img=9",online:true,jadwal:"Kamis & Sabtu 18.00"},
-  {id:5,nama:"Pak Dedi Gunawan",mapel:"Matematika",rating:4.6,jumlahSiswa:201,harga:"40k/sesi",foto:"https://i.pravatar.cc/150?img=13",online:false,jadwal:"Minggu 16.00"},
-  {id:6,nama:"Kak Lina Putri",mapel:"Biologi",rating:4.9,jumlahSiswa:278,harga:"55k/sesi",foto:"https://i.pravatar.cc/150?img=1",online:true,jadwal:"Senin & Rabu 20.00"}
-]
-
-function renderBintang(rating){
-  let bintang = ''
-  for(let i=1; i<=5; i++){
-    if(i <= Math.floor(rating)) bintang += '<i class="bi bi-star-fill"></i>'
-    else if(i - 0.5 <= rating) bintang += '<i class="bi bi-star-half"></i>'
-    else bintang += '<i class="bi bi-star"></i>'
-  }
-  return bintang
-}
-
-function tampilkanGuru(list = dataGuru){
-  const container = document.getElementById('listGuru')
-  container.innerHTML = ''
-
-  if(list.length === 0){
-    container.innerHTML = '<p class="text-center text-muted mt-4">Guru tidak ditemukan</p>'
-    return
   }
 
-  list.forEach(guru => {
-    container.innerHTML += `
-      <div class="guru-card">
-        <div class="d-flex align-items-start mb-3">
-          <img src="${guru.foto}" class="guru-foto me-3" alt="${guru.nama}">
-          <div class="flex-grow-1">
-            <p class="guru-nama">${guru.nama} ${guru.online? '<span class="badge-online" title="Online"></span>' : ''}</p>
-            <span class="guru-mapel">${guru.mapel}</span>
-            <div class="guru-rating mt-2">
-              ${renderBintang(guru.rating)} <b>${guru.rating}</b> <span class="text-muted" style="font-size:12px">(${guru.jumlahSiswa} siswa)</span>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="guru-harga">${guru.harga}</div>
-            <div class="text-muted" style="font-size:12px"><i class="bi bi-calendar3"></i> ${guru.jadwal}</div>
-          </div>
-          <button class="btn btn-sm btn-pilih-guru" onclick="pilihGuru(${guru.id})" style="width:auto;padding:8px 20px">
-            Pilih Guru
-          </button>
-        </div>
-      </div>
-    `
-  })
-}
-
-function filterGuru(){
-  const mapel = document.getElementById('filterMapel').value
-  if(mapel === 'all') tampilkanGuru(dataGuru)
-  else tampilkanGuru(dataGuru.filter(g => g.mapel === mapel))
-}
-
-function pilihGuru(id){
-  const guru = dataGuru.find(g => g.id === id)
-  if(confirm(`Mau les ${guru.mapel} sama ${guru.nama}?\n\nJadwal: ${guru.jadwal}\nHarga: ${guru.harga}`)){
-    alert(`Berhasil pilih ${guru.nama}! 🎉\nSilakan lanjut ke pembayaran.`)
+  window.filterGuru = function(){
+    const mapel = document.getElementById('filterMapel').value
+    if(mapel === 'all') tampilkanGuru(allGuru)
+    else tampilkanGuru(allGuru.filter(g => g.mapel === mapel))
   }
-}
+
+  window.pilihGuru = function(id){
+    const guru = allGuru.find(g => g.id == id)
+    if(confirm(`Mau les ${guru.mapel}?\n\nJadwal: ${guru.jadwal}\nHarga: Rp${guru.harga.toLocaleString('id-ID')}/sesi`)){
+      alert(`Berhasil pilih Guru ${guru.mapel}! 🎉\nSilakan lanjut ke pembayaran.`)
+    }
+  }
 </script>
 </body>
 </html>

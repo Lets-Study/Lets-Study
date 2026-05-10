@@ -128,7 +128,7 @@
 .guru-harga{font-weight:700;color:#00a65a;font-size:16px}
 .btn-pilih-guru{background:#004AAD;color:white;border-radius:10px;font-weight:600;width:100%;border:none;padding:8px}
 .btn-pilih-guru:hover{background:#003a8a;color:white;transform: scale(1.02)}
-.badge-online{width:10px;height:10px;background:#00c851;border-radius:50%;display:inline-block;margin-left:5px;box-shadow: 0 0 0 2px white}
+.badge-online{width:10px;height:10px;background:#00c851;border-radius:50%;display:inline-block;margin-left:5px;box-shadow: 0 0 2px white}
 .berita-card {
    border:none; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-radius:14px;
    transition: all 0.3s ease;
@@ -142,7 +142,7 @@
    transition: all 0.2s;
 }
 .skeleton {
-   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0 50%, #f0f0f0 75%);
    background-size: 200% 100%;
    animation: loading 1.5s infinite;
    border-radius: 8px;
@@ -357,7 +357,7 @@
 <script type="module">
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
   const supabaseUrl = 'https://rdziigwttjhnrmiutxbp.supabase.co'
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkemlpZ3d0dGpobnJtaXV0eGJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4ODU4NTgsImV4cCI6MjA2MDQ2MTg1OH0.5Ky5hoqw-Ut5Pc7C3K8eCXax6QsHJWDBU1UKj89bOeI'
+  const supabaseKey = 'sb_publishable_YOV4qY3s5M7W4u9vCcApnQ_-mdd6xXA'
   const supabase = createClient(supabaseUrl, supabaseKey)
 
   let currentUser = null
@@ -367,22 +367,21 @@
 
   // === LOAD USER PROFIL + FIX LOOPING ===
   async function loadUser() {
-    // DELAY 500MS BIAR SESSION KEBACA DULU
-    await new Promise(resolve => setTimeout(resolve, 500))
+    const { data: { session } } = await supabase.auth.getSession()
 
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
+    if (!session) {
       window.location.replace("login.html")
       return
     }
-    currentUser = user
-    const { data: profile } = await supabase.from('users').select('*').eq('id', user.id).single()
 
-    document.getElementById('emailUser').textContent = user.email
+    currentUser = session.user
+    const { data: profile } = await supabase.from('users').select('*').eq('id', session.user.id).single()
+
+    document.getElementById('emailUser').textContent = session.user.email
     document.getElementById('namaUser').textContent = profile?.nama || 'Murid LS Academy'
     document.getElementById('fotoUser').src = profile?.foto_url || 'icon-192.png'
     document.getElementById('levelUser').innerHTML = `${profile?.level || 'Gold'} <i class="bi bi-chevron-right"></i>`
-    document.getElementById('idUser').textContent = `ID: ${user.id.slice(0,8).toUpperCase()}`
+    document.getElementById('idUser').textContent = `ID: ${session.user.id.slice(0,8).toUpperCase()}`
   }
 
   loadUser()
@@ -532,9 +531,9 @@
     container.innerHTML = '<p class="text-center text-muted mt-4"><i class="bi bi-hourglass-split"></i> Loading guru...</p>'
 
     const { data: gurus, error } = await supabase
-  .from('guru')
-  .select('*')
-  .eq('status_online', true)
+ .from('guru')
+ .select('*')
+ .eq('status_online', true)
 
     if(error) {
       container.innerHTML = '<p class="text-danger text-center mt-4">Gagal load guru: ' + error.message + '</p>'

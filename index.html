@@ -32,35 +32,23 @@
   </style>
 </head>
 <body>
-  <img src="icon-192.png" alt="Let's Study" class="splash-logo">
+  <img src="icon-192.png" alt="LS Academy" class="splash-logo">
   <div class="loading-text">Memuat...</div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+  const supabaseUrl = 'https://rdziigwttjhnrmiutxbp.supabase.co'
+  const supabaseKey = 'sb_publishable_YOV4qY3s5M7W4u9vCcApnQ_-mdd6xXA'
+  const supabase = createClient(supabaseUrl, supabaseKey)
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAT4N5L04XLIktGq5mYvEqv7SiDE6uPS08",
-      authDomain: "ls-academy-27d8c.firebaseapp.com",
-      projectId: "ls-academy-27d8c",
-      storageBucket: "ls-academy-27d8c.firebasestorage.app",
-      messagingSenderId: "188990388320",
-      appId: "1:188990388320:web:96a2c34af41c8b1632ab05"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // KASIH DELAY 2 DETIK BIAR LOGO KEBACA DULU
-    setTimeout(() => {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          window.location.replace("beranda.html");
-        } else {
-          window.location.replace("login.html");
-        }
-      });
-    }, 2000);
-  </script>
+  setTimeout(async () => {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user) {
+      window.location.replace("beranda.html")
+    } else {
+      window.location.replace("login.html")
+    }
+  }, 2000)
+</script>
 </body>
 </html>

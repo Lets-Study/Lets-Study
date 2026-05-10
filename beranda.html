@@ -51,7 +51,6 @@
    transition: all 0.2s;
    z-index: 2;
  }
-
 .foto-profil{
    width:75px;height:75px;border-radius:50%;border:3px solid white;object-fit:cover;
    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
@@ -115,7 +114,6 @@
 .tab-content { display: none; animation: fadeIn 0.3s; }
 .tab-content.active { display: block; }
 @keyframes fadeIn { from {opacity: 0} to {opacity: 1} }
-
 .guru-card{
    background:white;border-radius:16px;padding:16px;margin-bottom:15px;
    box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid #f0f0f0;
@@ -131,13 +129,11 @@
 .btn-pilih-guru{background:#004AAD;color:white;border-radius:10px;font-weight:600;width:100%;border:none;padding:8px}
 .btn-pilih-guru:hover{background:#003a8a;color:white;transform: scale(1.02)}
 .badge-online{width:10px;height:10px;background:#00c851;border-radius:50%;display:inline-block;margin-left:5px;box-shadow: 0 0 0 2px white}
-
 .berita-card {
    border:none; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-radius:14px;
    transition: all 0.3s ease;
 }
 .berita-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
-
 .filter-btn {
    border-radius: 20px!important;
    font-size: 13px;
@@ -145,7 +141,6 @@
    padding: 6px 14px;
    transition: all 0.2s;
 }
-
 .skeleton {
    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
    background-size: 200% 100%;
@@ -160,7 +155,7 @@
   <nav class="navbar p-3">
     <div class="container-fluid">
       <span class="navbar-brand mb-0 h1 text-white fw-bold">
-        <img src="https://i.imgur.com/8Km9tLL.png" width="32" class="me-2" style="border-radius:8px"> LS Academy
+        <img src="icon-192.png" width="32" class="me-2" style="border-radius:8px"> LS Academy
       </span>
     </div>
   </nav>
@@ -224,17 +219,17 @@
       <button onclick="logout()" class="btn-logout-profil"><i class="bi bi-box-arrow-right"></i> Logout</button>
       <div class="d-flex align-items-center">
         <div style="position:relative">
-          <img src="icon-192.png" class="foto-profil me-3" id="fotoUser" alt="Foto" onerror="this.src='https://i.imgur.com/8Km9tLL.png'">
+          <img src="icon-192.png" class="foto-profil me-3" id="fotoUser" alt="Foto">
           <button class="btn-edit-foto" onclick="gantiFoto()"><i class="bi bi-camera-fill"></i></button>
           <input type="file" id="inputFoto" style="display:none" accept="image/*">
         </div>
         <div>
           <div class="d-flex align-items-center mb-1">
-            <h5 class="mb-0 me-2 fw-bold" id="namaUser">Murid LS Academy</h5>
-            <span class="badge-level">Gold <i class="bi bi-chevron-right"></i></span>
+            <h5 class="mb-0 me-2 fw-bold" id="namaUser">Loading...</h5>
+            <span class="badge-level" id="levelUser">Gold <i class="bi bi-chevron-right"></i></span>
           </div>
           <div class="info-akun" id="emailUser">Loading...</div>
-          <div class="info-akun">ID: LS202600123</div>
+          <div class="info-akun" id="idUser">ID: Loading...</div>
         </div>
       </div>
     </div>
@@ -292,7 +287,7 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body text-center p-4">
-        <img src="https://i.imgur.com/8Km9tLL.png" width="90" class="mb-3" style="border-radius:20px">
+        <img src="icon-192.png" width="90" class="mb-3" style="border-radius:20px">
         <h4 style="color:#004AAD" class="fw-bold">LS Academy</h4>
         <p class="text-muted">Versi 1.0.0</p>
         <hr>
@@ -309,69 +304,102 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+  const supabaseUrl = 'https://rdziigwttjhnrmiutxbp.supabase.co'
+  const supabaseKey = 'sb_publishable_YOV4qY3s5M7W4u9vCcApnQ_-mdd6xXA'
+  const supabase = createClient(supabaseUrl, supabaseKey)
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAT4N5L04XLIktGq5mYvEqv7SiDE6uPS08",
-    authDomain: "ls-academy-27d8c.firebaseapp.com",
-    projectId: "ls-academy-27d8c",
-    storageBucket: "ls-academy-27d8c.appspot.com",
-    messagingSenderId: "188990388320",
-    appId: "1:188990388320:web:96a2c34af41c8b1632ab05"
-  };
+  let currentUser = null
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  onAuthStateChanged(auth, (user) => {
+  async function loadUser() {
+    const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
-      window.location.replace("login.html");
-    } else {
-      document.getElementById('emailUser').textContent = user.email;
-      const nama = localStorage.getItem('namaUser') || user.displayName || 'Murid LS Academy';
-      document.getElementById('namaUser').textContent = nama;
+      window.location.replace("login.html")
+      return
     }
-  });
+    currentUser = user
+    const { data: profile } = await supabase.from('users').select('*').eq('id', user.id).single()
 
-  window.logout = function() {
-    signOut(auth).then(() => {
-      localStorage.clear();
-      window.location.replace("login.html");
-    });
+    document.getElementById('emailUser').textContent = user.email
+    document.getElementById('namaUser').textContent = profile?.nama || 'Murid LS Academy'
+    document.getElementById('fotoUser').src = profile?.foto_url || 'icon-192.png'
+    document.getElementById('levelUser').innerHTML = `${profile?.level || 'Gold'} <i class="bi bi-chevron-right"></i>`
+    document.getElementById('idUser').textContent = `ID: ${user.id.slice(0,8).toUpperCase()}`
+  }
+
+  loadUser()
+
+  window.logout = async function() {
+    await supabase.auth.signOut()
+    window.location.replace("login.html")
+  }
+
+  window.gantiFoto = function() {
+    document.getElementById('inputFoto').click()
+  }
+
+  document.getElementById('inputFoto').addEventListener('change', async function(e) {
+    const file = e.target.files[0]
+    if(!file) return
+    if(file.size > 2000000) {
+      alert('Ukuran foto maksimal 2MB ya!')
+      return
+    }
+    const fileExt = file.name.split('.').pop()
+    const fileName = `${currentUser.id}-${Date.now()}.${fileExt}`
+    const { error: uploadError } = await supabase.storage.from('profile').upload(fileName, file, { upsert: true })
+    if (uploadError) {
+      alert('Upload gagal: ' + uploadError.message)
+      return
+    }
+    const { data } = supabase.storage.from('profile').getPublicUrl(fileName)
+    await supabase.from('users').update({ foto_url: data.publicUrl }).eq('id', currentUser.id)
+    document.getElementById('fotoUser').src = data.publicUrl
+    alert('Foto profil berhasil diupdate!')
+  })
+
+  window.editProfil = async function() {
+    const namaBaru = prompt('Masukkan nama baru:', document.getElementById('namaUser').innerText)
+    if(namaBaru && namaBaru.trim()) {
+      await supabase.from('users').update({ nama: namaBaru.trim() }).eq('id', currentUser.id)
+      document.getElementById('namaUser').innerText = namaBaru.trim()
+    }
+  }
+
+  window.showTentang = function() {
+    var modal = new bootstrap.Modal(document.getElementById('modalTentang'))
+    modal.show()
   }
 </script>
 <script>
-let beritaLoaded = false;
-let guruLoaded = false;
+let beritaLoaded = false
+let guruLoaded = false
 
 function openTab(tabName, el) {
-  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-  document.getElementById(tabName).classList.add('active');
-  el.classList.add('active');
+  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'))
+  document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'))
+  document.getElementById(tabName).classList.add('active')
+  el.classList.add('active')
 
   if(tabName === 'profil') {
-    document.body.classList.add('profil-active');
-    const foto = localStorage.getItem('fotoUser');
-    if(foto) document.getElementById('fotoUser').src = foto;
+    document.body.classList.add('profil-active')
   } else {
-    document.body.classList.remove('profil-active');
+    document.body.classList.remove('profil-active')
   }
 
   if(tabName === 'berita' &&!beritaLoaded) {
-    loadBerita('all', document.getElementById('btn-all'));
-    beritaLoaded = true;
+    loadBerita('all', document.getElementById('btn-all'))
+    beritaLoaded = true
   }
   if(tabName === 'les' &&!guruLoaded) {
-    tampilkanGuru();
-    guruLoaded = true;
+    tampilkanGuru()
+    guruLoaded = true
   }
 }
 
 function showSkeletonBerita() {
-  const container = document.getElementById('daftar-berita');
-  container.innerHTML = '';
+  const container = document.getElementById('daftar-berita')
+  container.innerHTML = ''
   for(let i=0; i<3; i++){
     container.innerHTML += `
       <div class="card mb-3 berita-card">
@@ -381,40 +409,40 @@ function showSkeletonBerita() {
           <div class="skeleton" style="height:32px;width:120px"></div>
         </div>
       </div>
-    `;
+    `
   }
 }
 
 async function loadBerita(topik = 'all', btnEl = null) {
-  const container = document.getElementById('daftar-berita');
-  showSkeletonBerita();
+  const container = document.getElementById('daftar-berita')
+  showSkeletonBerita()
 
   document.querySelectorAll('#berita.filter-btn').forEach(btn => {
-    btn.classList.remove('active');
-    btn.classList.add('btn-outline-primary');
-    btn.style.background = '';
-    btn.style.color = '';
-  });
+    btn.classList.remove('active')
+    btn.classList.add('btn-outline-primary')
+    btn.style.background = ''
+    btn.style.color = ''
+  })
   if(btnEl){
-    btnEl.classList.add('active');
-    btnEl.classList.remove('btn-outline-primary');
-    btnEl.style.background = '#004AAD';
-    btnEl.style.color = 'white';
+    btnEl.classList.add('active')
+    btnEl.classList.remove('btn-outline-primary')
+    btnEl.style.background = '#004AAD'
+    btnEl.style.color = 'white'
   }
 
-  let query = 'sains+OR+teknologi+OR+pendidikan+OR+UTBK+OR+politik';
-  if(topik!== 'all') query = topik;
+  let query = 'sains+OR+teknologi+OR+pendidikan+OR+UTBK+OR+politik'
+  if(topik!== 'all') query = topik
 
-  const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id`);
+  const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id`)
 
   try {
-    const res = await fetch(url);
-    const data = await res.json();
-    container.innerHTML = '';
+    const res = await fetch(url)
+    const data = await res.json()
+    container.innerHTML = ''
 
     if(!data.items || data.items.length === 0){
-      container.innerHTML = '<p class="text-center text-muted mt-4">Berita tidak ditemukan.</p>';
-      return;
+      container.innerHTML = '<p class="text-center text-muted mt-4">Berita tidak ditemukan.</p>'
+      return
     }
 
     data.items.slice(0, 10).forEach(berita => {
@@ -426,41 +454,11 @@ async function loadBerita(topik = 'all', btnEl = null) {
             <a href="${berita.link}" target="_blank" class="btn btn-sm fw-semibold" style="background:#004AAD; color:white;border-radius:8px">Baca Selengkapnya <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
-      `;
-    });
+      `
+    })
   } catch (err) {
-    container.innerHTML = '<p class="text-danger text-center mt-4"><i class="bi bi-wifi-off"></i> Gagal load berita. Coba refresh atau cek koneksi internet.</p>';
+    container.innerHTML = '<p class="text-danger text-center mt-4"><i class="bi bi-wifi-off"></i> Gagal load berita. Coba refresh atau cek koneksi internet.</p>'
   }
-}
-
-function gantiFoto(){
-  document.getElementById('inputFoto').click();
-}
-document.getElementById('inputFoto').addEventListener('change', function(e){
-  const file = e.target.files[0];
-  if(file){
-    if(file.size > 2000000){
-      alert('Ukuran foto maksimal 2MB ya!');
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = function(event){
-      document.getElementById('fotoUser').src = event.target.result;
-      localStorage.setItem('fotoUser', event.target.result);
-    }
-    reader.readAsDataURL(file);
-  }
-});
-function editProfil(){
-  const namaBaru = prompt('Masukkan nama baru:', document.getElementById('namaUser').innerText);
-  if(namaBaru && namaBaru.trim()){
-    document.getElementById('namaUser').innerText = namaBaru.trim();
-    localStorage.setItem('namaUser', namaBaru.trim());
-  }
-}
-function showTentang(){
-  var modal = new bootstrap.Modal(document.getElementById('modalTentang'));
-  modal.show();
 }
 
 const dataGuru = [
@@ -470,25 +468,25 @@ const dataGuru = [
   {id:4,nama:"Bu Rina Melati",mapel:"Kimia",rating:4.7,jumlahSiswa:156,harga:"45k/sesi",foto:"https://i.pravatar.cc/150?img=9",online:true,jadwal:"Kamis & Sabtu 18.00"},
   {id:5,nama:"Pak Dedi Gunawan",mapel:"Matematika",rating:4.6,jumlahSiswa:201,harga:"40k/sesi",foto:"https://i.pravatar.cc/150?img=13",online:false,jadwal:"Minggu 16.00"},
   {id:6,nama:"Kak Lina Putri",mapel:"Biologi",rating:4.9,jumlahSiswa:278,harga:"55k/sesi",foto:"https://i.pravatar.cc/150?img=1",online:true,jadwal:"Senin & Rabu 20.00"}
-];
+]
 
 function renderBintang(rating){
-  let bintang = '';
+  let bintang = ''
   for(let i=1; i<=5; i++){
-    if(i <= Math.floor(rating)) bintang += '<i class="bi bi-star-fill"></i>';
-    else if(i - 0.5 <= rating) bintang += '<i class="bi bi-star-half"></i>';
-    else bintang += '<i class="bi bi-star"></i>';
+    if(i <= Math.floor(rating)) bintang += '<i class="bi bi-star-fill"></i>'
+    else if(i - 0.5 <= rating) bintang += '<i class="bi bi-star-half"></i>'
+    else bintang += '<i class="bi bi-star"></i>'
   }
-  return bintang;
+  return bintang
 }
 
 function tampilkanGuru(list = dataGuru){
-  const container = document.getElementById('listGuru');
-  container.innerHTML = '';
+  const container = document.getElementById('listGuru')
+  container.innerHTML = ''
 
   if(list.length === 0){
-    container.innerHTML = '<p class="text-center text-muted mt-4">Guru tidak ditemukan</p>';
-    return;
+    container.innerHTML = '<p class="text-center text-muted mt-4">Guru tidak ditemukan</p>'
+    return
   }
 
   list.forEach(guru => {
@@ -503,6 +501,7 @@ function tampilkanGuru(list = dataGuru){
               ${renderBintang(guru.rating)} <b>${guru.rating}</b> <span class="text-muted" style="font-size:12px">(${guru.jumlahSiswa} siswa)</span>
             </div>
           </div>
+        </div>
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <div class="guru-harga">${guru.harga}</div>
@@ -513,20 +512,20 @@ function tampilkanGuru(list = dataGuru){
           </button>
         </div>
       </div>
-    `;
-  });
+    `
+  })
 }
 
 function filterGuru(){
-  const mapel = document.getElementById('filterMapel').value;
-  if(mapel === 'all') tampilkanGuru(dataGuru);
-  else tampilkanGuru(dataGuru.filter(g => g.mapel === mapel));
+  const mapel = document.getElementById('filterMapel').value
+  if(mapel === 'all') tampilkanGuru(dataGuru)
+  else tampilkanGuru(dataGuru.filter(g => g.mapel === mapel))
 }
 
 function pilihGuru(id){
-  const guru = dataGuru.find(g => g.id === id);
+  const guru = dataGuru.find(g => g.id === id)
   if(confirm(`Mau les ${guru.mapel} sama ${guru.nama}?\n\nJadwal: ${guru.jadwal}\nHarga: ${guru.harga}`)){
-    alert(`Berhasil pilih ${guru.nama}! 🎉\nSilakan lanjut ke pembayaran.`);
+    alert(`Berhasil pilih ${guru.nama}! 🎉\nSilakan lanjut ke pembayaran.`)
   }
 }
 </script>

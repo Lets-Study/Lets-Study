@@ -43,7 +43,7 @@
 .guru-harga{font-weight:700;color:#00a65a;font-size:16px}
 .btn-pilih-guru{background:#004AAD;color:white;border-radius:10px;font-weight:600;width:100%;border:none;padding:8px}
 .btn-pilih-guru:hover{background:#003a8a;color:white;transform: scale(1.02)}
-.badge-online{width:10px;height:10px;background:#00c851;border-radius:50%;display:inline-block;margin-left:5px;box-shadow: 0 0 0 2px white}
+.badge-online{width:10px;height:10px;background:#00c851;border-radius:50%;display:inline-block;margin-left:5px;box-shadow: 0 2px white}
 .berita-card { border:none; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-radius:14px; transition: all 0.3s ease; }
 .berita-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
 .filter-btn { border-radius: 20px!important; font-size: 13px; font-weight: 600; padding: 6px 14px; transition: all 0.2s; }
@@ -442,6 +442,7 @@
               </div>
               <div class="text-muted mt-1" style="font-size:12px"><i class="bi bi-calendar3"></i> ${guru.jadwal}</div>
             </div>
+          </div>
           <button class="btn btn-sm btn-pilih-guru mt-3" onclick="pilihGuru('${guru.id}')">
             Pilih Guru
           </button>

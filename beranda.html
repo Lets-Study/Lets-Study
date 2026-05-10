@@ -199,6 +199,14 @@
     <div class="container mt-2">
       <h3 class="fw-bold mb-2" style="color:#004AAD;">👨‍🏫 Pilih Guru Favoritmu</h3>
       <p class="text-muted mb-3">Guru berpengalaman sesuai mata pelajaran. Rating dari siswa lain.</p>
+
+      <!-- TOMBOL DAFTAR JADI GURU -->
+      <div class="d-grid mb-3">
+        <button class="btn btn-warning fw-bold" data-bs-toggle="modal" data-bs-target="#modalJadiGuru" style="border-radius:12px">
+          <i class="bi bi-plus-circle-fill"></i> Daftar Jadi Guru Sekarang
+        </button>
+      </div>
+
       <div class="mb-4">
         <select class="form-select" id="filterMapel" onchange="filterGuru()" style="border:2px solid #e0e7ff;border-radius:12px;font-weight:600">
           <option value="all">Semua Mata Pelajaran</option>
@@ -302,6 +310,49 @@
   </div>
 </div>
 
+<!-- MODAL FORM JADI GURU -->
+<div class="modal fade" id="modalJadiGuru" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:16px;border:none">
+      <div class="modal-header" style="background:#004AAD;color:white;border-radius:16px 16px 0 0">
+        <h5 class="modal-title fw-bold"><i class="bi bi-person-plus-fill"></i> Daftar Jadi Guru</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form id="formJadiGuru">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Nama Lengkap</label>
+            <input type="text" class="form-control" id="namaGuru" required style="border-radius:10px">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Mata Pelajaran</label>
+            <select class="form-select" id="mapelGuru" required style="border-radius:10px">
+              <option value="">Pilih Mapel</option>
+              <option value="Matematika">Matematika</option>
+              <option value="Fisika">Fisika</option>
+              <option value="Kimia">Kimia</option>
+              <option value="Biologi">Biologi</option>
+              <option value="B.Indonesia">B. Indonesia</option>
+              <option value="B.Inggris">B. Inggris</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Harga per Sesi</label>
+            <input type="number" class="form-control" id="hargaGuru" placeholder="50000" required style="border-radius:10px">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Jadwal Les</label>
+            <input type="text" class="form-control" id="jadwalGuru" placeholder="Senin & Kamis 19.00" required style="border-radius:10px">
+          </div>
+          <button type="submit" class="btn w-100 fw-bold" style="background:#004AAD;color:white;border-radius:10px">
+            <i class="bi bi-check-circle-fill"></i> Daftar Sekarang
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module">
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
@@ -314,8 +365,11 @@
   let guruLoaded = false
   let allGuru = []
 
-  // === LOAD USER PROFIL ===
+  // === LOAD USER PROFIL + FIX LOOPING ===
   async function loadUser() {
+    // DELAY 500MS BIAR SESSION KEBACA DULU
+    await new Promise(resolve => setTimeout(resolve, 500))
+
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
       window.location.replace("login.html")
@@ -478,9 +532,9 @@
     container.innerHTML = '<p class="text-center text-muted mt-4"><i class="bi bi-hourglass-split"></i> Loading guru...</p>'
 
     const { data: gurus, error } = await supabase
-   .from('guru')
-   .select('*')
-   .eq('status_online', true)
+  .from('guru')
+  .select('*')
+  .eq('status_online', true)
 
     if(error) {
       container.innerHTML = '<p class="text-danger text-center mt-4">Gagal load guru: ' + error.message + '</p>'
@@ -504,15 +558,14 @@
       container.innerHTML += `
         <div class="guru-card">
           <div class="d-flex align-items-start mb-3">
-            <img src="https://i.pravatar.cc/150?u=${guru.user_id}" class="guru-foto me-3" alt="Guru ${guru.mapel}">
+            <img src="${guru.foto_url || `https://i.pravatar.cc/150?u=${guru.user_id}`}" class="guru-foto me-3" alt="Guru ${guru.nama || guru.mapel}">
             <div class="flex-grow-1">
-              <p class="guru-nama">Guru ${guru.mapel} ${guru.status_online? '<span class="badge-online" title="Online"></span>' : ''}</p>
+              <p class="guru-nama">${guru.nama || 'Guru ' + guru.mapel} ${guru.status_online? '<span class="badge-online" title="Online"></span>' : ''}</p>
               <span class="guru-mapel">${guru.mapel}</span>
               <div class="guru-rating mt-2">
                 ${renderBintang(guru.rating)} <b>${guru.rating}</b> <span class="text-muted" style="font-size:12px">(${guru.jumlah_siswa} siswa)</span>
               </div>
             </div>
-          </div>
           <div class="d-flex justify-content-between align-items-center">
             <div>
               <div class="guru-harga">Rp${guru.harga.toLocaleString('id-ID')}/sesi</div>
@@ -536,9 +589,44 @@
   window.pilihGuru = function(id){
     const guru = allGuru.find(g => g.id == id)
     if(confirm(`Mau les ${guru.mapel}?\n\nJadwal: ${guru.jadwal}\nHarga: Rp${guru.harga.toLocaleString('id-ID')}/sesi`)){
-      alert(`Berhasil pilih Guru ${guru.mapel}! 🎉\nSilakan lanjut ke pembayaran.`)
+      alert(`Berhasil pilih Guru ${guru.nama || guru.mapel}! 🎉\nSilakan lanjut ke pembayaran.`)
     }
   }
+
+  // === FORM JADI GURU ===
+  document.getElementById('formJadiGuru').addEventListener('submit', async function(e) {
+    e.preventDefault()
+
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) {
+      alert('Login dulu ya!')
+      return
+    }
+
+    const nama = document.getElementById('namaGuru').value
+    const mapel = document.getElementById('mapelGuru').value
+    const harga = parseInt(document.getElementById('hargaGuru').value)
+    const jadwal = document.getElementById('jadwalGuru').value
+
+    const { error } = await supabase.from('guru').insert({
+      user_id: user.id,
+      nama: nama,
+      mapel: mapel,
+      harga: harga,
+      jadwal: jadwal,
+      status_online: true,
+      foto_url: `https://i.pravatar.cc/150?u=${user.email}`
+    })
+
+    if (error) {
+      alert('Gagal daftar: ' + error.message)
+    } else {
+      alert('Berhasil daftar jadi guru! 🎉')
+      bootstrap.Modal.getInstance(document.getElementById('modalJadiGuru')).hide()
+      document.getElementById('formJadiGuru').reset()
+      loadGuruDariDatabase() // Refresh list guru
+    }
+  })
 </script>
 </body>
 </html>

@@ -200,7 +200,6 @@
       <h3 class="fw-bold mb-2" style="color:#004AAD;">👨‍🏫 Pilih Guru Favoritmu</h3>
       <p class="text-muted mb-3">Guru berpengalaman sesuai mata pelajaran. Rating dari siswa lain.</p>
 
-      <!-- TOMBOL DAFTAR JADI GURU -->
       <div class="d-grid mb-3">
         <button class="btn btn-warning fw-bold" data-bs-toggle="modal" data-bs-target="#modalJadiGuru" style="border-radius:12px">
           <i class="bi bi-plus-circle-fill"></i> Daftar Jadi Guru Sekarang
@@ -310,7 +309,6 @@
   </div>
 </div>
 
-<!-- MODAL FORM JADI GURU -->
 <div class="modal fade" id="modalJadiGuru" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="border-radius:16px;border:none">
@@ -365,25 +363,20 @@
   let guruLoaded = false
   let allGuru = []
 
-  // === LOAD USER PROFIL + FIX LOOPING ===
   async function loadUser() {
     const { data: { session } } = await supabase.auth.getSession()
-
     if (!session) {
       window.location.replace("login.html")
       return
     }
-
     currentUser = session.user
     const { data: profile } = await supabase.from('users').select('*').eq('id', session.user.id).single()
-
     document.getElementById('emailUser').textContent = session.user.email
     document.getElementById('namaUser').textContent = profile?.nama || 'Murid LS Academy'
     document.getElementById('fotoUser').src = profile?.foto_url || 'icon-192.png'
     document.getElementById('levelUser').innerHTML = `${profile?.level || 'Gold'} <i class="bi bi-chevron-right"></i>`
     document.getElementById('idUser').textContent = `ID: ${session.user.id.slice(0,8).toUpperCase()}`
   }
-
   loadUser()
 
   window.logout = async function() {
@@ -428,19 +421,16 @@
     modal.show()
   }
 
-  // === TAB & BERITA ===
   window.openTab = function(tabName, el) {
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'))
     document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'))
     document.getElementById(tabName).classList.add('active')
     el.classList.add('active')
-
     if(tabName === 'profil') {
       document.body.classList.add('profil-active')
     } else {
       document.body.classList.remove('profil-active')
     }
-
     if(tabName === 'berita' &&!beritaLoaded) {
       loadBerita('all', document.getElementById('btn-all'))
       beritaLoaded = true
@@ -470,7 +460,6 @@
   window.loadBerita = async function(topik = 'all', btnEl = null) {
     const container = document.getElementById('daftar-berita')
     showSkeletonBerita()
-
     document.querySelectorAll('#berita.filter-btn').forEach(btn => {
       btn.classList.remove('active')
       btn.classList.add('btn-outline-primary')
@@ -483,22 +472,17 @@
       btnEl.style.background = '#004AAD'
       btnEl.style.color = 'white'
     }
-
     let query = 'sains+OR+teknologi+OR+pendidikan+OR+UTBK+OR+politik'
     if(topik!== 'all') query = topik
-
     const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id`)
-
     try {
       const res = await fetch(url)
       const data = await res.json()
       container.innerHTML = ''
-
       if(!data.items || data.items.length === 0){
         container.innerHTML = '<p class="text-center text-muted mt-4">Berita tidak ditemukan.</p>'
         return
       }
-
       data.items.slice(0, 10).forEach(berita => {
         container.innerHTML += `
           <div class="card mb-3 berita-card">
@@ -515,7 +499,6 @@
     }
   }
 
-  // === GURU DARI SUPABASE ===
   function renderBintang(rating){
     let bintang = ''
     for(let i=1; i<=5; i++){
@@ -529,17 +512,11 @@
   async function loadGuruDariDatabase() {
     const container = document.getElementById('listGuru')
     container.innerHTML = '<p class="text-center text-muted mt-4"><i class="bi bi-hourglass-split"></i> Loading guru...</p>'
-
-    const { data: gurus, error } = await supabase
-.from('guru')
-.select('*')
-.eq('status_online', true)
-
+    const { data: gurus, error } = await supabase.from('guru').select('*').eq('status_online', true)
     if(error) {
       container.innerHTML = '<p class="text-danger text-center mt-4">Gagal load guru: ' + error.message + '</p>'
       return
     }
-
     allGuru = gurus
     tampilkanGuru(allGuru)
   }
@@ -547,17 +524,15 @@
   function tampilkanGuru(list = allGuru){
     const container = document.getElementById('listGuru')
     container.innerHTML = ''
-
     if(list.length === 0){
       container.innerHTML = '<p class="text-center text-muted mt-4">Belum ada guru online</p>'
       return
     }
-
     list.forEach(guru => {
       container.innerHTML += `
         <div class="guru-card">
           <div class="d-flex align-items-start">
-            <img src="${guru.foto_url || `https://i.pravatar.cc/150?u=${guru.user_id}`}" class="guru-foto me-3" alt="${guru.nama}">
+            <img src="${guru.foto_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(guru.nama || 'Guru')}&background=004AAD&color=fff&size=150`}" class="guru-foto me-3" alt="${guru.nama}">
             <div class="flex-grow-1" style="min-width:0">
               <div class="d-flex justify-content-between align-items-start mb-1">
                 <p class="guru-nama mb-0">${guru.nama || 'Guru ' + guru.mapel} ${guru.status_online? '<span class="badge-online" title="Online"></span>' : ''}</p>
@@ -590,23 +565,18 @@
     }
   }
 
-  // === FORM JADI GURU ===
   document.getElementById('formJadiGuru').addEventListener('submit', async function(e) {
     e.preventDefault()
-
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
       alert('Login dulu ya!')
       return
     }
-
     const { data: profile } = await supabase.from('users').select('nama,foto_url').eq('id', user.id).single()
-
     const nama = document.getElementById('namaGuru').value || profile?.nama || 'Guru Baru'
     const mapel = document.getElementById('mapelGuru').value
     const harga = parseInt(document.getElementById('hargaGuru').value)
     const jadwal = document.getElementById('jadwalGuru').value
-
     const { error } = await supabase.from('guru').insert({
       user_id: user.id,
       nama: nama,
@@ -614,9 +584,8 @@
       harga: harga,
       jadwal: jadwal,
       status_online: true,
-      foto_url: profile?.foto_url || `https://i.pravatar.cc/150?u=${user.email}`
+      foto_url: profile?.foto_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(nama)}&background=004AAD&color=fff&size=150`
     })
-
     if (error) {
       alert('Gagal daftar: ' + error.message)
     } else {

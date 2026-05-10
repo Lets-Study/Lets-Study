@@ -26,7 +26,7 @@
 .info-akun{font-size:13px;opacity:0.9}
 .tombol-jenjang { background: white; border: 2px solid #e0e7ff; border-radius: 18px; padding: 35px 20px; margin: 15px 0; text-align: center; color: #004AAD; text-decoration: none; display: block; font-size: 26px; font-weight: 700; box-shadow: 0 4px 20px rgba(0,74,173,0.08); transition: all 0.3s ease; }
 .tombol-jenjang:hover { background: #004AAD; color: #FFC107; transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,74,173,0.2); border-color: #004AAD; }
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-around; padding: 8px 0 12px 0; box-shadow: 0 -4px 15px rgba(0,0,0,0.06); z-index: 1000; }
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-around; padding: 8px 0 12px 0; box-shadow: 0 -4px 15px rgba(0,0,0,0.06); z-index: 1035; }
 .nav-item { text-align: center; color: #9ca3af; text-decoration: none; font-size: 11px; cursor: pointer; transition: all 0.2s; padding: 4px 12px; border-radius: 12px; }
 .nav-item.active { color: #004AAD; font-weight: 700; background: #eef4ff; }
 .nav-item i { font-size: 22px; display: block; margin-bottom: 2px; }
@@ -138,6 +138,7 @@
           <div class="info-akun" id="idUser">ID: Loading...</div>
         </div>
       </div>
+    </div>
     <div class="container profil-content">
       <div class="section-title">Akun Saya</div>
       <div class="menu-box">
@@ -186,7 +187,7 @@
 <div class="modal fade" id="modalTentang" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="border-radius:16px;border:none">
-      <div class="modal-header" style="background:#004AAD;color:white;border-radius:16px 0 0">
+      <div class="modal-header" style="background:#004AAD;color:white;border-radius:16px 16px 0 0">
         <h5 class="modal-title fw-bold"><i class="bi bi-info-circle"></i> Tentang LS Academy</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>

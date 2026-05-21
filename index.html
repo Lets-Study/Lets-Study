@@ -1,54 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>LS Academy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LS Academy</title>
   <style>
-    body {
-      background: white;
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: #0099FF;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      flex-direction: column;
+      font-family: 'Poppins', 'Arial', sans-serif;
     }
-    .splash-logo {
-      width: 200px;
-      height: auto;
+    
+    .splash-container {
+      text-align: center;
       animation: fadeIn 1s ease-in;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
+    
+    .logo-text {
+      color: #FFD700;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .loading-text {
-      margin-top: 20px;
-      color: #004AAD;
-      font-family: Arial, sans-serif;
-      font-weight: bold;
+    
+    @keyframes fadeIn {
+      from { 
+        opacity: 0; 
+        transform: scale(0.9); 
+      }
+      to { 
+        opacity: 1; 
+        transform: scale(1); 
+      }
     }
   </style>
 </head>
 <body>
-  <img src="icon-192.png" alt="LS Academy" class="splash-logo">
-  <div class="loading-text">Memuat...</div>
+  <div class="splash-container">
+    <h1 class="logo-text">LS Academy</h1>
+  </div>
 
-<script type="module">
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
-  const supabaseUrl = 'https://rdziigwttjhnrmiutxbp.supabase.co'
-  const supabaseKey = 'sb_publishable_YOV4qY3s5M7W4u9vCcApnQ_-mdd6xXA'
-  const supabase = createClient(supabaseUrl, supabaseKey)
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+    const supabaseUrl = 'https://rdziigwttjhnrmiutxbp.supabase.co'
+    const supabaseKey = 'sb_publishable_YOV4qY3s5M7W4u9vCcApnQ_-mdd6xXA'
+    const supabase = createClient(supabaseUrl, supabaseKey)
 
-  setTimeout(async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    if (user) {
-      window.location.replace("beranda.html")
-    } else {
-      window.location.replace("login.html")
-    }
-  }, 2000)
-</script>
+    // Tunggu 2 detik lalu cek login
+    setTimeout(async () => {
+      const { data: { user } = await supabase.auth.getUser()
+      if (user) {
+        window.location.replace("beranda.html")
+      } else {
+        window.location.replace("login.html")
+      }
+    }, 2000)
+  </script>
 </body>
 </html>

@@ -2,60 +2,39 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LS Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      background: #0099FF;
-      height: 100vh;
+      background: linear-gradient(135deg, #0099FF, #00BFFF);
       display: flex;
-      align-items: center;
       justify-content: center;
-      font-family: Arial, sans-serif;
+      align-items: center;
+      height: 100vh;
       margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: white;
     }
-    .logo-text {
-      color: #FFD700;
-      font-size: 32px;
-      font-weight: 700;
+    .btn-masuk {
+      padding: 15px 40px;
+      background: #FFD700;
+      color: #0099FF;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .btn-masuk:hover {
+      transform: scale(1.05);
     }
   </style>
-  <!-- Supabase -->
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body>
-  <div class="logo-text">LS Academy</div>
-
-  <script>
-    const supabase = window.supabase.createClient(
-      "https://rdziigwttjhnrmiutxbp.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkemlpZ3d0dGpobnJtaXV0eGJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwNjk3NTksImV4cCI6MjA3MjY0NTc1OX0.gpwUGW6qhoLX3qdnPzKtRAHZ9NYU-8VKn0pCVijNIP0"
-    );
-
-    // Fallback 2 detik: kalau Supabase lemot, langsung ke login
-    let redirected = false;
-    const go = (url) => {
-      if (!redirected) {
-        redirected = true;
-        window.location.replace(url);
-      }
-    };
-    setTimeout(() => go("login.html"), 2000);
-
-    // Cek session beneran valid atau nggak
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        go("beranda.html");
-      } else {
-        // Hapus token lama yang rusak
-        localStorage.clear();
-        go("login.html");
-      }
-    }).catch(() => {
-      // Kalau error, anggap belum login
-      localStorage.clear();
-      go("login.html");
-    });
-  </script>
+  <div style="text-align:center;">
+    <h1 style="font-size:48px; margin-bottom:40px;">LS Academy</h1>
+    <a href="login.html" class="btn-masuk">Masuk Sekarang</a>
+  </div>
 </body>
 </html>

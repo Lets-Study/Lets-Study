@@ -7,48 +7,293 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <style>
- body { background-color: #f0f4f8; font-family: 'Segoe UI', Arial, sans-serif; padding-bottom: 90px; }
-.navbar { background-color: #004AAD; position: fixed; top: 0; width: 100%; z-index: 1030; height: 65px; transition: transform 0.3s ease; }
-.profil-active.navbar { transform: translateY(-100%); }
- #belajar, #berita, #les, #profil { padding-top: 75px; }
-.header-profil{ background:linear-gradient(135deg,#004AAD,#0056d6); padding: 85px 15px 25px 15px; color:white; position: relative; margin-bottom: 20px; }
-.profil-content { margin-top: -10px; }
-.btn-logout-profil { position: absolute; top: 75px; right: 15px; background:#FFC107; color:#004AAD; font-weight:bold; border: none; padding: 6px 14px; border-radius: 8px; font-size: 12px; transition: all 0.2s; z-index: 2; }
-.foto-profil{ width:75px;height:75px;border-radius:50%;border:3px solid white;object-fit:cover; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-.badge-level{background:#FFC107;color:#000;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:bold}
-.menu-box{background:white;border-radius:14px;padding:5px 15px;margin:15px 0;box-shadow:0 2px 10px rgba(0,0,0,0.06)}
-.menu-list-item{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #f0f0;text-decoration:none;color:#333;transition: all 0.2s}
-.menu-list-item:hover{background:#f8faff;border-radius:8px;padding-left:8px}
-.menu-list-item:last-child{border-bottom:none}
-.menu-list-item i{font-size:20px;color:#004AAD;width:32px}
-.section-title{font-weight:700;font-size:15px;margin:25px 0 8px 5px;color:#555;text-transform: uppercase;letter-spacing: 0.5px}
-.btn-edit-foto{position:absolute;bottom:0;right:0;background:#004AAD;color:white;border:2px solid white;border-radius:50%;width:26px;height:26px;font-size:12px;display:flex;align-items:center;justify-content:center}
-.info-akun{font-size:13px;opacity:0.9}
-.tombol-jenjang { background: white; border: 2px solid #e0e7ff; border-radius: 18px; padding: 35px 20px; margin: 15px 0; text-align: center; color: #004AAD; text-decoration: none; display: block; font-size: 26px; font-weight: 700; box-shadow: 0 4px 20px rgba(0,74,173,0.08); transition: all 0.3s ease; }
-.tombol-jenjang:hover { background: #004AAD; color: #FFC107; transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,74,173,0.2); border-color: #004AAD; }
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-around; padding: 8px 0 12px 0; box-shadow: 0 -4px 15px rgba(0,0,0,0.06); z-index: 1035; }
-.nav-item { text-align: center; color: #9ca3af; text-decoration: none; font-size: 11px; cursor: pointer; transition: all 0.2s; padding: 4px 12px; border-radius: 12px; }
-.nav-item.active { color: #004AAD; font-weight: 700; background: #eef4ff; }
-.nav-item i { font-size: 22px; display: block; margin-bottom: 2px; }
-.tab-content { display: none; animation: fadeIn 0.3s; }
-.tab-content.active { display: block; }
-@keyframes fadeIn { from {opacity: 0} to {opacity: 1} }
-.guru-card{ background:white;border-radius:16px;padding:16px;margin-bottom:15px; box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid #f0f0; transition: all 0.3s ease; }
-.guru-card:hover{transform: translateY(-3px); box-shadow:0 6px 20px rgba(0,74,173,0.12)}
-.guru-foto{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid #004AAD;flex-shrink:0}
-.guru-nama{font-weight:700;font-size:16px;color:#004AAD;margin-bottom:2px;line-height:1.2}
-.guru-mapel{font-size:12px;background:#e3f2fd;color:#004AAD;padding:3px 10px;border-radius:10px;display:inline-block;font-weight:600}
-.guru-rating{color:#FFC107;font-size:14px}
-.guru-rating i{font-size:12px}
-.guru-harga{font-weight:700;color:#00a65a;font-size:16px}
-.btn-pilih-guru{background:#004AAD;color:white;border-radius:10px;font-weight:600;width:100%;border:none;padding:8px}
-.btn-pilih-guru:hover{background:#003a8a;color:white;transform: scale(1.02)}
-.badge-online{width:10px;height:10px;background:#00c851;border-radius:50%;display:inline-block;margin-left:5px;box-shadow: 0 0 0 2px white}
-.berita-card { border:none; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-radius:14px; transition: all 0.3s ease; }
-.berita-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
-.filter-btn { border-radius: 20px!important; font-size: 13px; font-weight: 600; padding: 6px 14px; transition: all 0.2s; }
-.skeleton { background: linear-gradient(90deg, #f0f0 25%, #e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: 8px; }
-@keyframes loading { 0% {background-position: 200% 0} 100% {background-position: -200% 0} }
+    body {
+      background-color: #f0f4f8;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      padding-bottom: 90px;
+    }
+   .navbar {
+      background-color: #004AAD;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1030;
+      height: 65px;
+      transition: transform 0.3s ease;
+    }
+   .profil-active.navbar {
+      transform: translateY(-100%);
+    }
+    #belajar, #berita, #les, #profil {
+      padding-top: 75px;
+    }
+   .header-profil{
+      background:linear-gradient(135deg,#004AAD,#0056d6);
+      padding: 85px 15px 25px 15px;
+      color:white;
+      position: relative;
+      margin-bottom: 20px;
+    }
+   .profil-content {
+      margin-top: -10px;
+    }
+   .btn-logout-profil {
+      position: absolute;
+      top: 75px;
+      right: 15px;
+      background:#FFC107;
+      color:#004AAD;
+      font-weight:bold;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      transition: all 0.2s;
+      z-index: 2;
+    }
+   .foto-profil{
+      width:75px;
+      height:75px;
+      border-radius:50%;
+      border:3px solid white;
+      object-fit:cover;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+   .badge-level{
+      background:#FFC107;
+      color:#000;
+      padding:3px 10px;
+      border-radius:12px;
+      font-size:12px;
+      font-weight:bold
+    }
+   .menu-box{
+      background:white;
+      border-radius:14px;
+      padding:5px 15px;
+      margin:15px 0;
+      box-shadow:0 2px 10px rgba(0,0,0,0.06)
+    }
+   .menu-list-item{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:16px 0;
+      border-bottom:1px solid #f0f0f0;
+      text-decoration:none;
+      color:#333;
+      transition: all 0.2s
+    }
+   .menu-list-item:hover{
+      background:#f8faff;
+      border-radius:8px;
+      padding-left:8px
+    }
+   .menu-list-item:last-child{
+      border-bottom:none
+    }
+   .menu-list-item i{
+      font-size:20px;
+      color:#004AAD;
+      width:32px
+    }
+   .section-title{
+      font-weight:700;
+      font-size:15px;
+      margin:25px 0 8px 5px;
+      color:#555;
+      text-transform: uppercase;
+      letter-spacing: 0.5px
+    }
+   .btn-edit-foto{
+      position:absolute;
+      bottom:0;
+      right:0;
+      background:#004AAD;
+      color:white;
+      border:2px solid white;
+      border-radius:50%;
+      width:26px;
+      height:26px;
+      font-size:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center
+    }
+   .info-akun{
+      font-size:13px;
+      opacity:0.9
+    }
+   .tombol-jenjang {
+      background: white;
+      border: 2px solid #e0e7ff;
+      border-radius: 18px;
+      padding: 35px 20px;
+      margin: 15px 0;
+      text-align: center;
+      color: #004AAD;
+      text-decoration: none;
+      display: block;
+      font-size: 26px;
+      font-weight: 700;
+      box-shadow: 0 4px 20px rgba(0,74,173,0.08);
+      transition: all 0.3s ease;
+    }
+   .tombol-jenjang:hover {
+      background: #004AAD;
+      color: #FFC107;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0,74,173,0.2);
+      border-color: #004AAD;
+    }
+
+    /* Bottom Nav 5 item */
+   .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0 12px 0;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.06);
+      z-index: 1035;
+    }
+   .nav-item {
+      text-align: center;
+      color: #9ca3af;
+      text-decoration: none;
+      font-size: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex: 1;
+      padding: 4px 0;
+      border-radius: 12px;
+    }
+   .nav-item.active {
+      color: #004AAD;
+      font-weight: 700;
+      background: #eef4ff;
+    }
+   .nav-item i {
+      font-size: 22px;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+   .tab-content {
+      display: none;
+      animation: fadeIn 0.3s;
+    }
+   .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0}
+      to {opacity: 1}
+    }
+
+   .guru-card{
+      background:white;
+      border-radius:16px;
+      padding:16px;
+      margin-bottom:15px;
+      box-shadow:0 2px 12px rgba(0,0,0,0.06);
+      border:1px solid #f0f0f0;
+      transition: all 0.3s ease;
+    }
+   .guru-card:hover{
+      transform: translateY(-3px);
+      box-shadow:0 6px 20px rgba(0,74,173,0.12)
+    }
+   .guru-foto{
+      width:64px;
+      height:64px;
+      border-radius:50%;
+      object-fit:cover;
+      border:2px solid #004AAD;
+      flex-shrink:0
+    }
+   .guru-nama{
+      font-weight:700;
+      font-size:16px;
+      color:#004AAD;
+      margin-bottom:2px;
+      line-height:1.2
+    }
+   .guru-mapel{
+      font-size:12px;
+      background:#e3f2fd;
+      color:#004AAD;
+      padding:3px 10px;
+      border-radius:10px;
+      display:inline-block;
+      font-weight:600
+    }
+   .guru-rating{
+      color:#FFC107;
+      font-size:14px
+    }
+   .guru-rating i{
+      font-size:12px
+    }
+   .guru-harga{
+      font-weight:700;
+      color:#00a65a;
+      font-size:16px
+    }
+   .btn-pilih-guru{
+      background:#004AAD;
+      color:white;
+      border-radius:10px;
+      font-weight:600;
+      width:100%;
+      border:none;
+      padding:8px
+    }
+   .btn-pilih-guru:hover{
+      background:#003a8a;
+      color:white;
+      transform: scale(1.02)
+    }
+   .badge-online{
+      width:10px;
+      height:10px;
+      background:#00c851;
+      border-radius:50%;
+      display:inline-block;
+      margin-left:5px;
+      box-shadow: 0 0 0 2px white
+    }
+   .berita-card {
+      border:none;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      border-radius:14px;
+      transition: all 0.3s ease;
+    }
+   .berita-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+   .filter-btn {
+      border-radius: 20px!important;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      transition: all 0.2s;
+    }
+   .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 8px;
+    }
+    @keyframes loading {
+      0% {background-position: 200% 0}
+      100% {background-position: -200% 0}
+    }
   </style>
 </head>
 <body>
@@ -61,6 +306,7 @@
     </div>
   </nav>
 
+  <!-- Tab Belajar -->
   <div id="belajar" class="tab-content active">
     <div class="container mt-2">
       <h3 class="fw-bold text-center mb-4" style="color:#004AAD;">Pilih Jenjang Kamu 👇</h3>
@@ -80,6 +326,7 @@
     </div>
   </div>
 
+  <!-- Tab Berita -->
   <div id="berita" class="tab-content">
     <div class="container mt-2">
       <h3 class="fw-bold" style="color:#004AAD;">📰 Berita Pengetahuan Hari Ini</h3>
@@ -96,6 +343,7 @@
     </div>
   </div>
 
+  <!-- Tab Les Guru -->
   <div id="les" class="tab-content">
     <div class="container mt-2">
       <h3 class="fw-bold mb-2" style="color:#004AAD;">👨‍🏫 Pilih Guru Favoritmu</h3>
@@ -120,6 +368,7 @@
     </div>
   </div>
 
+  <!-- Tab Profil -->
   <div id="profil" class="tab-content">
     <div class="header-profil">
       <button onclick="logout()" class="btn-logout-profil"><i class="bi bi-box-arrow-right"></i> Logout</button>
@@ -165,342 +414,349 @@
     </div>
   </div>
 
+  <!-- Bottom Nav 5 Item -->
   <div class="bottom-nav">
-   <div class="nav-item active" onclick="openTab('belajar', this)">
-      <i class="bi bi-book-fill"></i>
-      Belajar
-   </div>
-   <div class="nav-item" onclick="openTab('berita', this)">
+    <div class="nav-item active" onclick="openTab('belajar', this)">
+      <i class="bi bi-house-door-fill"></i>
+      Home
+    </div>
+    <div class="nav-item" onclick="openTab('berita', this)">
       <i class="bi bi-newspaper"></i>
-      Berita
+      News
     </div>
     <div class="nav-item" onclick="openTab('les', this)">
-      <i class="bi bi-person-video3"></i>
-      Les Guru
+      <i class="bi bi-journal-bookmark-fill"></i>
+      Course
+    </div>
+    <div class="nav-item" onclick="window.location.href='chat.html'">
+      <i class="bi bi-chat-dots-fill"></i>
+      Communicate
     </div>
     <div class="nav-item" onclick="openTab('profil', this)">
       <i class="bi bi-person-circle"></i>
-      Profil
+      User
     </div>
   </div>
 
-<div class="modal fade" id="modalTentang" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="border-radius:16px;border:none">
-      <div class="modal-header" style="background:#004AAD;color:white;border-radius:16px 16px 0 0">
-        <h5 class="modal-title fw-bold"><i class="bi bi-info-circle"></i> Tentang LS Academy</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body text-center p-4">
-        <img src="icon-192.png" width="90" class="mb-3" style="border-radius:20px">
-        <h4 style="color:#004AAD" class="fw-bold">LS Academy</h4>
-        <p class="text-muted">Versi 1.0.0</p>
-        <hr>
-        <div class="bg-light p-3 rounded-3 mt-3 text-start">
-          <div class="mb-2"><b>Developed by:</b><br>Tim LS Academy</div>
-          <div class="mb-2"><b>Founder:</b><br>Rizky Ifandi Syaputra</div>
-          <div><b>Contact:</b><br>Instagram: @letsstudy.official</div>
+  <!-- Modal Tentang -->
+  <div class="modal fade" id="modalTentang" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius:16px;border:none">
+        <div class="modal-header" style="background:#004AAD;color:white;border-radius:16px 16px 0 0">
+          <h5 class="modal-title fw-bold"><i class="bi bi-info-circle"></i> Tentang LS Academy</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
-        <p class="mt-3 mb-0" style="font-size:12px;color:#666">© 2026 LS Academy</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="modalJadiGuru" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="border-radius:16px;border:none">
-      <div class="modal-header" style="background:#004AAD;color:white;border-radius:16px 16px 0 0">
-        <h5 class="modal-title fw-bold"><i class="bi bi-person-plus-fill"></i> Daftar Jadi Guru</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body p-4">
-        <form id="formJadiGuru">
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Nama Lengkap</label>
-            <input type="text" class="form-control" id="namaGuru" required style="border-radius:10px" placeholder="Nama otomatis dari profil">
+        <div class="modal-body text-center p-4">
+          <img src="icon-192.png" width="90" class="mb-3" style="border-radius:20px">
+          <h4 style="color:#004AAD" class="fw-bold">LS Academy</h4>
+          <p class="text-muted">Versi 1.0.0</p>
+          <hr>
+          <div class="bg-light p-3 rounded-3 mt-3 text-start">
+            <div class="mb-2"><b>Developed by:</b><br>Tim LS Academy</div>
+            <div class="mb-2"><b>Founder:</b><br>Rizky Ifandi Syaputra</div>
+            <div><b>Contact:</b><br>Instagram: @letsstudy.official</div>
           </div>
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Mata Pelajaran</label>
-            <select class="form-select" id="mapelGuru" required style="border-radius:10px">
-              <option value="">Pilih Mapel</option>
-              <option value="Matematika">Matematika</option>
-              <option value="Fisika">Fisika</option>
-              <option value="Kimia">Kimia</option>
-              <option value="Biologi">Biologi</option>
-              <option value="B.Indonesia">B. Indonesia</option>
-              <option value="B.Inggris">B. Inggris</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Harga per Sesi</label>
-            <input type="number" class="form-control" id="hargaGuru" placeholder="50000" required style="border-radius:10px">
-          </div>
-          <div class="mb-3">
-            <label class="form-label fw-semibold">Jadwal Les</label>
-            <input type="text" class="form-control" id="jadwalGuru" placeholder="Senin & Kamis 19.00" required style="border-radius:10px">
-          </div>
-          <button type="submit" class="btn w-100 fw-bold" style="background:#004AAD;color:white;border-radius:10px">
-            <i class="bi bi-check-circle-fill"></i> Daftar Sekarang
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script type="module">
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
-  const supabaseUrl = 'https://rdziigwttjhnrmiutxbp.supabase.co'
-  const supabaseKey = 'sb_publishable_YOV4qY3s5M7W4u9vCcApnQ_-mdd6xXA'
-  const supabase = createClient(supabaseUrl, supabaseKey)
-
-  let currentUser = null
-  let beritaLoaded = false
-  let guruLoaded = false
-  let allGuru = []
-
-  async function loadUser() {
-    const { data: { session } } = await supabase.auth.getSession()
-    if (!session) {
-      window.location.replace("login.html")
-      return
-    }
-    currentUser = session.user
-    const { data: profile } = await supabase.from('users').select('*').eq('id', session.user.id).single()
-    document.getElementById('emailUser').textContent = session.user.email
-    document.getElementById('namaUser').textContent = profile?.nama || 'Murid LS Academy'
-    document.getElementById('fotoUser').src = profile?.foto_url || 'icon-192.png'
-    document.getElementById('levelUser').innerHTML = `${profile?.level || 'Gold'} <i class="bi bi-chevron-right"></i>`
-    document.getElementById('idUser').textContent = `ID: ${session.user.id.slice(0,8).toUpperCase()}`
-  }
-  loadUser()
-
-  window.logout = async function() {
-    await supabase.auth.signOut()
-    window.location.replace("login.html")
-  }
-
-  window.gantiFoto = function() {
-    document.getElementById('inputFoto').click()
-  }
-
-  document.getElementById('inputFoto').addEventListener('change', async function(e) {
-    const file = e.target.files[0]
-    if(!file) return
-    if(file.size > 2000000) {
-      alert('Ukuran foto maksimal 2MB ya!')
-      return
-    }
-    const fileExt = file.name.split('.').pop()
-    const fileName = `${currentUser.id}-${Date.now()}.${fileExt}`
-    const { error: uploadError } = await supabase.storage.from('profile').upload(fileName, file, { upsert: true })
-    if (uploadError) {
-      alert('Upload gagal: ' + uploadError.message)
-      return
-    }
-    const { data } = supabase.storage.from('profile').getPublicUrl(fileName)
-    await supabase.from('users').update({ foto_url: data.publicUrl }).eq('id', currentUser.id)
-    document.getElementById('fotoUser').src = data.publicUrl
-    alert('Foto profil berhasil diupdate!')
-    loadGuruDariDatabase()
-  })
-
-  window.editProfil = async function() {
-    const namaBaru = prompt('Masukkan nama baru:', document.getElementById('namaUser').innerText)
-    if(namaBaru && namaBaru.trim()) {
-      await supabase.from('users').update({ nama: namaBaru.trim() }).eq('id', currentUser.id)
-      document.getElementById('namaUser').innerText = namaBaru.trim()
-    }
-  }
-
-  window.showTentang = function() {
-    var modal = new bootstrap.Modal(document.getElementById('modalTentang'))
-    modal.show()
-  }
-
-  window.openTab = function(tabName, el) {
-    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'))
-    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'))
-    document.getElementById(tabName).classList.add('active')
-    el.classList.add('active')
-    if(tabName === 'profil') {
-      document.body.classList.add('profil-active')
-    } else {
-      document.body.classList.remove('profil-active')
-    }
-    if(tabName === 'berita' &&!beritaLoaded) {
-      loadBerita('all', document.getElementById('btn-all'))
-      beritaLoaded = true
-    }
-    if(tabName === 'les' &&!guruLoaded) {
-      loadGuruDariDatabase()
-      guruLoaded = true
-    }
-  }
-
-  function showSkeletonBerita() {
-    const container = document.getElementById('daftar-berita')
-    container.innerHTML = ''
-    for(let i=0; i<3; i++){
-      container.innerHTML += `
-        <div class="card mb-3 berita-card">
-          <div class="card-body">
-            <div class="skeleton mb-2" style="height:20px;width:80%"></div>
-            <div class="skeleton mb-2" style="height:14px;width:40%"></div>
-            <div class="skeleton" style="height:32px;width:120px"></div>
-          </div>
+          <p class="mt-3 mb-0" style="font-size:12px;color:#666">© 2026 LS Academy</p>
         </div>
-      `
-    }
-  }
+      </div>
+    </div>
+  </div>
 
-  window.loadBerita = async function(topik = 'all', btnEl = null) {
-    const container = document.getElementById('daftar-berita')
-    showSkeletonBerita()
-    document.querySelectorAll('#berita.filter-btn').forEach(btn => {
-      btn.classList.remove('active')
-      btn.classList.add('btn-outline-primary')
-      btn.style.background = ''
-      btn.style.color = ''
-    })
-    if(btnEl){
-      btnEl.classList.add('active')
-      btnEl.classList.remove('btn-outline-primary')
-      btnEl.style.background = '#004AAD'
-      btnEl.style.color = 'white'
-    }
-    let query = 'sains+OR+teknologi+OR+pendidikan+OR+UTBK+OR+politik'
-    if(topik!== 'all') query = topik
-    const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id`)
-    try {
-      const res = await fetch(url)
-      const data = await res.json()
-      container.innerHTML = ''
-      if(!data.items || data.items.length === 0){
-        container.innerHTML = '<p class="text-center text-muted mt-4">Berita tidak ditemukan.</p>'
+  <!-- Modal Jadi Guru -->
+  <div class="modal fade" id="modalJadiGuru" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius:16px;border:none">
+        <div class="modal-header" style="background:#004AAD;color:white;border-radius:16px 16px 0 0">
+          <h5 class="modal-title fw-bold"><i class="bi bi-person-plus-fill"></i> Daftar Jadi Guru</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="formJadiGuru">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Nama Lengkap</label>
+              <input type="text" class="form-control" id="namaGuru" required style="border-radius:10px" placeholder="Nama otomatis dari profil">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Mata Pelajaran</label>
+              <select class="form-select" id="mapelGuru" required style="border-radius:10px">
+                <option value="">Pilih Mapel</option>
+                <option value="Matematika">Matematika</option>
+                <option value="Fisika">Fisika</option>
+                <option value="Kimia">Kimia</option>
+                <option value="Biologi">Biologi</option>
+                <option value="B.Indonesia">B. Indonesia</option>
+                <option value="B.Inggris">B. Inggris</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Harga per Sesi</label>
+              <input type="number" class="form-control" id="hargaGuru" placeholder="50000" required style="border-radius:10px">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Jadwal Les</label>
+              <input type="text" class="form-control" id="jadwalGuru" placeholder="Senin & Kamis 19.00" required style="border-radius:10px">
+            </div>
+            <button type="submit" class="btn w-100 fw-bold" style="background:#004AAD;color:white;border-radius:10px">
+              <i class="bi bi-check-circle-fill"></i> Daftar Sekarang
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+    const supabaseUrl = 'https://rdziigwttjhnrmiutxbp.supabase.co'
+    const supabaseKey = 'sb_publishable_YOV4qY3s5M7W4u9vCcApnQ_-mdd6xXA'
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    let currentUser = null
+    let beritaLoaded = false
+    let guruLoaded = false
+    let allGuru = []
+
+    async function loadUser() {
+      const { data: { session } = await supabase.auth.getSession()
+      if (!session) {
+        window.location.replace("login.html")
         return
       }
-      data.items.slice(0, 10).forEach(berita => {
+      currentUser = session.user
+      const { data: profile } = await supabase.from('users').select('*').eq('id', session.user.id).single()
+      document.getElementById('emailUser').textContent = session.user.email
+      document.getElementById('namaUser').textContent = profile?.nama || 'Murid LS Academy'
+      document.getElementById('fotoUser').src = profile?.foto_url || 'icon-192.png'
+      document.getElementById('levelUser').innerHTML = `${profile?.level || 'Gold'} <i class="bi bi-chevron-right"></i>`
+      document.getElementById('idUser').textContent = `ID: ${session.user.id.slice(0,8).toUpperCase()}`
+    }
+    loadUser()
+
+    window.logout = async function() {
+      await supabase.auth.signOut()
+      window.location.replace("login.html")
+    }
+
+    window.gantiFoto = function() {
+      document.getElementById('inputFoto').click()
+    }
+
+    document.getElementById('inputFoto').addEventListener('change', async function(e) {
+      const file = e.target.files[0]
+      if(!file) return
+      if(file.size > 2000000) {
+        alert('Ukuran foto maksimal 2MB ya!')
+        return
+      }
+      const fileExt = file.name.split('.').pop()
+      const fileName = `${currentUser.id}-${Date.now()}.${fileExt}`
+      const { error: uploadError } = await supabase.storage.from('profile').upload(fileName, file, { upsert: true })
+      if (uploadError) {
+        alert('Upload gagal: ' + uploadError.message)
+        return
+      }
+      const { data } = supabase.storage.from('profile').getPublicUrl(fileName)
+      await supabase.from('users').update({ foto_url: data.publicUrl }).eq('id', currentUser.id)
+      document.getElementById('fotoUser').src = data.publicUrl
+      alert('Foto profil berhasil diupdate!')
+      loadGuruDariDatabase()
+    })
+
+    window.editProfil = async function() {
+      const namaBaru = prompt('Masukkan nama baru:', document.getElementById('namaUser').innerText)
+      if(namaBaru && namaBaru.trim()) {
+        await supabase.from('users').update({ nama: namaBaru.trim() }).eq('id', currentUser.id)
+        document.getElementById('namaUser').innerText = namaBaru.trim()
+      }
+    }
+
+    window.showTentang = function() {
+      var modal = new bootstrap.Modal(document.getElementById('modalTentang'))
+      modal.show()
+    }
+
+    window.openTab = function(tabName, el) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'))
+      document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'))
+      document.getElementById(tabName).classList.add('active')
+      el.classList.add('active')
+      if(tabName === 'profil') {
+        document.body.classList.add('profil-active')
+      } else {
+        document.body.classList.remove('profil-active')
+      }
+      if(tabName === 'berita' &&!beritaLoaded) {
+        loadBerita('all', document.getElementById('btn-all'))
+        beritaLoaded = true
+      }
+      if(tabName === 'les' &&!guruLoaded) {
+        loadGuruDariDatabase()
+        guruLoaded = true
+      }
+    }
+
+    function showSkeletonBerita() {
+      const container = document.getElementById('daftar-berita')
+      container.innerHTML = ''
+      for(let i=0; i<3; i++){
         container.innerHTML += `
           <div class="card mb-3 berita-card">
             <div class="card-body">
-              <h6 class="card-title fw-bold mb-2">${berita.title}</h6>
-              <p class="text-muted small mb-3"><i class="bi bi-calendar3"></i> ${new Date(berita.pubDate).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</p>
-              <a href="${berita.link}" target="_blank" class="btn btn-sm fw-semibold" style="background:#004AAD; color:white;border-radius:8px">Baca Selengkapnya <i class="bi bi-arrow-right"></i></a>
+              <div class="skeleton mb-2" style="height:20px;width:80%"></div>
+              <div class="skeleton mb-2" style="height:14px;width:40%"></div>
+              <div class="skeleton" style="height:32px;width:120px"></div>
             </div>
           </div>
         `
+      }
+    }
+
+    window.loadBerita = async function(topik = 'all', btnEl = null) {
+      const container = document.getElementById('daftar-berita')
+      showSkeletonBerita()
+      document.querySelectorAll('#berita.filter-btn').forEach(btn => {
+        btn.classList.remove('active')
+        btn.classList.add('btn-outline-primary')
+        btn.style.background = ''
+        btn.style.color = ''
       })
-    } catch (err) {
-      container.innerHTML = '<p class="text-danger text-center mt-4"><i class="bi bi-wifi-off"></i> Gagal load berita. Coba refresh atau cek koneksi internet.</p>'
-    }
-  }
-
-  function renderBintang(rating){
-    let bintang = ''
-    for(let i=1; i<=5; i++){
-      if(i <= Math.floor(rating)) bintang += '<i class="bi bi-star-fill"></i>'
-      else if(i - 0.5 <= rating) bintang += '<i class="bi bi-star-half"></i>'
-      else bintang += '<i class="bi bi-star"></i>'
-    }
-    return bintang
-  }
-
-  async function loadGuruDariDatabase() {
-    const container = document.getElementById('listGuru')
-    container.innerHTML = '<p class="text-center text-muted mt-4"><i class="bi bi-hourglass-split"></i> Loading guru...</p>'
-    const { data: gurus, error } = await supabase.from('guru').select('*').eq('status_online', true)
-    if(error) {
-      container.innerHTML = '<p class="text-danger text-center mt-4">Gagal load guru: ' + error.message + '</p>'
-      return
-    }
-    allGuru = gurus
-    tampilkanGuru(allGuru)
-  }
-
-  function tampilkanGuru(list = allGuru){
-    const container = document.getElementById('listGuru')
-    container.innerHTML = ''
-    if(list.length === 0){
-      container.innerHTML = '<p class="text-center text-muted mt-4">Belum ada guru online</p>'
-      return
-    }
-    list.forEach(guru => {
-      container.innerHTML += `
-        <div class="guru-card">
-          <div class="d-flex align-items-start">
-            <img src="${guru.foto_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(guru.nama || 'Guru')}&background=004AAD&color=fff&size=150`}" class="guru-foto me-3" alt="${guru.nama}">
-            <div class="flex-grow-1" style="min-width:0">
-              <div class="d-flex justify-content-between align-items-start mb-1">
-                <p class="guru-nama mb-0">${guru.nama || 'Guru ' + guru.mapel} ${guru.status_online? '<span class="badge-online" title="Online"></span>' : ''}</p>
-                <div class="guru-harga text-nowrap ms-2">Rp${guru.harga.toLocaleString('id-ID')}/sesi</div>
+      if(btnEl){
+        btnEl.classList.add('active')
+        btnEl.classList.remove('btn-outline-primary')
+        btnEl.style.background = '#004AAD'
+        btnEl.style.color = 'white'
+      }
+      let query = 'sains+OR+teknologi+OR+pendidikan+OR+UTBK+OR+politik'
+      if(topik!== 'all') query = topik
+      const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id`)
+      try {
+        const res = await fetch(url)
+        const data = await res.json()
+        container.innerHTML = ''
+        if(!data.items || data.items.length === 0){
+          container.innerHTML = '<p class="text-center text-muted mt-4">Berita tidak ditemukan.</p>'
+          return
+        }
+        data.items.slice(0, 10).forEach(berita => {
+          container.innerHTML += `
+            <div class="card mb-3 berita-card">
+              <div class="card-body">
+                <h6 class="card-title fw-bold mb-2">${berita.title}</h6>
+                <p class="text-muted small mb-3"><i class="bi bi-calendar3"></i> ${new Date(berita.pubDate).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</p>
+                <a href="${berita.link}" target="_blank" class="btn btn-sm fw-semibold" style="background:#004AAD; color:white;border-radius:8px">Baca Selengkapnya <i class="bi bi-arrow-right"></i></a>
               </div>
-              <span class="guru-mapel">${guru.mapel}</span>
-              <div class="guru-rating mt-2">
-                ${renderBintang(guru.rating)} <b>${guru.rating}</b> <span class="text-muted" style="font-size:12px">(${guru.jumlah_siswa} siswa)</span>
-              </div>
-              <div class="text-muted mt-1" style="font-size:12px"><i class="bi bi-calendar3"></i> ${guru.jadwal}</div>
             </div>
+          `
+        })
+      } catch (err) {
+        container.innerHTML = '<p class="text-danger text-center mt-4"><i class="bi bi-wifi-off"></i> Gagal load berita. Coba refresh atau cek koneksi internet.</p>'
+      }
+    }
+
+    function renderBintang(rating){
+      let bintang = ''
+      for(let i=1; i<=5; i++){
+        if(i <= Math.floor(rating)) bintang += '<i class="bi bi-star-fill"></i>'
+        else if(i - 0.5 <= rating) bintang += '<i class="bi bi-star-half"></i>'
+        else bintang += '<i class="bi bi-star"></i>'
+      }
+      return bintang
+    }
+
+    async function loadGuruDariDatabase() {
+      const container = document.getElementById('listGuru')
+      container.innerHTML = '<p class="text-center text-muted mt-4"><i class="bi bi-hourglass-split"></i> Loading guru...</p>'
+      const { data: gurus, error } = await supabase.from('guru').select('*').eq('status_online', true)
+      if(error) {
+        container.innerHTML = '<p class="text-danger text-center mt-4">Gagal load guru: ' + error.message + '</p>'
+        return
+      }
+      allGuru = gurus
+      tampilkanGuru(allGuru)
+    }
+
+    function tampilkanGuru(list = allGuru){
+      const container = document.getElementById('listGuru')
+      container.innerHTML = ''
+      if(list.length === 0){
+        container.innerHTML = '<p class="text-center text-muted mt-4">Belum ada guru online</p>'
+        return
+      }
+      list.forEach(guru => {
+        container.innerHTML += `
+          <div class="guru-card">
+            <div class="d-flex align-items-start">
+              <img src="${guru.foto_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(guru.nama || 'Guru')}&background=004AAD&color=fff&size=150`}" class="guru-foto me-3" alt="${guru.nama}">
+              <div class="flex-grow-1" style="min-width:0">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                  <p class="guru-nama mb-0">${guru.nama || 'Guru ' + guru.mapel} ${guru.status_online? '<span class="badge-online" title="Online"></span>' : ''}</p>
+                  <div class="guru-harga text-nowrap ms-2">Rp${guru.harga.toLocaleString('id-ID')}/sesi</div>
+                </div>
+                <span class="guru-mapel">${guru.mapel}</span>
+                <div class="guru-rating mt-2">
+                  ${renderBintang(guru.rating)} <b>${guru.rating}</b> <span class="text-muted" style="font-size:12px">(${guru.jumlah_siswa} siswa)</span>
+                </div>
+                <div class="text-muted mt-1" style="font-size:12px"><i class="bi bi-calendar3"></i> ${guru.jadwal}</div>
+              </div>
+            </div>
+            <button class="btn btn-sm btn-pilih-guru mt-3" onclick="pilihGuru('${guru.id}')">
+              Pilih Guru
+            </button>
           </div>
-          <button class="btn btn-sm btn-pilih-guru mt-3" onclick="pilihGuru('${guru.id}')">
-            Pilih Guru
-          </button>
-        </div>
-      `
+        `
+      })
+    }
+
+    window.filterGuru = function(){
+      const mapel = document.getElementById('filterMapel').value
+      if(mapel === 'all') tampilkanGuru(allGuru)
+      else tampilkanGuru(allGuru.filter(g => g.mapel === mapel))
+    }
+
+    window.pilihGuru = function(id){
+      const guru = allGuru.find(g => g.id == id)
+      if(confirm(`Mau les ${guru.mapel}?\n\nJadwal: ${guru.jadwal}\nHarga: Rp${guru.harga.toLocaleString('id-ID')}/sesi`)){
+        alert(`Berhasil pilih Guru ${guru.nama || guru.mapel}! 🎉\nSilakan lanjut ke pembayaran.`)
+      }
+    }
+
+    document.getElementById('formJadiGuru').addEventListener('submit', async function(e) {
+      e.preventDefault()
+      const { data: { user } = await supabase.auth.getUser()
+      if (!user) {
+        alert('Login dulu ya!')
+        return
+      }
+      const { data: profile } = await supabase.from('users').select('nama,foto_url').eq('id', user.id).single()
+      const nama = document.getElementById('namaGuru').value || profile?.nama || 'Guru Baru'
+      const mapel = document.getElementById('mapelGuru').value
+      const harga = parseInt(document.getElementById('hargaGuru').value)
+      const jadwal = document.getElementById('jadwalGuru').value
+      const { error } = await supabase.from('guru').insert({
+        user_id: user.id,
+        nama: nama,
+        mapel: mapel,
+        harga: harga,
+        jadwal: jadwal,
+        status_online: true,
+        foto_url: profile?.foto_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(nama)}&background=004AAD&color=fff&size=150`
+      })
+      if (error) {
+        alert('Gagal daftar: ' + error.message)
+      } else {
+        alert('Berhasil daftar jadi guru! 🎉')
+        bootstrap.Modal.getInstance(document.getElementById('modalJadiGuru')).hide()
+        document.getElementById('formJadiGuru').reset()
+        loadGuruDariDatabase()
+      }
     })
-  }
 
-  window.filterGuru = function(){
-    const mapel = document.getElementById('filterMapel').value
-    if(mapel === 'all') tampilkanGuru(allGuru)
-    else tampilkanGuru(allGuru.filter(g => g.mapel === mapel))
-  }
-
-  window.pilihGuru = function(id){
-    const guru = allGuru.find(g => g.id == id)
-    if(confirm(`Mau les ${guru.mapel}?\n\nJadwal: ${guru.jadwal}\nHarga: Rp${guru.harga.toLocaleString('id-ID')}/sesi`)){
-      alert(`Berhasil pilih Guru ${guru.nama || guru.mapel}! 🎉\nSilakan lanjut ke pembayaran.`)
-    }
-  }
-
-  document.getElementById('formJadiGuru').addEventListener('submit', async function(e) {
-    e.preventDefault()
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
-      alert('Login dulu ya!')
-      return
-    }
-    const { data: profile } = await supabase.from('users').select('nama,foto_url').eq('id', user.id).single()
-    const nama = document.getElementById('namaGuru').value || profile?.nama || 'Guru Baru'
-    const mapel = document.getElementById('mapelGuru').value
-    const harga = parseInt(document.getElementById('hargaGuru').value)
-    const jadwal = document.getElementById('jadwalGuru').value
-    const { error } = await supabase.from('guru').insert({
-      user_id: user.id,
-      nama: nama,
-      mapel: mapel,
-      harga: harga,
-      jadwal: jadwal,
-      status_online: true,
-      foto_url: profile?.foto_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(nama)}&background=004AAD&color=fff&size=150`
-    })
-    if (error) {
-      alert('Gagal daftar: ' + error.message)
-    } else {
-      alert('Berhasil daftar jadi guru! 🎉')
-      bootstrap.Modal.getInstance(document.getElementById('modalJadiGuru')).hide()
-      document.getElementById('formJadiGuru').reset()
-      loadGuruDariDatabase()
-    }
-  })
-
-  document.getElementById('modalJadiGuru').addEventListener('show.bs.modal', async function () {
-    const { data: { user } } = await supabase.auth.getUser()
-    if (user) {
-      const { data: profile } = await supabase.from('users').select('nama').eq('id', user.id).single()
-      document.getElementById('namaGuru').value = profile?.nama || ''
+    document.getElementById('modalJadiGuru').addEventListener('show.bs.modal', async function () {
+      const { data: { user } = await supabase.auth.getUser()
+      if (user) {
+        const { data: profile } = await supabase.from('users').select('nama').eq('id', user.id).single()
+        document.getElementById('namaGuru').value = profile?.nama || ''
     }
   })
 </script>

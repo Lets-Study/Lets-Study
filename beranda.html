@@ -12,8 +12,9 @@
       font-family: 'Segoe UI', Arial, sans-serif;
       padding-bottom: 90px;
     }
+
    .navbar {
-      background-color: #004AAD;
+      background-color: #0099FF;
       position: fixed;
       top: 0;
       width: 100%;
@@ -21,28 +22,33 @@
       height: 65px;
       transition: transform 0.3s ease;
     }
+
    .profil-active.navbar {
       transform: translateY(-100%);
     }
+
     #belajar, #berita, #les, #profil {
       padding-top: 75px;
     }
+
    .header-profil{
-      background:linear-gradient(135deg,#004AAD,#0056d6);
+      background:linear-gradient(135deg,#0099FF,#00BFFF);
       padding: 85px 15px 25px 15px;
       color:white;
       position: relative;
       margin-bottom: 20px;
     }
+
    .profil-content {
       margin-top: -10px;
     }
+
    .btn-logout-profil {
       position: absolute;
       top: 75px;
       right: 15px;
-      background:#FFC107;
-      color:#004AAD;
+      background:#FFD700;
+      color:#0099FF;
       font-weight:bold;
       border: none;
       padding: 6px 14px;
@@ -51,6 +57,7 @@
       transition: all 0.2s;
       z-index: 2;
     }
+
    .foto-profil{
       width:75px;
       height:75px;
@@ -59,14 +66,16 @@
       object-fit:cover;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
+
    .badge-level{
-      background:#FFC107;
+      background:#FFD700;
       color:#000;
       padding:3px 10px;
       border-radius:12px;
       font-size:12px;
       font-weight:bold
     }
+
    .menu-box{
       background:white;
       border-radius:14px;
@@ -74,6 +83,7 @@
       margin:15px 0;
       box-shadow:0 2px 10px rgba(0,0,0,0.06)
     }
+
    .menu-list-item{
       display:flex;
       justify-content:space-between;
@@ -84,19 +94,23 @@
       color:#333;
       transition: all 0.2s
     }
+
    .menu-list-item:hover{
       background:#f8faff;
       border-radius:8px;
       padding-left:8px
     }
+
    .menu-list-item:last-child{
       border-bottom:none
     }
+
    .menu-list-item i{
       font-size:20px;
-      color:#004AAD;
+      color:#0099FF;
       width:32px
     }
+
    .section-title{
       font-weight:700;
       font-size:15px;
@@ -105,11 +119,12 @@
       text-transform: uppercase;
       letter-spacing: 0.5px
     }
+
    .btn-edit-foto{
       position:absolute;
       bottom:0;
       right:0;
-      background:#004AAD;
+      background:#0099FF;
       color:white;
       border:2px solid white;
       border-radius:50%;
@@ -120,10 +135,12 @@
       align-items:center;
       justify-content:center
     }
+
    .info-akun{
       font-size:13px;
       opacity:0.9
     }
+
    .tombol-jenjang {
       background: white;
       border: 2px solid #e0e7ff;
@@ -131,65 +148,74 @@
       padding: 35px 20px;
       margin: 15px 0;
       text-align: center;
-      color: #004AAD;
+      color: #0099FF;
       text-decoration: none;
       display: block;
       font-size: 26px;
       font-weight: 700;
-      box-shadow: 0 4px 20px rgba(0,74,173,0.08);
+      box-shadow: 0 4px 20px rgba(0,153,255,0.08);
       transition: all 0.3s ease;
     }
+
    .tombol-jenjang:hover {
-      background: #004AAD;
-      color: #FFC107;
+      background: #0099FF;
+      color: #FFD700;
       transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(0,74,173,0.2);
-      border-color: #004AAD;
+      box-shadow: 0 8px 25px rgba(0,153,255,0.2);
+      border-color: #0099FF;
     }
 
-    /* Bottom Nav 5 item */
+    /* Bottom Nav 5 item - Style Figma */
    .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: white;
-      border-top: 1px solid #e5e7eb;
+      background: #fff;
+      border-top: 1px solid #eee;
       display: flex;
       justify-content: space-around;
-      padding: 8px 0 12px 0;
-      box-shadow: 0 -4px 15px rgba(0,0,0,0.06);
+      padding: 10px 0 14px 0;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
       z-index: 1035;
     }
+
    .nav-item {
       text-align: center;
-      color: #9ca3af;
+      color: #CCC;
       text-decoration: none;
       font-size: 10px;
       cursor: pointer;
       transition: all 0.2s;
       flex: 1;
       padding: 4px 0;
-      border-radius: 12px;
     }
+
    .nav-item.active {
-      color: #004AAD;
+      color: #FFD700;
       font-weight: 700;
-      background: #eef4ff;
     }
+
    .nav-item i {
-      font-size: 22px;
+      font-size: 24px;
       display: block;
       margin-bottom: 2px;
+      color: #CCC;
+    }
+
+   .nav-item.active i {
+      color: #FFD700;
     }
 
    .tab-content {
       display: none;
       animation: fadeIn 0.3s;
     }
+
    .tab-content.active {
       display: block;
     }
+
     @keyframes fadeIn {
       from {opacity: 0}
       to {opacity: 1}
@@ -204,48 +230,56 @@
       border:1px solid #f0f0f0;
       transition: all 0.3s ease;
     }
+
    .guru-card:hover{
       transform: translateY(-3px);
-      box-shadow:0 6px 20px rgba(0,74,173,0.12)
+      box-shadow:0 6px 20px rgba(0,153,255,0.12)
     }
+
    .guru-foto{
       width:64px;
       height:64px;
       border-radius:50%;
       object-fit:cover;
-      border:2px solid #004AAD;
+      border:2px solid #0099FF;
       flex-shrink:0
     }
+
    .guru-nama{
       font-weight:700;
       font-size:16px;
-      color:#004AAD;
+      color:#0099FF;
       margin-bottom:2px;
       line-height:1.2
     }
+
    .guru-mapel{
       font-size:12px;
       background:#e3f2fd;
-      color:#004AAD;
+      color:#0099FF;
       padding:3px 10px;
       border-radius:10px;
       display:inline-block;
       font-weight:600
     }
+
    .guru-rating{
-      color:#FFC107;
+      color:#FFD700;
       font-size:14px
     }
+
    .guru-rating i{
       font-size:12px
     }
+
    .guru-harga{
       font-weight:700;
       color:#00a65a;
       font-size:16px
     }
+
    .btn-pilih-guru{
-      background:#004AAD;
+      background:#0099FF;
       color:white;
       border-radius:10px;
       font-weight:600;
@@ -253,11 +287,13 @@
       border:none;
       padding:8px
     }
+
    .btn-pilih-guru:hover{
-      background:#003a8a;
+      background:#0088ee;
       color:white;
       transform: scale(1.02)
     }
+
    .badge-online{
       width:10px;
       height:10px;
@@ -267,16 +303,19 @@
       margin-left:5px;
       box-shadow: 0 0 0 2px white
     }
+
    .berita-card {
       border:none;
       box-shadow: 0 2px 12px rgba(0,0,0,0.06);
       border-radius:14px;
       transition: all 0.3s ease;
     }
+
    .berita-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 6px 20px rgba(0,0,0,0.1);
     }
+
    .filter-btn {
       border-radius: 20px!important;
       font-size: 13px;
@@ -284,12 +323,14 @@
       padding: 6px 14px;
       transition: all 0.2s;
     }
+
    .skeleton {
       background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
       background-size: 200% 100%;
       animation: loading 1.5s infinite;
       border-radius: 8px;
     }
+
     @keyframes loading {
       0% {background-position: 200% 0}
       100% {background-position: -200% 0}
@@ -309,13 +350,13 @@
   <!-- Tab Belajar -->
   <div id="belajar" class="tab-content active">
     <div class="container mt-2">
-      <h3 class="fw-bold text-center mb-4" style="color:#004AAD;">Pilih Jenjang Kamu 👇</h3>
+      <h3 class="fw-bold text-center mb-4" style="color:#0099FF;">Pilih Jenjang Kamu 👇</h3>
       <a href="sd.html" class="tombol-jenjang">🎒 SD</a>
       <a href="smp.html" class="tombol-jenjang">📚 SMP</a>
       <a href="sma.html" class="tombol-jenjang">🎓 SMA</a>
       <div class="card mt-4 mb-3" style="border:none; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-radius:18px;">
         <div class="card-body p-4">
-          <h5 class="card-title fw-bold" style="color:#004AAD;">📢 Info Terbaru LS Academy</h5>
+          <h5 class="card-title fw-bold" style="color:#0099FF;">📢 Info Terbaru LS Academy</h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item px-0">🎉 Selamat datang di LS Academy by Let's Study Group!</li>
             <li class="list-group-item px-0">📚 Materi UTBK 2026 sudah bisa diakses minggu depan</li>
@@ -329,10 +370,10 @@
   <!-- Tab Berita -->
   <div id="berita" class="tab-content">
     <div class="container mt-2">
-      <h3 class="fw-bold" style="color:#004AAD;">📰 Berita Pengetahuan Hari Ini</h3>
+      <h3 class="fw-bold" style="color:#0099FF;">📰 Berita Pengetahuan Hari Ini</h3>
       <p class="text-muted mb-3">Update otomatis dari Google News. Baca berita = tambah wawasan!</p>
       <div class="mb-3">
-        <button class="btn btn-sm me-2 mb-2 filter-btn active" id="btn-all" style="background:#004AAD; color:white;" onclick="loadBerita('all', this)">Semua</button>
+        <button class="btn btn-sm me-2 mb-2 filter-btn active" id="btn-all" style="background:#0099FF; color:white;" onclick="loadBerita('all', this)">Semua</button>
         <button class="btn btn-sm btn-outline-primary me-2 mb-2 filter-btn" onclick="loadBerita('sains', this)">Sains</button>
         <button class="btn btn-sm btn-outline-primary me-2 mb-2 filter-btn" onclick="loadBerita('teknologi', this)">Teknologi</button>
         <button class="btn btn-sm btn-outline-primary me-2 mb-2 filter-btn" onclick="loadBerita('pendidikan', this)">Pendidikan</button>
@@ -346,10 +387,10 @@
   <!-- Tab Les Guru -->
   <div id="les" class="tab-content">
     <div class="container mt-2">
-      <h3 class="fw-bold mb-2" style="color:#004AAD;">👨‍🏫 Pilih Guru Favoritmu</h3>
+      <h3 class="fw-bold mb-2" style="color:#0099FF;">👨‍🏫 Pilih Guru Favoritmu</h3>
       <p class="text-muted mb-3">Guru berpengalaman sesuai mata pelajaran. Rating dari siswa lain.</p>
       <div class="d-grid mb-3">
-        <button class="btn btn-warning fw-bold" data-bs-toggle="modal" data-bs-target="#modalJadiGuru" style="border-radius:12px">
+        <button class="btn fw-bold" data-bs-toggle="modal" data-bs-target="#modalJadiGuru" style="border-radius:12px; background:#FFD700; color:#0099FF">
           <i class="bi bi-plus-circle-fill"></i> Daftar Jadi Guru Sekarang
         </button>
       </div>
@@ -417,11 +458,11 @@
   <!-- Bottom Nav 5 Item -->
   <div class="bottom-nav">
     <div class="nav-item active" onclick="openTab('belajar', this)">
-      <i class="bi bi-house-door-fill"></i>
+      <i class="bi bi-house-fill"></i>
       Home
     </div>
     <div class="nav-item" onclick="openTab('berita', this)">
-      <i class="bi bi-newspaper"></i>
+      <i class="bi bi-book-fill"></i>
       News
     </div>
     <div class="nav-item" onclick="openTab('les', this)">
@@ -429,12 +470,12 @@
       Course
     </div>
     <div class="nav-item" onclick="window.location.href='chat.html'">
-      <i class="bi bi-chat-dots-fill"></i>
+      <i class="bi bi-camera-video-fill"></i>
       Communicate
     </div>
     <div class="nav-item" onclick="openTab('profil', this)">
       <i class="bi bi-person-circle"></i>
-      User
+      Profile
     </div>
   </div>
 
@@ -442,13 +483,13 @@
   <div class="modal fade" id="modalTentang" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" style="border-radius:16px;border:none">
-        <div class="modal-header" style="background:#004AAD;color:white;border-radius:16px 16px 0 0">
+        <div class="modal-header" style="background:#0099FF;color:white;border-radius:16px 16px 0 0">
           <h5 class="modal-title fw-bold"><i class="bi bi-info-circle"></i> Tentang LS Academy</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body text-center p-4">
           <img src="icon-192.png" width="90" class="mb-3" style="border-radius:20px">
-          <h4 style="color:#004AAD" class="fw-bold">LS Academy</h4>
+          <h4 style="color:#0099FF" class="fw-bold">LS Academy</h4>
           <p class="text-muted">Versi 1.0.0</p>
           <hr>
           <div class="bg-light p-3 rounded-3 mt-3 text-start">
@@ -466,7 +507,7 @@
   <div class="modal fade" id="modalJadiGuru" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" style="border-radius:16px;border:none">
-        <div class="modal-header" style="background:#004AAD;color:white;border-radius:16px 16px 0 0">
+        <div class="modal-header" style="background:#0099FF;color:white;border-radius:16px 16px 0 0">
           <h5 class="modal-title fw-bold"><i class="bi bi-person-plus-fill"></i> Daftar Jadi Guru</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
@@ -496,7 +537,7 @@
               <label class="form-label fw-semibold">Jadwal Les</label>
               <input type="text" class="form-control" id="jadwalGuru" placeholder="Senin & Kamis 19.00" required style="border-radius:10px">
             </div>
-            <button type="submit" class="btn w-100 fw-bold" style="background:#004AAD;color:white;border-radius:10px">
+            <button type="submit" class="btn w-100 fw-bold" style="background:#0099FF;color:white;border-radius:10px">
               <i class="bi bi-check-circle-fill"></i> Daftar Sekarang
             </button>
           </form>
@@ -560,7 +601,6 @@
       await supabase.from('users').update({ foto_url: data.publicUrl }).eq('id', currentUser.id)
       document.getElementById('fotoUser').src = data.publicUrl
       alert('Foto profil berhasil diupdate!')
-      loadGuruDariDatabase()
     })
 
     window.editProfil = async function() {
@@ -581,11 +621,13 @@
       document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'))
       document.getElementById(tabName).classList.add('active')
       el.classList.add('active')
+
       if(tabName === 'profil') {
         document.body.classList.add('profil-active')
       } else {
         document.body.classList.remove('profil-active')
       }
+
       if(tabName === 'berita' &&!beritaLoaded) {
         loadBerita('all', document.getElementById('btn-all'))
         beritaLoaded = true
@@ -615,6 +657,7 @@
     window.loadBerita = async function(topik = 'all', btnEl = null) {
       const container = document.getElementById('daftar-berita')
       showSkeletonBerita()
+
       document.querySelectorAll('#berita.filter-btn').forEach(btn => {
         btn.classList.remove('active')
         btn.classList.add('btn-outline-primary')
@@ -624,12 +667,14 @@
       if(btnEl){
         btnEl.classList.add('active')
         btnEl.classList.remove('btn-outline-primary')
-        btnEl.style.background = '#004AAD'
+        btnEl.style.background = '#0099FF'
         btnEl.style.color = 'white'
       }
+
       let query = 'sains+OR+teknologi+OR+pendidikan+OR+UTBK+OR+politik'
       if(topik!== 'all') query = topik
       const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=id&gl=ID&ceid=ID:id`)
+
       try {
         const res = await fetch(url)
         const data = await res.json()
@@ -644,7 +689,7 @@
               <div class="card-body">
                 <h6 class="card-title fw-bold mb-2">${berita.title}</h6>
                 <p class="text-muted small mb-3"><i class="bi bi-calendar3"></i> ${new Date(berita.pubDate).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</p>
-                <a href="${berita.link}" target="_blank" class="btn btn-sm fw-semibold" style="background:#004AAD; color:white;border-radius:8px">Baca Selengkapnya <i class="bi bi-arrow-right"></i></a>
+                <a href="${berita.link}" target="_blank" class="btn btn-sm fw-semibold" style="background:#0099FF; color:white;border-radius:8px">Baca Selengkapnya <i class="bi bi-arrow-right"></i></a>
               </div>
             </div>
           `
@@ -667,11 +712,13 @@
     async function loadGuruDariDatabase() {
       const container = document.getElementById('listGuru')
       container.innerHTML = '<p class="text-center text-muted mt-4"><i class="bi bi-hourglass-split"></i> Loading guru...</p>'
-      const { data: gurus, error } = await supabase.from('guru').select('*').eq('status_online', true)
+      const { data: gurus, error } = await supabase.from('guru').select('*').eq('status_online', true).limit(10)
+
       if(error) {
         container.innerHTML = '<p class="text-danger text-center mt-4">Gagal load guru: ' + error.message + '</p>'
         return
       }
+
       allGuru = gurus
       tampilkanGuru(allGuru)
     }
@@ -683,11 +730,12 @@
         container.innerHTML = '<p class="text-center text-muted mt-4">Belum ada guru online</p>'
         return
       }
+
       list.forEach(guru => {
         container.innerHTML += `
           <div class="guru-card">
             <div class="d-flex align-items-start">
-              <img src="${guru.foto_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(guru.nama || 'Guru')}&background=004AAD&color=fff&size=150`}" class="guru-foto me-3" alt="${guru.nama}">
+              <img src="${guru.foto_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(guru.nama || 'Guru')}&background=0099FF&color=fff&size=150`}" class="guru-foto me-3" alt="${guru.nama}">
               <div class="flex-grow-1" style="min-width:0">
                 <div class="d-flex justify-content-between align-items-start mb-1">
                   <p class="guru-nama mb-0">${guru.nama || 'Guru ' + guru.mapel} ${guru.status_online? '<span class="badge-online" title="Online"></span>' : ''}</p>
@@ -740,7 +788,7 @@
         harga: harga,
         jadwal: jadwal,
         status_online: true,
-        foto_url: profile?.foto_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(nama)}&background=004AAD&color=fff&size=150`
+        foto_url: profile?.foto_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(nama)}&background=0099FF&color=fff&size=150`
       })
       if (error) {
         alert('Gagal daftar: ' + error.message)
@@ -757,8 +805,8 @@
       if (user) {
         const { data: profile } = await supabase.from('users').select('nama').eq('id', user.id).single()
         document.getElementById('namaGuru').value = profile?.nama || ''
-    }
-  })
-</script>
+      }
+    })
+  </script>
 </body>
 </html>
